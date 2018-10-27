@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.lifetownpos
+package org.lifetowncolumbus.pos
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

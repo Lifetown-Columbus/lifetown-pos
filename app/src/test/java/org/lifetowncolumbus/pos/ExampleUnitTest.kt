@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.lifetownpos
+package org.lifetowncolumbus.pos
 
 import org.junit.Test
 
