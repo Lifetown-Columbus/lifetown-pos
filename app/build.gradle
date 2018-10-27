@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "org.lifetowncolumbus.lifetownpos"
+        applicationId "org.lifetowncolumbus.pos"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
