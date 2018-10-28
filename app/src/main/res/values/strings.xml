@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LifeTown POS</string>
+    <string name="total_label">Total:</string>
 </resources>
