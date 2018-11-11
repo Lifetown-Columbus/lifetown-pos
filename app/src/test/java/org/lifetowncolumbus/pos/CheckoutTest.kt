@@ -11,18 +11,35 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class CheckoutTest {
+
+    val subject : Checkout by lazy {
+        Robolectric.setupActivity(Checkout::class.java)
+    }
+
+    @Test
+    fun startingTheActivity_shouldSetTheSumToZero() {
+        assertEquals(total(), "$0.00")
+    }
+
     @Test
     fun addingItem_shouldSumTheValue() {
-        val activity : Checkout = Robolectric.setupActivity(Checkout::class.java)
+        addItem("2")
+        addItem("2")
 
-        activity.findViewById<TextView>(R.id.itemValue).text = "2"
-        activity.findViewById<Button>(R.id.addItemButton).performClick()
+        assertEquals(total(), "$4.00")
+    }
 
-        activity.findViewById<TextView>(R.id.itemValue).text = "2"
-        activity.findViewById<Button>(R.id.addItemButton).performClick()
+    @Test
+    fun enteringAnInvalidValue_shouldNotChangeTheSum() {
+        addItem("twenty dollars")
 
-        val result = activity.findViewById<TextView>(R.id.total).text
+        assertEquals(total(), "$0.00")
+    }
 
-        assertEquals(result, "$4.00")
+    private fun total() = subject.findViewById<TextView>(R.id.total).text
+
+    private fun addItem(value: String) {
+        subject.findViewById<TextView>(R.id.itemValue).text = value
+        subject.findViewById<Button>(R.id.addItemButton).performClick()
     }
 }
