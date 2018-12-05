@@ -13,14 +13,14 @@ import org.junit.runner.RunWith
 
 import org.junit.Rule
 import org.junit.Test
-import org.lifetowncolumbus.pos.activities.Checkout
+import org.lifetowncolumbus.pos.checkout.CheckoutActivity
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class CheckoutInstrumentedTest {
 
     @get:Rule
-    var activityRule: ActivityTestRule<Checkout> = ActivityTestRule(Checkout::class.java)
+    var activityRule: ActivityTestRule<CheckoutActivity> = ActivityTestRule(CheckoutActivity::class.java)
 
     @Test
     fun testAddItem_computeTotal() {
