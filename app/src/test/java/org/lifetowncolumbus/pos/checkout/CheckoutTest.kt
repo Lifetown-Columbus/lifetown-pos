@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos
+package org.lifetowncolumbus.pos.checkout
 
 import android.widget.Button
 import android.widget.TextView
@@ -6,7 +6,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.lifetowncolumbus.pos.checkout.CheckoutActivity
+import org.lifetowncolumbus.pos.R
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 

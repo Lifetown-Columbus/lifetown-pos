@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos
+package org.lifetowncolumbus.pos.checkout
 
 
 import androidx.test.espresso.Espresso.onView
@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 
 import org.junit.Rule
 import org.junit.Test
-import org.lifetowncolumbus.pos.checkout.CheckoutActivity
+import org.lifetowncolumbus.pos.R
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
