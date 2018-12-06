@@ -1,47 +1,40 @@
 package org.lifetowncolumbus.pos.checkout
 
-import android.widget.Button
-import android.widget.TextView
-import org.junit.Assert.assertEquals
-import org.junit.Ignore
+import android.arch.lifecycle.ViewModel
+import org.hamcrest.Matchers
+import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.instanceOf
+import org.junit.Assert.assertThat
+import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.lifetowncolumbus.pos.R
-import org.robolectric.Robolectric
-import org.robolectric.RobolectricTestRunner
+import java.math.BigDecimal
 
-@RunWith(RobolectricTestRunner::class)
-@Ignore
 class CheckoutTest {
 
-    val subject : CheckoutActivity by lazy {
-        Robolectric.setupActivity(CheckoutActivity::class.java)
+    private lateinit var subject: Checkout
+
+    @Before
+    fun setup() {
+       subject = Checkout()
+    }
+
+
+    @Test
+    fun createModel_setsTheTotalToZero() {
+        assertThat(subject.getTotal(), `is`(BigDecimal.valueOf(0)))
     }
 
     @Test
-    fun startingTheActivity_shouldSetTheSumToZero() {
-        assertEquals(total(), "$0.00")
+    fun addingItem_updatesTotal() {
+        subject.addItem(Item(BigDecimal.valueOf(1.0)))
+        subject.addItem(Item(BigDecimal.valueOf(2.0)))
+
+        assertThat(subject.getTotal(), `is`(BigDecimal.valueOf(3.0)))
     }
 
     @Test
-    fun addingItem_shouldSumTheValue() {
-        addItem("2")
-        addItem("2")
-
-        assertEquals(total(), "$4.00")
+    fun itIsAViewModel() {
+        assertThat(subject, `is`(instanceOf(ViewModel::class.java)))
     }
 
-    @Test
-    fun enteringAnInvalidValue_shouldNotChangeTheSum() {
-        addItem("twenty dollars")
-
-        assertEquals(total(), "$0.00")
-    }
-
-    private fun total() = subject.findViewById<TextView>(R.id.total).text
-
-    private fun addItem(value: String) {
-        subject.findViewById<TextView>(R.id.itemValue).text = value
-        subject.findViewById<Button>(R.id.addItemButton).performClick()
-    }
 }

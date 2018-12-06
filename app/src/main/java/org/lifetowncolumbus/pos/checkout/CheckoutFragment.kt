@@ -1,15 +1,18 @@
 package org.lifetowncolumbus.pos.checkout
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.navigation.Navigation
 import org.lifetowncolumbus.pos.R
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -27,6 +30,7 @@ class CheckoutFragment : Fragment() {
         itemValue = view.findViewById(R.id.itemValue)
         totalValue = view.findViewById(R.id.total)
         addItemButton = view.findViewById(R.id.addItemButton)
+        val payCashButton: Button = view.findViewById(R.id.payCashButton)
 
         itemValue.setOnEditorActionListener { v, actionId, event ->
             return@setOnEditorActionListener when (actionId) {
@@ -40,23 +44,29 @@ class CheckoutFragment : Fragment() {
         addItemButton.setOnClickListener {
             addItem(it)
         }
-
-        addToTotal(0.0)
+        payCashButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.payCashFragment))
     }
 
     fun addItem(view: View) {
         val amount = itemValue.text.toString().toDoubleOrNull()
-        addToTotal(amount ?: 0.0)
+        if (amount != null) addToTotal(amount)
         itemValue.apply {
             text = null
         }
+        closeKeyboard(view)
+    }
+
+    private fun closeKeyboard(view: View) {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun addToTotal(value: Double) {
-        val format = NumberFormat.getCurrencyInstance()
         checkout.addItem(Item(BigDecimal.valueOf(value)))
+
+        //TODO two-way bind this?
         totalValue.apply {
-            text = format.format(checkout.getTotal())
+            text = NumberFormat.getCurrencyInstance().format(checkout.getTotal())
         }
     }
 
@@ -72,11 +82,5 @@ class CheckoutFragment : Fragment() {
         checkout = activity?.run {
             ViewModelProviders.of(this).get(Checkout::class.java)
         } ?: throw Exception("Invalid Activity")
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = CheckoutFragment()
     }
 }
