@@ -45,6 +45,7 @@ class CheckoutFragment : Fragment() {
             addItem(it)
         }
         payCashButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.payCashFragment))
+        renderTotal()
     }
 
     fun addItem(view: View) {
@@ -64,7 +65,10 @@ class CheckoutFragment : Fragment() {
     private fun addToTotal(value: Double) {
         checkout.addItem(Item(BigDecimal.valueOf(value)))
 
-        //TODO two-way bind this?
+        renderTotal()
+    }
+
+    private fun renderTotal() {
         totalValue.apply {
             text = NumberFormat.getCurrencyInstance().format(checkout.getTotal())
         }
