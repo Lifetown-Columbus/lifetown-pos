@@ -1,5 +1,6 @@
 package org.lifetowncolumbus.pos.checkout
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +11,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import org.lifetowncolumbus.pos.R
+import java.math.BigDecimal
 import java.text.NumberFormat
 
 
 class CheckoutFragment : Fragment() {
-    var total = 0.0
+    lateinit var checkout: Checkout
     lateinit var itemValue: EditText
     lateinit var totalValue: TextView
     lateinit var addItemButton: Button
@@ -51,11 +53,10 @@ class CheckoutFragment : Fragment() {
     }
 
     private fun addToTotal(value: Double) {
-        total += value
-
         val format = NumberFormat.getCurrencyInstance()
+        checkout.addItem(Item(BigDecimal.valueOf(value)))
         totalValue.apply {
-            text = format.format(total)
+            text = format.format(checkout.getTotal())
         }
     }
 
@@ -63,8 +64,14 @@ class CheckoutFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_checkout, container, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        checkout = activity?.run {
+            ViewModelProviders.of(this).get(Checkout::class.java)
+        } ?: throw Exception("Invalid Activity")
     }
 
 

@@ -1,8 +1,9 @@
 package org.lifetowncolumbus.pos.checkout
 
+import android.arch.lifecycle.ViewModel
 import java.math.BigDecimal
 
-class CheckoutModel {
+class Checkout : ViewModel() {
     val items: ArrayList<Item> = ArrayList()
 
     fun getTotal(): BigDecimal {

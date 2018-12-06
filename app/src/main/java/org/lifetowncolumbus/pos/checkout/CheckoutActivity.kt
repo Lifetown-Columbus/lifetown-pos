@@ -17,6 +17,4 @@ class CheckoutActivity : AppCompatActivity() {
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
     }
-
-
 }
