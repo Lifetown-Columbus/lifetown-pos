@@ -21,14 +21,14 @@ import java.text.NumberFormat
 class CheckoutFragment : Fragment() {
     lateinit var checkout: Checkout
     lateinit var itemValue: EditText
-    lateinit var totalValue: TextView
+//    lateinit var totalValue: TextView
     lateinit var addItemButton: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         itemValue = view.findViewById(R.id.itemValue)
-        totalValue = view.findViewById(R.id.total)
+//        totalValue = view.findViewById(R.id.total)
         addItemButton = view.findViewById(R.id.addItemButton)
         val payCashButton: Button = view.findViewById(R.id.payCashButton)
 
@@ -64,9 +64,9 @@ class CheckoutFragment : Fragment() {
     }
 
     private fun renderTotal() {
-        totalValue.apply {
-            text = NumberFormat.getCurrencyInstance().format(checkout.total)
-        }
+//        totalValue.apply {
+//            text = NumberFormat.getCurrencyInstance().format(checkout.total)
+//        }
     }
 
     override fun onCreateView(

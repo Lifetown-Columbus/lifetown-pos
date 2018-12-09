@@ -19,11 +19,10 @@
                 android:text="@string/calculate_change"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/calculateChangeButton" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16dp" app:layout_constraintStart_toEndOf="@+id/amountTendered"
-                android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/changeDue" android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.26"/>
+                android:id="@+id/calculateChangeButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/changeDue"/>
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,8 +30,6 @@
                 android:ems="10"
                 android:id="@+id/amountTendered"
                 app:layout_constraintBaseline_toBaselineOf="@+id/calculateChangeButton"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintHorizontal_bias="0.724"/>
+                app:layout_constraintEnd_toStartOf="@+id/calculateChangeButton" android:layout_marginEnd="16dp"/>
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
