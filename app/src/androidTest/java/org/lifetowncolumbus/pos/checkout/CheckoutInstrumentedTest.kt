@@ -20,7 +20,7 @@ import org.lifetowncolumbus.pos.R
 class CheckoutInstrumentedTest {
 
     @get:Rule
-    var activityRule: ActivityTestRule<CheckoutActivity> = ActivityTestRule(CheckoutActivity::class.java)
+    var activityRule: ActivityTestRule<MerchantActivity> = ActivityTestRule(MerchantActivity::class.java)
 
     @Test
     fun testAddItem_computeTotal() {

@@ -6,7 +6,7 @@ import android.view.WindowManager
 import androidx.navigation.fragment.NavHostFragment
 import org.lifetowncolumbus.pos.R
 
-class CheckoutActivity : AppCompatActivity() {
+class MerchantActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
