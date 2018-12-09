@@ -48,12 +48,13 @@ class CheckoutFragment : Fragment() {
         renderTotal()
     }
 
-    fun addItem(view: View) {
+    private fun addItem(view: View) {
         val amount = itemValue.text.toString().toDoubleOrNull()
-        if (amount != null) addToTotal(amount)
-        itemValue.apply {
-            text = null
-        }
+        if (amount != null) checkout.addItem(Item(BigDecimal.valueOf(amount)))
+
+        itemValue.apply { text = null }
+
+        renderTotal()
         closeKeyboard(view)
     }
 
@@ -62,15 +63,9 @@ class CheckoutFragment : Fragment() {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun addToTotal(value: Double) {
-        checkout.addItem(Item(BigDecimal.valueOf(value)))
-
-        renderTotal()
-    }
-
     private fun renderTotal() {
         totalValue.apply {
-            text = NumberFormat.getCurrencyInstance().format(checkout.getTotal())
+            text = NumberFormat.getCurrencyInstance().format(checkout.total)
         }
     }
 

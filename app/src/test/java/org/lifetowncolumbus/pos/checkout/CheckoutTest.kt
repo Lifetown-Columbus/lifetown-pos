@@ -1,7 +1,6 @@
 package org.lifetowncolumbus.pos.checkout
 
 import android.arch.lifecycle.ViewModel
-import org.hamcrest.Matchers
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.instanceOf
 import org.junit.Assert.assertThat
@@ -18,10 +17,14 @@ class CheckoutTest {
        subject = Checkout()
     }
 
+    @Test
+    fun itIsAViewModel() {
+        assertThat(subject, `is`(instanceOf(ViewModel::class.java)))
+    }
 
     @Test
     fun createModel_setsTheTotalToZero() {
-        assertThat(subject.getTotal(), `is`(BigDecimal.valueOf(0)))
+        assertThat(subject.total, `is`(BigDecimal.valueOf(0)))
     }
 
     @Test
@@ -29,12 +32,16 @@ class CheckoutTest {
         subject.addItem(Item(BigDecimal.valueOf(1.0)))
         subject.addItem(Item(BigDecimal.valueOf(2.0)))
 
-        assertThat(subject.getTotal(), `is`(BigDecimal.valueOf(3.0)))
+        assertThat(subject.total, `is`(BigDecimal.valueOf(3.0)))
     }
 
     @Test
-    fun itIsAViewModel() {
-        assertThat(subject, `is`(instanceOf(ViewModel::class.java)))
+    fun calculateChange_returnsCorrectValue() {
+        assertThat(subject.calculateChange(BigDecimal.valueOf(5.0)), `is`(BigDecimal.valueOf(5.0)))
+
+        subject.addItem(Item(BigDecimal.valueOf(1.0)))
+
+        assertThat(subject.calculateChange(BigDecimal.valueOf(5.0)), `is`(BigDecimal.valueOf(4.0)))
     }
 
 }

@@ -45,6 +45,6 @@ class CheckoutInstrumentedTest {
 
         onView(withId(R.id.calculateChangeButton)).perform(click())
 
-        onView(withId(R.id.change)).check(matches(withText("$1.00")))
+        onView(withId(R.id.changeDue)).check(matches(withText("$1.00")))
     }
 }
