@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos
+package org.lifetowncolumbus.pos.checkout
 
 
 import androidx.test.espresso.Espresso.onView
@@ -13,14 +13,14 @@ import org.junit.runner.RunWith
 
 import org.junit.Rule
 import org.junit.Test
-import org.lifetowncolumbus.pos.activities.Checkout
+import org.lifetowncolumbus.pos.R
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class CheckoutInstrumentedTest {
 
     @get:Rule
-    var activityRule: ActivityTestRule<Checkout> = ActivityTestRule(Checkout::class.java)
+    var activityRule: ActivityTestRule<MerchantActivity> = ActivityTestRule(MerchantActivity::class.java)
 
     @Test
     fun testAddItem_computeTotal() {
@@ -30,5 +30,21 @@ class CheckoutInstrumentedTest {
         onView(withId(R.id.addItemButton)).perform(click())
 
         onView(withId(R.id.total)).check(matches(withText("$5.00")))
+    }
+
+    @Test
+    fun addItem_payWithCash() {
+        onView(withId(R.id.itemValue))
+            .perform(typeText("5"), closeSoftKeyboard())
+
+        onView(withId(R.id.addItemButton)).perform(click())
+        onView(withId(R.id.payCashButton)).perform(click())
+
+        onView(withId(R.id.amountTendered))
+            .perform(typeText("6"), closeSoftKeyboard())
+
+        onView(withId(R.id.calculateChangeButton)).perform(click())
+
+        onView(withId(R.id.changeDue)).check(matches(withText("$1.00")))
     }
 }
