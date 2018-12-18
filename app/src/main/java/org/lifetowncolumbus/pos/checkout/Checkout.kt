@@ -11,11 +11,7 @@ class Checkout : ViewModel() {
         }
     }
     val total: BigDecimal
-        get() {
-            return items.value!!
-                .map { it.value }
-                .fold(BigDecimal.ZERO, BigDecimal::add)
-        }
+        get() = items.value!!.map { it.value }.fold(BigDecimal.ZERO, BigDecimal::add)
 
     fun addItem(item: Item) {
         items.value?.add(item)

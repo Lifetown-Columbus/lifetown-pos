@@ -3,14 +3,13 @@ package org.lifetowncolumbus.pos.checkout
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.instanceOf
 import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
@@ -52,9 +51,11 @@ class CheckoutTest {
     @Test
     fun addingItem_isObservable() {
         val item = Item(BigDecimal.valueOf(1.0))
+        val item2 = Item(BigDecimal.valueOf(3.0))
         subject.addItem(item)
+        subject.addItem(item2)
 
-        verify(observer).onChanged(argThat { it!!.containsAll(listOf(item))})
+        verify(observer, times(3)).onChanged(argThat { it!!.containsAll(listOf(item, item2))})
     }
 
     @Test
