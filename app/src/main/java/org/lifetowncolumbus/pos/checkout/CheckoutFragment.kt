@@ -1,5 +1,6 @@
 package org.lifetowncolumbus.pos.checkout
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
@@ -11,24 +12,20 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.navigation.Navigation
 import org.lifetowncolumbus.pos.R
 import java.math.BigDecimal
-import java.text.NumberFormat
 
 
 class CheckoutFragment : Fragment() {
     lateinit var checkout: Checkout
     lateinit var itemValue: EditText
-//    lateinit var totalValue: TextView
     lateinit var addItemButton: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         itemValue = view.findViewById(R.id.itemValue)
-//        totalValue = view.findViewById(R.id.total)
         addItemButton = view.findViewById(R.id.addItemButton)
         val payCashButton: Button = view.findViewById(R.id.payCashButton)
 
@@ -45,7 +42,6 @@ class CheckoutFragment : Fragment() {
             addItem(it)
         }
         payCashButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.payCashFragment))
-        renderTotal()
     }
 
     private fun addItem(view: View) {
@@ -54,7 +50,6 @@ class CheckoutFragment : Fragment() {
 
         itemValue.apply { text = null }
 
-        renderTotal()
         closeKeyboard(view)
     }
 
@@ -63,11 +58,6 @@ class CheckoutFragment : Fragment() {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun renderTotal() {
-//        totalValue.apply {
-//            text = NumberFormat.getCurrencyInstance().format(checkout.total)
-//        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
