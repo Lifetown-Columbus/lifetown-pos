@@ -10,6 +10,7 @@ class Checkout : ViewModel() {
             value = ArrayList()
         }
     }
+
     val total: BigDecimal
         get() = items.value!!.map { it.value }.fold(BigDecimal.ZERO, BigDecimal::add)
 
@@ -21,5 +22,9 @@ class Checkout : ViewModel() {
 
     fun calculateChange(amountTendered: BigDecimal): BigDecimal {
         return amountTendered.subtract(total)
+    }
+
+    fun payCash(payment: CashPayment) {
+        addItem(payment)
     }
 }

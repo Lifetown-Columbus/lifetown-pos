@@ -42,16 +42,16 @@ class CheckoutTest {
 
     @Test
     fun addingItem_updatesTotal() {
-        subject.addItem(Item(BigDecimal.valueOf(1.0)))
-        subject.addItem(Item(BigDecimal.valueOf(2.0)))
+        subject.addItem(PurchasedItem.worth(1.0))
+        subject.addItem(PurchasedItem.worth(2.0))
 
         assertThat(subject.total, `is`(BigDecimal.valueOf(3.0)))
     }
 
     @Test
     fun addingItem_isObservable() {
-        val item = Item(BigDecimal.valueOf(1.0))
-        val item2 = Item(BigDecimal.valueOf(3.0))
+        val item = PurchasedItem.worth(1.0)
+        val item2 = PurchasedItem.worth(3.0)
         subject.addItem(item)
         subject.addItem(item2)
 
@@ -62,9 +62,17 @@ class CheckoutTest {
     fun calculateChange_returnsCorrectValue() {
         assertThat(subject.calculateChange(BigDecimal.valueOf(5.0)), `is`(BigDecimal.valueOf(5.0)))
 
-        subject.addItem(Item(BigDecimal.valueOf(1.0)))
+        subject.addItem(PurchasedItem.worth(1.0))
 
         assertThat(subject.calculateChange(BigDecimal.valueOf(5.0)), `is`(BigDecimal.valueOf(4.0)))
     }
 
+    @Test
+    fun payCash_updatesTheTotal() {
+        subject.addItem(PurchasedItem.worth(3.0))
+
+        subject.payCash(CashPayment.worth(4.0))
+
+        assertThat(subject.total, `is`(BigDecimal.valueOf(-1.0)))
+    }
 }

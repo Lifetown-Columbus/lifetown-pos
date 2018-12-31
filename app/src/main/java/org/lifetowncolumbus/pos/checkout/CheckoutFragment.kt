@@ -46,7 +46,7 @@ class CheckoutFragment : Fragment() {
 
     private fun addItem(view: View) {
         val amount = itemValue.text.toString().toDoubleOrNull()
-        if (amount != null) checkout.addItem(Item(BigDecimal.valueOf(amount)))
+        if (amount != null) checkout.addItem(PurchasedItem(BigDecimal.valueOf(amount)))
 
         itemValue.apply { text = null }
 
