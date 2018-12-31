@@ -59,15 +59,6 @@ class CheckoutTest {
     }
 
     @Test
-    fun calculateChange_returnsCorrectValue() {
-        assertThat(subject.calculateChange(BigDecimal.valueOf(5.0)), `is`(BigDecimal.valueOf(5.0)))
-
-        subject.addItem(PurchasedItem.worth(1.0))
-
-        assertThat(subject.calculateChange(BigDecimal.valueOf(5.0)), `is`(BigDecimal.valueOf(4.0)))
-    }
-
-    @Test
     fun payCash_updatesTheTotal() {
         subject.addItem(PurchasedItem.worth(3.0))
 

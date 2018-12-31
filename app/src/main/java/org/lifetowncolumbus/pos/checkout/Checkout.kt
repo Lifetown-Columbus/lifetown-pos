@@ -20,10 +20,6 @@ class Checkout : ViewModel() {
         items.value = items.value
     }
 
-    fun calculateChange(amountTendered: BigDecimal): BigDecimal {
-        return amountTendered.subtract(total)
-    }
-
     fun payCash(payment: CashPayment) {
         addItem(payment)
     }

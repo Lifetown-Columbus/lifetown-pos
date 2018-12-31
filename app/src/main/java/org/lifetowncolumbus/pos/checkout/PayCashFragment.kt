@@ -35,10 +35,10 @@ class PayCashFragment : Fragment() {
     }
 
     private fun calculateChange(amount: Double) {
-        val change = checkout.calculateChange(BigDecimal.valueOf(amount))
+        checkout.payCash(CashPayment.worth(amount))
 
         changeDue.apply {
-            text = NumberFormat.getCurrencyInstance().format(change)
+            text = NumberFormat.getCurrencyInstance().format(-checkout.total)
         }
     }
 
