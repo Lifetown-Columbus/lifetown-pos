@@ -9,17 +9,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import org.lifetowncolumbus.pos.R
-import java.math.BigDecimal
-import java.text.NumberFormat
 
 
 class PayCashFragment : Fragment() {
-    private lateinit var changeDue: TextView
     private lateinit var checkout: Checkout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        changeDue = view.findViewById(R.id.changeDue)
 
         registerCalculateChangeHandler(view)
     }
@@ -29,16 +25,8 @@ class PayCashFragment : Fragment() {
         view.findViewById<Button>(R.id.calculateChangeButton).setOnClickListener {
             val amount = amountTendered.text.toString().toDoubleOrNull()
             if (amount != null) {
-                calculateChange(amount)
+                checkout.payCash(CashPayment.worth(amount))
             }
-        }
-    }
-
-    private fun calculateChange(amount: Double) {
-        checkout.payCash(CashPayment.worth(amount))
-
-        changeDue.apply {
-            text = NumberFormat.getCurrencyInstance().format(-checkout.total)
         }
     }
 

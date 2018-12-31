@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import org.lifetowncolumbus.pos.R
-import java.text.NumberFormat
+import java.math.BigDecimal
 
 class ItemizedSaleFragement : Fragment() {
 
@@ -27,10 +27,16 @@ class ItemizedSaleFragement : Fragment() {
     }
 
     private fun renderTotal() {
+        val text = when {
+            checkout.total < BigDecimal.ZERO -> "Change Due: ${(checkout.total.abs()).toCurrencyString()}"
+            else -> "Total: ${checkout.total.toCurrencyString()}"
+
+        }
         totalValue.apply {
-            text = NumberFormat.getCurrencyInstance().format(checkout.total)
+            this.text = text
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

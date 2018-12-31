@@ -28,22 +28,22 @@ class CheckoutInstrumentedTest {
 
         onView(withId(R.id.addItemButton)).perform(click())
 
-        onView(withId(R.id.total)).check(matches(withText("$5.00")))
+        onView(withId(R.id.total)).check(matches(withText("Total: $5.00")))
     }
 
     @Test
     fun addItem_payWithCash() {
         onView(withId(R.id.itemValue))
-            .perform(typeText("5"), closeSoftKeyboard())
+            .perform(typeText("500"), closeSoftKeyboard())
 
         onView(withId(R.id.addItemButton)).perform(click())
         onView(withId(R.id.payCashButton)).perform(click())
 
         onView(withId(R.id.amountTendered))
-            .perform(typeText("6"), closeSoftKeyboard())
+            .perform(typeText("600"), closeSoftKeyboard())
 
         onView(withId(R.id.calculateChangeButton)).perform(click())
 
-        onView(withId(R.id.changeDue)).check(matches(withText("$1.00")))
+        onView(withId(R.id.total)).check(matches(withText("Change Due: $100.00")))
     }
 }
