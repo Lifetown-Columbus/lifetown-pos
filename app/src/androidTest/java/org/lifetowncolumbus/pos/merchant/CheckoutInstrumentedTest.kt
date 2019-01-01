@@ -22,47 +22,43 @@ class CheckoutInstrumentedTest {
 
     @Test
     fun testAddItem_computeTotal() {
-        onView(withId(R.id.itemValue))
-            .perform(typeText("5"), closeSoftKeyboard())
+        addAnItem()
 
-        onView(withId(R.id.addItemButton)).perform(click())
-
-        onView(withId(R.id.total)).check(matches(withText("Total: $5.00")))
+        onView(withId(R.id.total)).check(matches(withText("Total: $500.00")))
     }
 
     @Test
     fun addItem_payWithCash_itemizedListContainsPurchasesAndPayment() {
-        onView(withId(R.id.itemValue))
-            .perform(typeText("500"), closeSoftKeyboard())
+        addAnItem()
+        payCashExpectingChange()
 
-        onView(withId(R.id.addItemButton)).perform(click())
-        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Purchased Item"))))
-        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("$500.00"))))
+        onView(withId(R.id.total)).check(matches(withText("Change Due: $100.00")))
+    }
 
+    private fun payCashExpectingChange() {
         onView(withId(R.id.payCashButton)).perform(click())
-
         onView(withId(R.id.amountTendered))
             .perform(typeText("600"), closeSoftKeyboard())
 
         onView(withId(R.id.calculateChangeButton)).perform(click())
         onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Cash Payment"))))
         onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("-$600.00"))))
-
-        onView(withId(R.id.total)).check(matches(withText("Change Due: $100.00")))
     }
 
-    @Test
-    fun payWithCash_navigatesBackToCheckoutFragment() {
+    private fun addAnItem() {
         onView(withId(R.id.itemValue))
             .perform(typeText("500"), closeSoftKeyboard())
 
         onView(withId(R.id.addItemButton)).perform(click())
-        onView(withId(R.id.payCashButton)).perform(click())
+        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Purchased Item"))))
+        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("$500.00"))))
+    }
 
-        onView(withId(R.id.amountTendered))
-            .perform(typeText("600"), closeSoftKeyboard())
+    @Test
+    fun payWithCash_navigatesToSaleComplete() {
+        addAnItem()
+        payCashExpectingChange()
 
-        onView(withId(R.id.calculateChangeButton)).perform(click())
         onView(withId(R.id.newSaleButton)).check(matches(isDisplayed()))
     }
 
@@ -71,6 +67,15 @@ class CheckoutInstrumentedTest {
         onView(withId(R.id.payCashButton)).perform(click())
         onView(withId(R.id.calculateChangeButton)).perform(click())
         onView(withId(R.id.addItemButton)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun saleComplete_clickNewSale_NavigatesToCheckout() {
+        addAnItem()
+        payCashExpectingChange()
+
+        onView(withId(R.id.newSaleButton)).perform(click())
+        onView(withId(R.id.total)).check(matches(withText("Total: $0.00")))
     }
 
 }

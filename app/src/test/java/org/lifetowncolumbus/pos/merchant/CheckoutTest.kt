@@ -3,8 +3,8 @@ package org.lifetowncolumbus.pos.merchant
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
-import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.instanceOf
+import org.hamcrest.Matchers
+import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Rule
@@ -65,5 +65,16 @@ class CheckoutTest {
         subject.payCash(CashPayment.worth(4.0))
 
         assertThat(subject.total, `is`(BigDecimal.valueOf(-1.0)))
+    }
+
+    @Test
+    fun newSale_clearsItems() {
+        subject.addItem(PurchasedItem.worth(3.0))
+        subject.payCash(CashPayment.worth(4.0))
+
+        subject.newSale()
+
+        assertThat(subject.items.value, `is`(emptyCollectionOf(Item::class.java)))
+
     }
 }

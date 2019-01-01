@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.Navigation
+import kotlinx.android.synthetic.main.fragment_pay_cash.view.*
 import org.lifetowncolumbus.pos.KeyboardHelpers
 import org.lifetowncolumbus.pos.R
 
@@ -21,8 +22,8 @@ class PayCashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        amountTendered = view.findViewById(R.id.amountTendered)
-        acceptCashButton =  view.findViewById(R.id.calculateChangeButton)
+        amountTendered = view.amountTendered
+        acceptCashButton =  view.calculateChangeButton
 
         initAcceptCashButton(view)
 
