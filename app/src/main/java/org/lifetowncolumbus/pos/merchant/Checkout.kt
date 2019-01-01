@@ -18,7 +18,6 @@ class Checkout : ViewModel() {
 
     fun addItem(item: Item) {
         _items.value?.add(item)
-        //force onChange to fire
         _items.postValue(_items.value)
     }
 

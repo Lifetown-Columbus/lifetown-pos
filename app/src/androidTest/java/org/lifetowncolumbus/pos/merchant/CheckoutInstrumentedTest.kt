@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
+import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -63,10 +64,21 @@ class CheckoutInstrumentedTest {
     }
 
     @Test
-    fun payWithCash_navigatesBack_whenNoAmountIsGiven() {
+    fun payWithCash_clickCancel_navigatesBack() {
         onView(withId(R.id.payCashButton)).perform(click())
-        onView(withId(R.id.acceptCashButton)).perform(click())
+        onView(withId(R.id.cancelPaymentButton)).perform(click())
         onView(withId(R.id.addItemButton)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun payWithCash_acceptButtonDisabled_whenInsufficientAmountGiven() {
+        addAnItem()
+
+        onView(withId(R.id.payCashButton)).perform(click())
+        onView(withId(R.id.amountTendered))
+            .perform(typeText("400"), closeSoftKeyboard())
+
+        onView(withId(R.id.acceptCashButton)).check(matches(not(isEnabled())))
     }
 
     @Test
