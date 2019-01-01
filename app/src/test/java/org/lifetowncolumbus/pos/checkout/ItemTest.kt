@@ -19,4 +19,18 @@ class ItemTest {
 
         assertThat(subject.value, `is`(BigDecimal.valueOf(-2.0)))
     }
+
+    @Test
+    fun purchasedItems_haveAName() {
+        val subject: Item = PurchasedItem.worth(2.0)
+
+        assertThat(subject.name, `is`("Purchased Item"))
+    }
+
+    @Test
+    fun casePayment_hasAName() {
+        val subject: Item = CashPayment.worth(2.0)
+
+        assertThat(subject.name, `is`("Cash Payment"))
+    }
 }
