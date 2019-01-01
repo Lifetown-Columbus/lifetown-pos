@@ -13,19 +13,29 @@
                 android:text="@string/calculate_change"
                 android:layout_width="wrap_content"
                 android:layout_height="49dp"
-                android:id="@+id/calculateChangeButton"
+                android:id="@+id/acceptCashButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.3"/>
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/amountTendered"/>
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/amountTendered"
-                app:layout_constraintBaseline_toBaselineOf="@+id/calculateChangeButton"
-                app:layout_constraintEnd_toStartOf="@+id/calculateChangeButton" android:layout_marginEnd="16dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/payCashLabel"
+                app:layout_constraintHorizontal_bias="0.50" />
+        <TextView
+                android:text="@string/enter_amount_given"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/payCashLabel" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent" android:textSize="30sp"/>
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

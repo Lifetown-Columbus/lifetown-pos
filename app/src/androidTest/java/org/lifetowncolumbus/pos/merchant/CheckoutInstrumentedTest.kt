@@ -40,7 +40,7 @@ class CheckoutInstrumentedTest {
         onView(withId(R.id.amountTendered))
             .perform(typeText("600"), closeSoftKeyboard())
 
-        onView(withId(R.id.calculateChangeButton)).perform(click())
+        onView(withId(R.id.acceptCashButton)).perform(click())
         onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Cash Payment"))))
         onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("-$600.00"))))
     }
@@ -65,7 +65,7 @@ class CheckoutInstrumentedTest {
     @Test
     fun payWithCash_navigatesBack_whenNoAmountIsGiven() {
         onView(withId(R.id.payCashButton)).perform(click())
-        onView(withId(R.id.calculateChangeButton)).perform(click())
+        onView(withId(R.id.acceptCashButton)).perform(click())
         onView(withId(R.id.addItemButton)).check(matches(isDisplayed()))
     }
 
@@ -77,5 +77,4 @@ class CheckoutInstrumentedTest {
         onView(withId(R.id.newSaleButton)).perform(click())
         onView(withId(R.id.total)).check(matches(withText("Total: $0.00")))
     }
-
 }

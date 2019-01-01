@@ -23,7 +23,7 @@ class PayCashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         amountTendered = view.amountTendered
-        acceptCashButton =  view.calculateChangeButton
+        acceptCashButton =  view.acceptCashButton
 
         initAcceptCashButton(view)
 
