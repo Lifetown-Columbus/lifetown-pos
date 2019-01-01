@@ -4,17 +4,20 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.toCurrencyString
 import java.math.BigDecimal
 
-class ItemizedSaleFragement : Fragment() {
+class ItemizedSaleFragment : Fragment() {
 
     lateinit var totalValue: TextView
     lateinit var checkout: Checkout
@@ -23,8 +26,14 @@ class ItemizedSaleFragement : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         totalValue = view.findViewById(R.id.total)
-        renderTotal()
+        val payCashButton: Button = view.findViewById(R.id.payCashButton)
 
+        payCashButton.setOnClickListener {
+            Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
+                .navigate(R.id.action_global_payCashFragment)
+        }
+
+        renderTotal()
         initItemizedSaleRecyclerView(view)
 
         checkout.items.observe(this, Observer {

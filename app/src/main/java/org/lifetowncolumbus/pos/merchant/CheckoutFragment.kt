@@ -26,7 +26,6 @@ class CheckoutFragment : Fragment() {
 
         itemValue = view.findViewById(R.id.itemValue)
         addItemButton = view.findViewById(R.id.addItemButton)
-        val payCashButton: Button = view.findViewById(R.id.payCashButton)
 
         itemValue.setOnEditorActionListener { v, actionId, event ->
             return@setOnEditorActionListener when (actionId) {
@@ -40,7 +39,6 @@ class CheckoutFragment : Fragment() {
         addItemButton.setOnClickListener {
             addItem(it)
         }
-        payCashButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.payCashFragment))
     }
 
     private fun addItem(view: View) {
