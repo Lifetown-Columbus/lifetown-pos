@@ -6,3 +6,4 @@ import java.text.NumberFormat
 fun BigDecimal.toCurrencyString(): String {
     return NumberFormat.getCurrencyInstance().format(this)
 }
+

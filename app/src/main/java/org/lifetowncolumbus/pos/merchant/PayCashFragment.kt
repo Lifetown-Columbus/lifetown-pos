@@ -9,25 +9,35 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.Navigation
+import org.lifetowncolumbus.pos.KeyboardHelpers
 import org.lifetowncolumbus.pos.R
 
 
 class PayCashFragment : Fragment() {
     private lateinit var checkout: Checkout
+    private lateinit var amountTendered: TextView
+    private lateinit var acceptCashButton: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        registerCalculateChangeHandler(view)
+        amountTendered = view.findViewById(R.id.amountTendered)
+        acceptCashButton =  view.findViewById(R.id.calculateChangeButton)
+
+        initAcceptCashButton(view)
+
+        amountTendered.setOnEditorActionListener { v, actionId, event ->
+            KeyboardHelpers.clickButtonWhenKeyboardDone(actionId, acceptCashButton)
+        }
     }
 
-    private fun registerCalculateChangeHandler(view: View) {
-        val amountTendered: TextView = view.findViewById(R.id.amountTendered)
-        view.findViewById<Button>(R.id.calculateChangeButton).setOnClickListener {
+    private fun initAcceptCashButton(view: View) {
+        acceptCashButton.setOnClickListener {
             val amount = amountTendered.text.toString().toDoubleOrNull()
             if (amount != null) {
                 checkout.payCash(CashPayment.worth(amount))
             }
+            KeyboardHelpers.closeKeyboard(context!!, view)
             Navigation.findNavController(view).navigate(R.id.checkoutFragment)
         }
     }
