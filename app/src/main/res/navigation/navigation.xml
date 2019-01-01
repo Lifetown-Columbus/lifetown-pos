@@ -9,5 +9,6 @@
         <action android:id="@+id/action_checkoutFragment_to_payCashFragment" app:destination="@id/payCashFragment"/>
     </fragment>
     <fragment android:id="@+id/payCashFragment" android:name="org.lifetowncolumbus.pos.checkout.PayCashFragment"
-              android:label="fragment_pay_cash" tools:layout="@layout/fragment_pay_cash"/>
+              android:label="fragment_pay_cash" tools:layout="@layout/fragment_pay_cash">
+    </fragment>
 </navigation>

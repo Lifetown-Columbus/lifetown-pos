@@ -4,7 +4,6 @@ package org.lifetowncolumbus.pos.checkout
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -50,6 +49,28 @@ class CheckoutInstrumentedTest {
         onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("-$600.00"))))
 
         onView(withId(R.id.total)).check(matches(withText("Change Due: $100.00")))
+    }
+
+    @Test
+    fun payWithCash_navigatesBackToCheckoutFragment() {
+        onView(withId(R.id.itemValue))
+            .perform(typeText("500"), closeSoftKeyboard())
+
+        onView(withId(R.id.addItemButton)).perform(click())
+        onView(withId(R.id.payCashButton)).perform(click())
+
+        onView(withId(R.id.amountTendered))
+            .perform(typeText("600"), closeSoftKeyboard())
+
+        onView(withId(R.id.calculateChangeButton)).perform(click())
+        onView(withId(R.id.addItemButton)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun payWithCash_navigatesBack_whenNoAmountIsGiven() {
+        onView(withId(R.id.payCashButton)).perform(click())
+        onView(withId(R.id.calculateChangeButton)).perform(click())
+        onView(withId(R.id.addItemButton)).check(matches(isDisplayed()))
     }
 
 }

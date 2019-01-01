@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.Navigation
 import org.lifetowncolumbus.pos.R
 
 
@@ -27,6 +28,7 @@ class PayCashFragment : Fragment() {
             if (amount != null) {
                 checkout.payCash(CashPayment.worth(amount))
             }
+            Navigation.findNavController(view).navigate(R.id.checkoutFragment)
         }
     }
 
