@@ -6,7 +6,7 @@ import org.junit.Test
 import org.lifetowncolumbus.pos.toCurrencyString
 import java.math.BigDecimal
 
-class ExtenstionsTest {
+class ExtensionsTest {
     @Test
     fun bigDecimalsValues_canBeConvertedToACurrencyString() {
         val bigDecimal: BigDecimal = BigDecimal.valueOf(22.0)
