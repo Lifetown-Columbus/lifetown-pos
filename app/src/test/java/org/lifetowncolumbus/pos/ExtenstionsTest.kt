@@ -1,8 +1,9 @@
-package org.lifetowncolumbus.pos.checkout
+package org.lifetowncolumbus.pos
 
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
+import org.lifetowncolumbus.pos.toCurrencyString
 import java.math.BigDecimal
 
 class ExtenstionsTest {

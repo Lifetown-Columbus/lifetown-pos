@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.checkout
+package org.lifetowncolumbus.pos.merchant
 
 
 import androidx.test.espresso.Espresso.onView

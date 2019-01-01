@@ -4,11 +4,11 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation.xml"
             app:startDestination="@id/checkoutFragment">
 
-    <fragment android:id="@+id/checkoutFragment" android:name="org.lifetowncolumbus.pos.checkout.CheckoutFragment"
+    <fragment android:id="@+id/checkoutFragment" android:name="org.lifetowncolumbus.pos.merchant.CheckoutFragment"
               android:label="fragment_checkout" tools:layout="@layout/fragment_checkout">
         <action android:id="@+id/action_checkoutFragment_to_payCashFragment" app:destination="@id/payCashFragment"/>
     </fragment>
-    <fragment android:id="@+id/payCashFragment" android:name="org.lifetowncolumbus.pos.checkout.PayCashFragment"
+    <fragment android:id="@+id/payCashFragment" android:name="org.lifetowncolumbus.pos.merchant.PayCashFragment"
               android:label="fragment_pay_cash" tools:layout="@layout/fragment_pay_cash">
     </fragment>
 </navigation>

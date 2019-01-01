@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.checkout
+package org.lifetowncolumbus.pos.merchant
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Observer

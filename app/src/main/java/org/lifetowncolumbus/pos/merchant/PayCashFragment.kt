@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.checkout
+package org.lifetowncolumbus.pos.merchant
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle

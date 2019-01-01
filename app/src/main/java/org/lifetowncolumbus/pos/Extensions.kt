@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.checkout
+package org.lifetowncolumbus.pos
 
 import java.math.BigDecimal
 import java.text.NumberFormat

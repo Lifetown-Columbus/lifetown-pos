@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.checkout
+package org.lifetowncolumbus.pos.merchant
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

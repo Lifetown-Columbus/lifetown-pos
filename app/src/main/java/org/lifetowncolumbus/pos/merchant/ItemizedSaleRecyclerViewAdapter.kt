@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.checkout
+package org.lifetowncolumbus.pos.merchant
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.toCurrencyString
 
 
 class ItemizedSaleRecyclerViewAdapter() : RecyclerView.Adapter<ItemizedSaleRecyclerViewAdapter.ListItemViewHolder>() {

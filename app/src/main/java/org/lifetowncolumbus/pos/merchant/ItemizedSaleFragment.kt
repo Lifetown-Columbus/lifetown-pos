@@ -1,17 +1,17 @@
-package org.lifetowncolumbus.pos.checkout
+package org.lifetowncolumbus.pos.merchant
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.toCurrencyString
 import java.math.BigDecimal
 
 class ItemizedSaleFragement : Fragment() {

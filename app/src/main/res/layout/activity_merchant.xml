@@ -5,11 +5,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".checkout.MerchantActivity" android:baselineAligned="false">
+        tools:context=".merchant.MerchantActivity" android:baselineAligned="false">
 
     <fragment
             android:layout_width="0dp"
-            android:layout_height="match_parent" android:name="org.lifetowncolumbus.pos.checkout.ItemizedSaleFragement"
+            android:layout_height="match_parent" android:name="org.lifetowncolumbus.pos.merchant.ItemizedSaleFragement"
             android:id="@+id/ItemizedSaleFragment" android:layout_weight="1"/>
     <fragment
             android:name="androidx.navigation.fragment.NavHostFragment"
