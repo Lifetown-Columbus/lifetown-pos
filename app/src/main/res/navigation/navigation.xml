@@ -10,6 +10,9 @@
     </fragment>
     <fragment android:id="@+id/payCashFragment" android:name="org.lifetowncolumbus.pos.merchant.PayCashFragment"
               android:label="fragment_pay_cash" tools:layout="@layout/fragment_pay_cash">
+        <action android:id="@+id/action_payCashFragment_to_saleCompleteFragment"
+                app:destination="@id/saleCompleteFragment"/>
     </fragment>
-    <action android:id="@+id/action_global_payCashFragment" app:destination="@id/payCashFragment"/>
+    <fragment android:id="@+id/saleCompleteFragment" android:name="org.lifetowncolumbus.pos.merchant.SaleCompleteFragment"
+              android:label="fragment_sale_complete" tools:layout="@layout/fragment_sale_complete"/>
 </navigation>

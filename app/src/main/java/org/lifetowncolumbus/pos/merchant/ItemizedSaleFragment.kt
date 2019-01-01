@@ -26,22 +26,27 @@ class ItemizedSaleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         totalValue = view.findViewById(R.id.total)
-        val payCashButton: Button = view.findViewById(R.id.payCashButton)
 
-        payCashButton.setOnClickListener {
-            Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
-                .navigate(R.id.action_global_payCashFragment)
-        }
-
-        renderTotal()
         initItemizedSaleRecyclerView(view)
+        observeCheckoutViewModel()
+        initPayCashButton(view)
+        renderTotal()
+    }
 
+    private fun observeCheckoutViewModel() {
         checkout.items.observe(this, Observer {
             renderTotal()
             adapter.loadItems(checkout.items.value ?: emptyList())
             adapter.notifyDataSetChanged()
         })
+    }
 
+    private fun initPayCashButton(view: View) {
+        val payCashButton: Button = view.findViewById(R.id.payCashButton)
+        payCashButton.setOnClickListener {
+            Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
+                .navigate(R.id.payCashFragment)
+        }
     }
 
     private fun renderTotal() {

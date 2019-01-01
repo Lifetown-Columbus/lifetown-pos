@@ -63,7 +63,7 @@ class CheckoutInstrumentedTest {
             .perform(typeText("600"), closeSoftKeyboard())
 
         onView(withId(R.id.calculateChangeButton)).perform(click())
-        onView(withId(R.id.addItemButton)).check(matches(isDisplayed()))
+        onView(withId(R.id.newSaleButton)).check(matches(isDisplayed()))
     }
 
     @Test

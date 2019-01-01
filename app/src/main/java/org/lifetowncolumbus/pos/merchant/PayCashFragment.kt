@@ -36,9 +36,12 @@ class PayCashFragment : Fragment() {
             val amount = amountTendered.text.toString().toDoubleOrNull()
             if (amount != null) {
                 checkout.payCash(CashPayment.worth(amount))
+                Navigation.findNavController(view).navigate(R.id.saleCompleteFragment)
+            }
+            else {
+                Navigation.findNavController(view).navigate(R.id.checkoutFragment)
             }
             KeyboardHelpers.closeKeyboard(context!!, view)
-            Navigation.findNavController(view).navigate(R.id.checkoutFragment)
         }
     }
 
