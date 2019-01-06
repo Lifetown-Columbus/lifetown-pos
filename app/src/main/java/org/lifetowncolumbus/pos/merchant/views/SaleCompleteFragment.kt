@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.merchant
+package org.lifetowncolumbus.pos.merchant.views
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -9,14 +9,15 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_sale_complete.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 
 class SaleCompleteFragment : Fragment() {
-    private lateinit var checkout: Checkout
+    private lateinit var currentSale: CurrentSale
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.newSaleButton.setOnClickListener {
-            checkout.newSale()
+            currentSale.newSale()
             Navigation.findNavController(view).navigate(R.id.checkoutFragment)
         }
     }
@@ -30,8 +31,8 @@ class SaleCompleteFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkout = activity?.run {
-            ViewModelProviders.of(this).get(Checkout::class.java)
+        currentSale = activity?.run {
+            ViewModelProviders.of(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
     }
 

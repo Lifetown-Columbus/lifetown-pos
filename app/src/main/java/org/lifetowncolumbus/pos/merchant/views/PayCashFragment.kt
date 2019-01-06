@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.merchant
+package org.lifetowncolumbus.pos.merchant.views
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -14,10 +14,12 @@ import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_pay_cash.view.*
 import org.lifetowncolumbus.pos.KeyboardHelpers
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.merchant.viewModels.CashPayment
+import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 
 
 class PayCashFragment : Fragment() {
-    private lateinit var checkout: Checkout
+    private lateinit var currentSale: CurrentSale
     private lateinit var amountTendered: TextView
     private lateinit var acceptCashButton: Button
     private lateinit var cancelButton: Button
@@ -47,7 +49,7 @@ class PayCashFragment : Fragment() {
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val amount = amountTendered.text.toString().toDoubleOrNull() ?: 0.0
-            acceptCashButton.isEnabled = amount >= checkout.total.toDouble()
+            acceptCashButton.isEnabled = amount >= currentSale.total.toDouble()
         }
 
         override fun afterTextChanged(s: Editable?) { }
@@ -57,7 +59,7 @@ class PayCashFragment : Fragment() {
         acceptCashButton.isEnabled = false
         acceptCashButton.setOnClickListener {
             val amount = amountTendered.text.toString().toDoubleOrNull() ?: 0.0
-            checkout.payCash(CashPayment.worth(amount))
+            currentSale.payCash(CashPayment.worth(amount))
             Navigation.findNavController(view).navigate(R.id.saleCompleteFragment)
             KeyboardHelpers.closeKeyboard(context!!, view)
         }
@@ -72,8 +74,8 @@ class PayCashFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkout = activity?.run {
-            ViewModelProviders.of(this).get(Checkout::class.java)
+        currentSale = activity?.run {
+            ViewModelProviders.of(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
     }
 }

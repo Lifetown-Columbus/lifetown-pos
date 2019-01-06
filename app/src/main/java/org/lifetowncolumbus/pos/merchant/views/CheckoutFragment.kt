@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.merchant
+package org.lifetowncolumbus.pos.merchant.views
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -10,11 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import org.lifetowncolumbus.pos.KeyboardHelpers
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
+import org.lifetowncolumbus.pos.merchant.viewModels.PurchasedItem
 import java.math.BigDecimal
 
 
 class CheckoutFragment : Fragment() {
-    lateinit var checkout: Checkout
+    lateinit var currentSale: CurrentSale
     lateinit var itemValue: EditText
     lateinit var addItemButton: Button
 
@@ -32,7 +34,13 @@ class CheckoutFragment : Fragment() {
 
     private fun addItem(view: View) {
         val amount = itemValue.text.toString().toDoubleOrNull()
-        if (amount != null) checkout.addItem(PurchasedItem(BigDecimal.valueOf(amount)))
+        if (amount != null) currentSale.addItem(
+            PurchasedItem(
+                BigDecimal.valueOf(
+                    amount
+                )
+            )
+        )
 
         itemValue.apply { text = null }
         KeyboardHelpers.closeKeyboard(context!!, view)
@@ -47,8 +55,8 @@ class CheckoutFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkout = activity?.run {
-            ViewModelProviders.of(this).get(Checkout::class.java)
+        currentSale = activity?.run {
+            ViewModelProviders.of(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
     }
 }

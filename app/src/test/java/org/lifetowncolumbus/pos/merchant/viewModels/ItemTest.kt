@@ -1,8 +1,11 @@
-package org.lifetowncolumbus.pos.merchant
+package org.lifetowncolumbus.pos.merchant.viewModels
 
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
+import org.lifetowncolumbus.pos.merchant.viewModels.CashPayment
+import org.lifetowncolumbus.pos.merchant.viewModels.Item
+import org.lifetowncolumbus.pos.merchant.viewModels.PurchasedItem
 import java.math.BigDecimal
 
 class ItemTest {

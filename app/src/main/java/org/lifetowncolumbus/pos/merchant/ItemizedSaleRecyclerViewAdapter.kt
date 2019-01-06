@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.merchant.viewModels.Item
 import org.lifetowncolumbus.pos.toCurrencyString
 
 

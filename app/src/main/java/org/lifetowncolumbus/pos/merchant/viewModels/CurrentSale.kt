@@ -1,11 +1,11 @@
-package org.lifetowncolumbus.pos.merchant
+package org.lifetowncolumbus.pos.merchant.viewModels
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import java.math.BigDecimal
 
-class Checkout : ViewModel() {
+class CurrentSale : ViewModel() {
     private val _items: MutableLiveData<ArrayList<Item>> by lazy {
         MutableLiveData<ArrayList<Item>>().apply {
             value = ArrayList()

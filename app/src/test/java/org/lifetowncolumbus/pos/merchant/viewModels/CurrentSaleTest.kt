@@ -1,9 +1,8 @@
-package org.lifetowncolumbus.pos.merchant
+package org.lifetowncolumbus.pos.merchant.viewModels
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
-import org.hamcrest.Matchers
 import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
 import org.junit.Before
@@ -15,9 +14,9 @@ import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import java.math.BigDecimal
 
-class CheckoutTest {
+class CurrentSaleTest {
 
-    private lateinit var subject: Checkout
+    private lateinit var subject: CurrentSale
     @Mock lateinit var observer: Observer<ArrayList<Item>>
 
     @get:Rule
@@ -26,7 +25,7 @@ class CheckoutTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        subject = Checkout()
+        subject = CurrentSale()
         subject.items.observeForever(observer)
     }
 

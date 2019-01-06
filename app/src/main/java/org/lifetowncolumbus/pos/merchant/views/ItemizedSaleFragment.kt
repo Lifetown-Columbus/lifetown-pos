@@ -1,10 +1,9 @@
-package org.lifetowncolumbus.pos.merchant
+package org.lifetowncolumbus.pos.merchant.views
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -14,14 +13,16 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.merchant.ItemizedSaleRecyclerViewAdapter
+import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.toCurrencyString
 import java.math.BigDecimal
 
 class ItemizedSaleFragment : Fragment() {
 
-    lateinit var totalValue: TextView
-    lateinit var checkout: Checkout
-    lateinit var adapter: ItemizedSaleRecyclerViewAdapter
+    private lateinit var totalValue: TextView
+    private lateinit var currentSale: CurrentSale
+    private lateinit var adapter: ItemizedSaleRecyclerViewAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,9 +35,9 @@ class ItemizedSaleFragment : Fragment() {
     }
 
     private fun observeCheckoutViewModel() {
-        checkout.items.observe(this, Observer {
+        currentSale.items.observe(this, Observer {
             renderTotal()
-            adapter.loadItems(checkout.items.value ?: emptyList())
+            adapter.loadItems(currentSale.items.value ?: emptyList())
             adapter.notifyDataSetChanged()
         })
     }
@@ -51,8 +52,8 @@ class ItemizedSaleFragment : Fragment() {
 
     private fun renderTotal() {
         val text = when {
-            checkout.total < BigDecimal.ZERO -> "Change Due: ${(checkout.total.abs()).toCurrencyString()}"
-            else -> "Total: ${checkout.total.toCurrencyString()}"
+            currentSale.total < BigDecimal.ZERO -> "Change Due: ${(currentSale.total.abs()).toCurrencyString()}"
+            else -> "Total: ${currentSale.total.toCurrencyString()}"
 
         }
         totalValue.apply {
@@ -69,8 +70,8 @@ class ItemizedSaleFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkout = activity?.run {
-            ViewModelProviders.of(this).get(Checkout::class.java)
+        currentSale = activity?.run {
+            ViewModelProviders.of(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
 
 
