@@ -7,6 +7,8 @@
     <fragment android:id="@+id/checkoutFragment" android:name="org.lifetowncolumbus.pos.merchant.views.CheckoutFragment"
               android:label="fragment_checkout" tools:layout="@layout/fragment_checkout">
         <action android:id="@+id/action_checkoutFragment_to_payCashFragment" app:destination="@id/payCashFragment"/>
+        <action android:id="@+id/action_checkoutFragment_to_editCatalogFragment"
+                app:destination="@id/editCatalogFragment"/>
     </fragment>
     <fragment android:id="@+id/payCashFragment" android:name="org.lifetowncolumbus.pos.merchant.views.PayCashFragment"
               android:label="fragment_pay_cash" tools:layout="@layout/fragment_pay_cash">
@@ -15,4 +17,11 @@
     </fragment>
     <fragment android:id="@+id/saleCompleteFragment" android:name="org.lifetowncolumbus.pos.merchant.views.SaleCompleteFragment"
               android:label="fragment_sale_complete" tools:layout="@layout/fragment_sale_complete"/>
+    <fragment android:id="@+id/editCatalogFragment" android:name="org.lifetowncolumbus.pos.merchant.views.EditCatalogFragment"
+              android:label="fragment_edit_catalog" tools:layout="@layout/fragment_edit_catalog">
+        <action android:id="@+id/action_editCatalogFragment_to_addCatalogItemFragment"
+                app:destination="@id/addCatalogItemFragment"/>
+    </fragment>
+    <fragment android:id="@+id/addCatalogItemFragment" android:name="org.lifetowncolumbus.pos.merchant.views.AddCatalogItemFragment"
+              android:label="fragment_add_catalog_item" tools:layout="@layout/fragment_add_catalog_item"/>
 </navigation>

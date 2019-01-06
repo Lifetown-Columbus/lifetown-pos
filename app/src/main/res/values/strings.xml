@@ -9,4 +9,12 @@
     <string name="enter_amount_given">Enter Amount Given</string>
     <string name="add_purchased_items">Add Purchased Items</string>
     <string name="cancel_button">Cancel</string>
+    <string name="edit">Edit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addCatalogItem">Add</string>
+    <string name="catalog_item_name">Item Name:</string>
+    <string name="catalog_item_value">Item Value:</string>
+    <string name="save_catalog_item">Save</string>
 </resources>

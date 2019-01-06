@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.navigation.Navigation
+import kotlinx.android.synthetic.main.fragment_checkout.view.*
 import org.lifetowncolumbus.pos.KeyboardHelpers
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
@@ -16,18 +18,25 @@ import java.math.BigDecimal
 
 
 class CheckoutFragment : Fragment() {
-    lateinit var currentSale: CurrentSale
-    lateinit var itemValue: EditText
-    lateinit var addItemButton: Button
+    private lateinit var currentSale: CurrentSale
+    private lateinit var itemValue: EditText
+    private lateinit var addItemButton: Button
+    private lateinit var editCatalog: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        itemValue = view.findViewById(R.id.itemValue)
-        addItemButton = view.findViewById(R.id.addItemButton)
+        itemValue = view.itemValue
+        addItemButton = view.addItemButton
+        editCatalog = view.editCatalogButton
+
         addItemButton.setOnClickListener { addItem(it) }
 
-        itemValue.setOnEditorActionListener { v, actionId, event ->
+        editCatalog.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_checkoutFragment_to_editCatalogFragment)
+        }
+
+        itemValue.setOnEditorActionListener { _, actionId, _ ->
             KeyboardHelpers.clickButtonWhenKeyboardDone(actionId, addItemButton)
         }
     }
@@ -36,9 +45,7 @@ class CheckoutFragment : Fragment() {
         val amount = itemValue.text.toString().toDoubleOrNull()
         if (amount != null) currentSale.addItem(
             PurchasedItem(
-                BigDecimal.valueOf(
-                    amount
-                )
+                BigDecimal.valueOf(amount)
             )
         )
 
