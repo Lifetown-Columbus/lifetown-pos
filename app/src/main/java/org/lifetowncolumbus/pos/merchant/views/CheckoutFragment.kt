@@ -1,8 +1,10 @@
 package org.lifetowncolumbus.pos.merchant.views
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_checkout.view.*
 import org.lifetowncolumbus.pos.KeyboardHelpers
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.merchant.viewModels.PurchasedItem
 import java.math.BigDecimal
@@ -19,6 +22,7 @@ import java.math.BigDecimal
 
 class CheckoutFragment : Fragment() {
     private lateinit var currentSale: CurrentSale
+    private lateinit var catalog: Catalog
     private lateinit var itemValue: EditText
     private lateinit var addItemButton: Button
     private lateinit var editCatalog: Button
@@ -39,6 +43,18 @@ class CheckoutFragment : Fragment() {
         itemValue.setOnEditorActionListener { _, actionId, _ ->
             KeyboardHelpers.clickButtonWhenKeyboardDone(actionId, addItemButton)
         }
+
+        initCatalogView(view)
+    }
+
+    private fun initCatalogView(view: View) {
+        val recyclerView = view.catalogRecyclerView
+        val adapter = CatalogGridAdapter(this.activity!!)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = GridLayoutManager(this.activity, 6)
+        catalog.allItems.observe(this, Observer { items ->
+            items?.let { adapter.setItems(it) }
+        })
     }
 
     private fun addItem(view: View) {
@@ -62,8 +78,7 @@ class CheckoutFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        currentSale = activity?.run {
-            ViewModelProviders.of(this).get(CurrentSale::class.java)
-        } ?: throw Exception("Invalid Activity")
+        catalog = ViewModelProviders.of(this).get(Catalog::class.java)
+        currentSale = ViewModelProviders.of(this).get(CurrentSale::class.java)
     }
 }

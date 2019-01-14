@@ -11,7 +11,7 @@ import org.lifetowncolumbus.pos.merchant.viewModels.Item
 import org.lifetowncolumbus.pos.toCurrencyString
 
 
-class ItemizedSaleRecyclerViewAdapter() : RecyclerView.Adapter<ItemizedSaleRecyclerViewAdapter.ListItemViewHolder>() {
+class ItemizedSaleRecyclerViewAdapter : RecyclerView.Adapter<ItemizedSaleRecyclerViewAdapter.ListItemViewHolder>() {
     var items: List<Item> = emptyList()
 
     fun loadItems(newItems: List<Item>) {
