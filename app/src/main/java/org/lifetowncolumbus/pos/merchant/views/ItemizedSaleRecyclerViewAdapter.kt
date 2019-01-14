@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.merchant
+package org.lifetowncolumbus.pos.merchant.views
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

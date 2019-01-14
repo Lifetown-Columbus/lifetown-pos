@@ -21,7 +21,6 @@ class CatalogInstrumentedTest {
     var activityRule: ActivityTestRule<MerchantActivity> = ActivityTestRule(MerchantActivity::class.java)
 
     @Test
-    @Ignore("work in progress")
     fun editCatalog_addNewCatalogItem() {
         onView(withId(R.id.editCatalogButton)).perform(click())
         onView(withId(R.id.addCatalogItemButton)).perform(click())

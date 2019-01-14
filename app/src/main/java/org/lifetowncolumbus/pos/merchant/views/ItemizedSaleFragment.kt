@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
 import org.lifetowncolumbus.pos.R
-import org.lifetowncolumbus.pos.merchant.ItemizedSaleRecyclerViewAdapter
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.toCurrencyString
 import java.math.BigDecimal
