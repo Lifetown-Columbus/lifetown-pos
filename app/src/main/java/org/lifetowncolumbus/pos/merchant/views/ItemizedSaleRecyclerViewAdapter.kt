@@ -12,10 +12,11 @@ import org.lifetowncolumbus.pos.toCurrencyString
 
 
 class ItemizedSaleRecyclerViewAdapter : RecyclerView.Adapter<ItemizedSaleRecyclerViewAdapter.ListItemViewHolder>() {
-    var items: List<Item> = emptyList()
+    private var items: List<Item> = emptyList()
 
-    fun loadItems(newItems: List<Item>) {
+    fun setItems(newItems: List<Item>) {
         items = newItems
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {

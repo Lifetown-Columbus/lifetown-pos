@@ -34,10 +34,9 @@ class ItemizedSaleFragment : Fragment() {
     }
 
     private fun observeCheckoutViewModel() {
-        currentSale.items.observe(this, Observer {
+        currentSale.items.observe(this, Observer { items ->
             renderTotal()
-            adapter.loadItems(currentSale.items.value ?: emptyList())
-            adapter.notifyDataSetChanged()
+            items?.let { adapter.setItems(it) }
         })
     }
 
