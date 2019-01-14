@@ -23,5 +23,8 @@
                 app:destination="@id/addCatalogItemFragment"/>
     </fragment>
     <fragment android:id="@+id/addCatalogItemFragment" android:name="org.lifetowncolumbus.pos.merchant.views.AddCatalogItemFragment"
-              android:label="fragment_add_catalog_item" tools:layout="@layout/fragment_add_catalog_item"/>
+              android:label="fragment_add_catalog_item" tools:layout="@layout/fragment_add_catalog_item">
+        <action android:id="@+id/action_addCatalogItemFragment_to_checkoutFragment"
+                app:destination="@id/checkoutFragment"/>
+    </fragment>
 </navigation>

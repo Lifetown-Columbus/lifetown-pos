@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_add_catalog_item.view.*
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.models.CatalogItem
@@ -23,6 +24,7 @@ class AddCatalogItemFragment : Fragment() {
             val itemName = view.catalogItemName.text.toString()
             val itemvalue = view.catalogItemValue.text.toString().toDouble()
             catalog.addItem(CatalogItem(null, itemName, itemvalue))
+            Navigation.findNavController(view).navigate(R.id.action_addCatalogItemFragment_to_checkoutFragment)
         }
 
     }

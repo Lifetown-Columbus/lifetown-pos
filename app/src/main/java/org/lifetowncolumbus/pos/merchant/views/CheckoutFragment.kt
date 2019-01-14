@@ -17,6 +17,7 @@ import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.merchant.viewModels.PurchasedItem
+import java.lang.Exception
 import java.math.BigDecimal
 
 
@@ -79,6 +80,8 @@ class CheckoutFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         catalog = ViewModelProviders.of(this).get(Catalog::class.java)
-        currentSale = ViewModelProviders.of(this).get(CurrentSale::class.java)
+        currentSale = activity?.run {
+            ViewModelProviders.of(this).get(CurrentSale::class.java)
+        } ?: throw Exception("Invalid Activity")
     }
 }
