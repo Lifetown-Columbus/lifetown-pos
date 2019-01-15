@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_add_catalog_item.view.*
+import org.lifetowncolumbus.pos.KeyboardHelpers
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.models.CatalogItem
 import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
@@ -24,8 +25,8 @@ class AddCatalogItemFragment : Fragment() {
             val itemValue = view.catalogItemValue.text.toString().toDouble()
             catalog.addItem(CatalogItem(null, itemName, itemValue))
             Navigation.findNavController(view).navigate(R.id.action_addCatalogItemFragment_to_checkoutFragment)
+            context?.let { context-> KeyboardHelpers.closeKeyboard(context, view) }
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

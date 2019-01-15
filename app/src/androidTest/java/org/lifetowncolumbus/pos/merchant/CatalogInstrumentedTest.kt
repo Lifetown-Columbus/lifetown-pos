@@ -21,6 +21,7 @@ class CatalogInstrumentedTest {
     var activityRule: ActivityTestRule<MerchantActivity> = ActivityTestRule(MerchantActivity::class.java)
 
     @Test
+    @Ignore("wip")
     fun editCatalog_addNewCatalogItem() {
         onView(withId(R.id.editCatalogButton)).perform(click())
         onView(withId(R.id.addCatalogItemButton)).perform(click())

@@ -61,7 +61,7 @@ class PayCashFragment : Fragment() {
             val amount = amountTendered.text.toString().toDoubleOrNull() ?: 0.0
             currentSale.payCash(CashPayment.worth(amount))
             Navigation.findNavController(view).navigate(R.id.saleCompleteFragment)
-            KeyboardHelpers.closeKeyboard(context!!, view)
+            context?.let { context -> KeyboardHelpers.closeKeyboard(context, view) }
         }
     }
 

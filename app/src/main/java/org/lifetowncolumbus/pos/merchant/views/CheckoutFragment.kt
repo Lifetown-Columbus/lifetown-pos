@@ -69,7 +69,7 @@ class CheckoutFragment : Fragment() {
         )
 
         itemValue.apply { text = null }
-        KeyboardHelpers.closeKeyboard(context!!, view)
+        context?.let { KeyboardHelpers.closeKeyboard(it, view) }
     }
 
     override fun onCreateView(
