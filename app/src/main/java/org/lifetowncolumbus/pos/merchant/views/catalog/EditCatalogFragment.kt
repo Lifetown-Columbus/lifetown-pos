@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.merchant.views
+package org.lifetowncolumbus.pos.merchant.views.catalog
 
 
 import android.os.Bundle

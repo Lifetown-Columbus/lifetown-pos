@@ -1,7 +1,6 @@
-package org.lifetowncolumbus.pos.merchant.views
+package org.lifetowncolumbus.pos.merchant.views.catalog
 
 
-import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment

@@ -17,6 +17,7 @@ import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.merchant.viewModels.PurchasedItem
+import org.lifetowncolumbus.pos.merchant.views.catalog.CatalogGridAdapter
 import java.lang.Exception
 import java.math.BigDecimal
 

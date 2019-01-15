@@ -17,12 +17,12 @@
     </fragment>
     <fragment android:id="@+id/saleCompleteFragment" android:name="org.lifetowncolumbus.pos.merchant.views.SaleCompleteFragment"
               android:label="fragment_sale_complete" tools:layout="@layout/fragment_sale_complete"/>
-    <fragment android:id="@+id/editCatalogFragment" android:name="org.lifetowncolumbus.pos.merchant.views.EditCatalogFragment"
+    <fragment android:id="@+id/editCatalogFragment" android:name="org.lifetowncolumbus.pos.merchant.views.catalog.EditCatalogFragment"
               android:label="fragment_edit_catalog" tools:layout="@layout/fragment_edit_catalog">
         <action android:id="@+id/action_editCatalogFragment_to_addCatalogItemFragment"
                 app:destination="@id/addCatalogItemFragment"/>
     </fragment>
-    <fragment android:id="@+id/addCatalogItemFragment" android:name="org.lifetowncolumbus.pos.merchant.views.AddCatalogItemFragment"
+    <fragment android:id="@+id/addCatalogItemFragment" android:name="org.lifetowncolumbus.pos.merchant.views.catalog.AddCatalogItemFragment"
               android:label="fragment_add_catalog_item" tools:layout="@layout/fragment_add_catalog_item">
         <action android:id="@+id/action_addCatalogItemFragment_to_checkoutFragment"
                 app:destination="@id/checkoutFragment"/>
