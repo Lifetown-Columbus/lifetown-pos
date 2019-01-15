@@ -18,7 +18,6 @@ import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.merchant.viewModels.PurchasedItem
 import org.lifetowncolumbus.pos.merchant.views.catalog.CatalogGridAdapter
-import java.lang.Exception
 import java.math.BigDecimal
 
 
@@ -57,6 +56,8 @@ class CheckoutFragment : Fragment() {
         catalog.allItems.observe(this, Observer { items ->
             items?.let { adapter.setItems(it) }
         })
+        // TODO add the catalogItem click listener
+        // https://www.youtube.com/watch?v=dYbbTGiZ2sA
     }
 
     private fun addItem(view: View) {
@@ -80,9 +81,9 @@ class CheckoutFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        catalog = ViewModelProviders.of(this).get(Catalog::class.java)
-        currentSale = activity?.run {
-            ViewModelProviders.of(this).get(CurrentSale::class.java)
+        activity?.run {
+            catalog = ViewModelProviders.of(this).get(Catalog::class.java)
+            currentSale = ViewModelProviders.of(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
     }
 }

@@ -21,8 +21,8 @@ class AddCatalogItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.saveCatalogItemButton.setOnClickListener {
             val itemName = view.catalogItemName.text.toString()
-            val itemvalue = view.catalogItemValue.text.toString().toDouble()
-            catalog.addItem(CatalogItem(null, itemName, itemvalue))
+            val itemValue = view.catalogItemValue.text.toString().toDouble()
+            catalog.addItem(CatalogItem(null, itemName, itemValue))
             Navigation.findNavController(view).navigate(R.id.action_addCatalogItemFragment_to_checkoutFragment)
         }
 

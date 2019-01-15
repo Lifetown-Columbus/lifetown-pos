@@ -7,7 +7,7 @@ class CatalogItemRepository(private val catalogItemDao: CatalogItemDao) {
     val allItems: LiveData<List<CatalogItem>> = catalogItemDao.getAllItems()
 
     @WorkerThread
-    suspend fun addItem(catalogItem: CatalogItem) {
+    fun addItem(catalogItem: CatalogItem) {
         catalogItemDao.insert(catalogItem)
     }
 }

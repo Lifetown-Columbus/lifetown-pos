@@ -16,9 +16,8 @@ class Catalog(application: Application) : AndroidViewModel(application) {
         get() = parentJob + Dispatchers.Main
 
     private val scope = CoroutineScope(coroutineContext)
-
-
     private val repository: CatalogItemRepository
+
     val allItems: LiveData<List<CatalogItem>>
 
     init {
