@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
@@ -76,7 +77,7 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
     private fun initItemizedSaleRecyclerView(view: View) {
         adapter = ItemizedSaleRecyclerViewAdapter()
         view.itemized_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this.activity).apply {
-            orientation = androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
+            orientation = RecyclerView.VERTICAL
         }
         view.itemized_list.adapter = adapter
     }
