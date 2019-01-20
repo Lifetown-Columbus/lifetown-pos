@@ -50,14 +50,16 @@ class CheckoutFragment : Fragment() {
 
     private fun initCatalogView(view: View) {
         val recyclerView = view.catalogRecyclerView
-        val adapter = CatalogGridAdapter(this.activity!!)
+        val adapter = CatalogGridAdapter(this.activity!!) {
+            val saleItem = PurchasedItem(BigDecimal.valueOf(it.value), it.name)
+            currentSale.addItem(saleItem)
+        }
+
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this.activity, 6)
         catalog.allItems.observe(this, Observer { items ->
             items?.let { adapter.setItems(it) }
         })
-        // TODO add the catalogItem click listener
-        // https://www.youtube.com/watch?v=dYbbTGiZ2sA
     }
 
     private fun addItem(view: View) {

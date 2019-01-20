@@ -20,15 +20,13 @@ class CatalogInstrumentedTest : TestHarness() {
     var activityRule: ActivityTestRule<MerchantActivity> = ActivityTestRule(MerchantActivity::class.java)
 
     @Test
-    @Ignore("wip")
     fun editCatalog_addNewCatalogItem() {
         onView(withId(R.id.editCatalogButton)).perform(click())
         onView(withId(R.id.addCatalogItemButton)).perform(click())
         onView(withId(R.id.catalogItemName)).perform(typeText("Flerp"))
-        onView(withId(R.id.catalogItemValue)).perform(typeText("5.0"))
+        onView(withId(R.id.catalogItemValue)).perform(typeText("5.5"))
 
         onView(withId(R.id.saveCatalogItemButton)).perform(click())
         onView(withId(R.id.addSaleItem)).check(matches(withText("Flerp")))
     }
-
 }
