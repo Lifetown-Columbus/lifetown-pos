@@ -1,7 +1,7 @@
 package org.lifetowncolumbus.pos.merchant
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.WindowManager
 import androidx.navigation.fragment.NavHostFragment
 import org.lifetowncolumbus.pos.R

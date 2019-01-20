@@ -1,8 +1,8 @@
 package org.lifetowncolumbus.pos.merchant.views
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -18,7 +18,7 @@ import org.lifetowncolumbus.pos.merchant.viewModels.CashPayment
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 
 
-class PayCashFragment : Fragment() {
+class PayCashFragment : androidx.fragment.app.Fragment() {
     private lateinit var currentSale: CurrentSale
     private lateinit var amountTendered: TextView
     private lateinit var acceptCashButton: Button

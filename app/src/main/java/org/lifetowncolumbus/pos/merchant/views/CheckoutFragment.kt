@@ -1,10 +1,10 @@
 package org.lifetowncolumbus.pos.merchant.views
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +19,7 @@ import org.lifetowncolumbus.pos.merchant.views.catalog.CatalogGridAdapter
 import java.math.BigDecimal
 
 
-class CheckoutFragment : Fragment() {
+class CheckoutFragment : androidx.fragment.app.Fragment() {
     private lateinit var currentSale: CurrentSale
     private lateinit var catalog: Catalog
     private lateinit var editCatalog: Button
@@ -43,7 +43,7 @@ class CheckoutFragment : Fragment() {
         }
 
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = GridLayoutManager(this.activity, 6)
+        recyclerView.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this.activity, 6)
         catalog.allItems.observe(this, Observer { items ->
             items?.let { adapter.setItems(it) }
         })

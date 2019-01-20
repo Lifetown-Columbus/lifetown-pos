@@ -1,8 +1,8 @@
 package org.lifetowncolumbus.pos.merchant.viewModels
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
 import org.junit.Before

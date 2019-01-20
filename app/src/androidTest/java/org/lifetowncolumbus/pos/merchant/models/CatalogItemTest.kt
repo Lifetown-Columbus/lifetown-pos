@@ -1,13 +1,18 @@
 package org.lifetowncolumbus.pos.merchant.models
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.emptyCollectionOf
 import org.hamcrest.Matchers.equalTo
+import org.junit.Rule
 import org.junit.Test
 import org.lifetowncolumbus.pos.merchant.TestHarness
 import org.lifetowncolumbus.pos.merchant.blockingObserve
 
 class CatalogItemDbTest : TestHarness() {
+
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Test
     fun deleteAllShouldDeleteEverything() {

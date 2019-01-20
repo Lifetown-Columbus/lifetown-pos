@@ -1,7 +1,7 @@
 package org.lifetowncolumbus.pos.merchant.views.catalog
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +11,12 @@ import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.models.CatalogItem
 
 class CatalogGridAdapter internal constructor(context: Context, private val clickListener: (CatalogItem) -> Unit) :
-    RecyclerView.Adapter<CatalogGridAdapter.CatalogItemViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<CatalogGridAdapter.CatalogItemViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var items = emptyList<CatalogItem>()
 
-    inner class CatalogItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CatalogItemViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val catalogItemView: Button = itemView.addSaleItem
         init {
             catalogItemView.setOnClickListener {

@@ -1,10 +1,10 @@
 package org.lifetowncolumbus.pos.merchant.views
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.toCurrencyString
 import java.math.BigDecimal
 
-class ItemizedSaleFragment : Fragment() {
+class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var totalValue: TextView
     private lateinit var currentSale: CurrentSale
@@ -75,8 +75,8 @@ class ItemizedSaleFragment : Fragment() {
 
     private fun initItemizedSaleRecyclerView(view: View) {
         adapter = ItemizedSaleRecyclerViewAdapter()
-        view.itemized_list.layoutManager = LinearLayoutManager(this.activity).apply {
-            orientation = LinearLayoutManager.VERTICAL
+        view.itemized_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this.activity).apply {
+            orientation = androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
         }
         view.itemized_list.adapter = adapter
     }

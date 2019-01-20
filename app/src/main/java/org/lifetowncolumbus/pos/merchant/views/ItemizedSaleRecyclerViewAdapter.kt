@@ -1,6 +1,6 @@
 package org.lifetowncolumbus.pos.merchant.views
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import org.lifetowncolumbus.pos.merchant.viewModels.Item
 import org.lifetowncolumbus.pos.toCurrencyString
 
 
-class ItemizedSaleRecyclerViewAdapter : RecyclerView.Adapter<ItemizedSaleRecyclerViewAdapter.ListItemViewHolder>() {
+class ItemizedSaleRecyclerViewAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<ItemizedSaleRecyclerViewAdapter.ListItemViewHolder>() {
     private var items: List<Item> = emptyList()
 
     fun setItems(newItems: List<Item>) {
@@ -33,7 +33,7 @@ class ItemizedSaleRecyclerViewAdapter : RecyclerView.Adapter<ItemizedSaleRecycle
         return items.size
     }
 
-    class ListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ListItemViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val itemPrice: TextView = itemView.itemPrice
         val itemName: TextView = itemView.itemName
     }

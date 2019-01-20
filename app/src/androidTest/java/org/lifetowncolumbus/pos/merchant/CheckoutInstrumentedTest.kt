@@ -55,7 +55,7 @@ class CheckoutInstrumentedTest : TestHarness() {
     private fun addAnItem() {
         onView(withId(R.id.catalogRecyclerView)).perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Purchased Item"))))
+        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Widget"))))
         onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("$500.00"))))
     }
 
