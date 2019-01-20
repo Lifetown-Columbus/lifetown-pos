@@ -1,4 +1,4 @@
-image: thyrlian/android-sdk
+image: thyrlian/android-sdk:latest
 
 stages:
   - build
