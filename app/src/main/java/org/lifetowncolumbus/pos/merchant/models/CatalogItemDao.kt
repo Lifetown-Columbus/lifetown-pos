@@ -12,4 +12,7 @@ interface CatalogItemDao {
 
     @Insert
     fun insert(catalogItem: CatalogItem)
+
+    @Query("Delete from catalog")
+    fun deleteAll()
 }

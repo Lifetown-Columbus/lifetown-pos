@@ -1,6 +1,7 @@
 package org.lifetowncolumbus.pos.merchant.models
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.support.annotation.WorkerThread
 
 class CatalogItemRepository(private val catalogItemDao: CatalogItemDao) {

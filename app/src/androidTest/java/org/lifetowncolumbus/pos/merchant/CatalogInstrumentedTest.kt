@@ -14,8 +14,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.lifetowncolumbus.pos.R
 
-@RunWith(AndroidJUnit4::class)
-class CatalogInstrumentedTest {
+class CatalogInstrumentedTest : TestHarness() {
 
     @get:Rule
     var activityRule: ActivityTestRule<MerchantActivity> = ActivityTestRule(MerchantActivity::class.java)
