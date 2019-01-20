@@ -35,7 +35,7 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/catalogItemValue" app:layout_constraintStart_toEndOf="@+id/itemValueLabel"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"

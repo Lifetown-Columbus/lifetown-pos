@@ -71,8 +71,6 @@ class ItemizedSaleFragment : Fragment() {
         currentSale = activity?.run {
             ViewModelProviders.of(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
-
-
     }
 
     private fun initItemizedSaleRecyclerView(view: View) {

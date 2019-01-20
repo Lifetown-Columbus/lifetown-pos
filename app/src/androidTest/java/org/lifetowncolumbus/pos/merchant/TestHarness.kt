@@ -14,7 +14,7 @@ abstract class TestHarness {
     private lateinit var db: LocalDatabase
 
     @Before
-    fun setup() {
+    fun initDB() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = LocalDatabase.getInstance(context)
         catalogItemDao = db.catalogItemDao()
