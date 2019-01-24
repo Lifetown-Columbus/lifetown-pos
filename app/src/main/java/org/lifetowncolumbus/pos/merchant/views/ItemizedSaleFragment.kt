@@ -1,17 +1,16 @@
 package org.lifetowncolumbus.pos.merchant.views
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_itemized_sale.*
 import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
@@ -65,6 +64,15 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_itemized_sale, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.run {
+            Navigation.findNavController(this, R.id.nav_host_fragment).addOnDestinationChangedListener { _, destination, _ ->
+                payCashButton.isEnabled = destination.id == R.id.checkoutFragment
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

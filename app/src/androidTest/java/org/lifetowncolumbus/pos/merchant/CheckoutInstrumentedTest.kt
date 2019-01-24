@@ -44,6 +44,7 @@ class CheckoutInstrumentedTest : TestHarness() {
 
     private fun payCashExpectingChange() {
         onView(withId(R.id.payCashButton)).perform(click())
+        onView(withId(R.id.payCashButton)).check(matches(not(isEnabled())))
         onView(withId(R.id.amountTendered))
             .perform(typeText("600"), closeSoftKeyboard())
 
