@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface CatalogItemDao {
@@ -15,4 +16,7 @@ interface CatalogItemDao {
 
     @Query("Delete from catalog")
     fun deleteAll()
+
+    @Update
+    fun update(catalogItem: CatalogItem)
 }

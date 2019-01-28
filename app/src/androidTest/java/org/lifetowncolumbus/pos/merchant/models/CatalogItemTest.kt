@@ -37,6 +37,22 @@ class CatalogItemDbTest : TestHarness() {
         assertThat(result?.get(0), equalTo(item))
     }
 
+    @Test
+    fun shouldUpdateAnItem() {
+        val item = CatalogItem(9999, "Foo", 10.0)
+        catalogItemDao.insert(item)
+
+        item.apply {
+            name = "Bar"
+            value = 5.0
+        }
+
+        catalogItemDao.update(item)
+        val result = catalogItemDao.getAllItems().blockingObserve()
+
+        assertThat(result?.get(0), equalTo(item))
+    }
+
 
 }
 
