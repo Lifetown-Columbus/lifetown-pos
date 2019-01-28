@@ -11,4 +11,5 @@ class CatalogItemRepository(private val catalogItemDao: CatalogItemDao) {
     fun addItem(catalogItem: CatalogItem) {
         catalogItemDao.insert(catalogItem)
     }
+
 }

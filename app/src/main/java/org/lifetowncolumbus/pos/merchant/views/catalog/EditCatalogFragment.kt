@@ -33,8 +33,13 @@ class EditCatalogFragment : androidx.fragment.app.Fragment() {
 
     private fun initEditCatalogView(view: View) {
         val recyclerView = view.editCatalogRecyclerView
+
         val adapter = CatalogGridAdapter(this.activity!!) {
-           //click handler
+            val bundle = Bundle()
+            if(it.id != null) {
+                bundle.putLong("catalogItemId", it.id!!)
+                Navigation.findNavController(view).navigate(R.id.action_editCatalogFragment_to_addCatalogItemFragment, bundle)
+            }
         }
 
         recyclerView.adapter = adapter

@@ -17,16 +17,27 @@ import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
 
 class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
     private lateinit var catalog: Catalog
+    private lateinit var catalogItem: CatalogItem
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val catalogId = arguments?.getLong("catalogItemId")
+
+        if (catalogId != null && catalogId > 0) {
+            // TODO catalogItem should have a view model that gets bound to this layout
+            // the repository should be able to find it and do an upsert
+//            catalogItem = catalog.getItem(catalogId)
+        }
+
         view.saveCatalogItemButton.setOnClickListener {
             val itemName = view.catalogItemName.text.toString()
             val itemValue = view.catalogItemValue.text.toString().toDouble()
+            // catalog should do an upsert here  ... if id null insert, else update
             catalog.addItem(CatalogItem(null, itemName, itemValue))
             Navigation.findNavController(view).navigate(R.id.action_addCatalogItemFragment_to_checkoutFragment)
             context?.let { context-> KeyboardHelpers.closeKeyboard(context, view) }
         }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
