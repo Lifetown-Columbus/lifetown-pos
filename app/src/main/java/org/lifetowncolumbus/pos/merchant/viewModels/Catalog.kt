@@ -3,12 +3,12 @@ package org.lifetowncolumbus.pos.merchant.viewModels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.experimental.*
-import kotlinx.coroutines.experimental.android.Main
+import kotlinx.coroutines.*
+import kotlinx.coroutines.android.Main
 import org.lifetowncolumbus.pos.merchant.models.CatalogItem
 import org.lifetowncolumbus.pos.merchant.models.CatalogItemRepository
 import org.lifetowncolumbus.pos.merchant.models.LocalDatabase
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlin.coroutines.CoroutineContext
 
 class Catalog(application: Application) : AndroidViewModel(application) {
     private var parentJob = Job()
