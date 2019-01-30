@@ -2,8 +2,7 @@ package org.lifetowncolumbus.pos.merchant.models
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.emptyCollectionOf
-import org.hamcrest.Matchers.equalTo
+import org.hamcrest.Matchers.*
 import org.junit.Rule
 import org.junit.Test
 import org.lifetowncolumbus.pos.merchant.TestHarness
@@ -51,6 +50,30 @@ class CatalogItemDbTest : TestHarness() {
         val result = catalogItemDao.getAllItems().blockingObserve()
 
         assertThat(result?.get(0), equalTo(item))
+    }
+
+    @Test
+    fun shouldFindAndItemByPrimaryKey() {
+        val item = CatalogItem(9999, "Foo", 10.0)
+        val item2 = CatalogItem(9998, "Derp", 10.0)
+
+        catalogItemDao.insert(item)
+        catalogItemDao.insert(item2)
+        val result = catalogItemDao.find(9998).blockingObserve()
+
+        assertThat(result, equalTo(item2))
+    }
+
+    @Test
+    fun shouldDeleteItem() {
+        val item = CatalogItem(9999, "Foo", 10.0)
+
+        catalogItemDao.insert(item)
+        catalogItemDao.delete(item)
+        val result = catalogItemDao.find(9999).blockingObserve()
+
+        assertThat(result, `is`(nullValue()))
+
     }
 
 

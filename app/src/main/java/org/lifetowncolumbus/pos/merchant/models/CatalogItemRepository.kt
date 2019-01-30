@@ -16,6 +16,11 @@ class CatalogItemRepository(private val catalogItemDao: CatalogItemDao) {
         }
     }
 
+    @WorkerThread
+    fun delete(catalogItem: CatalogItem) {
+        catalogItemDao.delete(catalogItem)
+    }
+
     fun find(id: Long) : LiveData<CatalogItem> {
         return catalogItemDao.find(id)
     }

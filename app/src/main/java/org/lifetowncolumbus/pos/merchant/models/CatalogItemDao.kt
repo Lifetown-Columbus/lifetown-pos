@@ -1,10 +1,7 @@
 package org.lifetowncolumbus.pos.merchant.models
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface CatalogItemDao {
@@ -22,4 +19,7 @@ interface CatalogItemDao {
 
     @Query("SELECT * FROM catalog WHERE id == :id")
     fun find(id: Long) : LiveData<CatalogItem>
+
+    @Delete
+    fun delete(catalogItem: CatalogItem)
 }

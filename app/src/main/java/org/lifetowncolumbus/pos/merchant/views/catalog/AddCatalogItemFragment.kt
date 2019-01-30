@@ -43,6 +43,11 @@ class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
             context?.let { context-> KeyboardHelpers.closeKeyboard(context, view) }
         }
 
+        view.deleteCatalogItemButton.setOnClickListener {
+            catalog.delete(catalogItem)
+            Navigation.findNavController(view).navigate(R.id.action_addCatalogItemFragment_to_checkoutFragment)
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

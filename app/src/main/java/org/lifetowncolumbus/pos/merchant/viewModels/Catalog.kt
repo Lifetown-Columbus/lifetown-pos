@@ -34,6 +34,10 @@ class Catalog(application: Application) : AndroidViewModel(application) {
         return repository.find(id)
     }
 
+    fun delete(catalogItem: CatalogItem) = scope.launch(Dispatchers.IO) {
+        repository.delete(catalogItem)
+    }
+
     override fun onCleared() {
         super.onCleared()
         parentJob.cancel()
