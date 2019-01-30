@@ -9,10 +9,8 @@ import android.widget.Button
 abstract class KeyboardHelpers {
     companion object {
         fun closeKeyboard(context: Context, view: View) {
-            if(context != null) {
-                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
+            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
 
         fun clickButtonWhenKeyboardDone(actionId: Int, button: Button): Boolean {

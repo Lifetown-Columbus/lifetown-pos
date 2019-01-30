@@ -1,30 +1,36 @@
 package org.lifetowncolumbus.pos.merchant
 
 
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import org.hamcrest.Matchers.not
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.merchant.models.CatalogItem
 
-@RunWith(AndroidJUnit4::class)
 @LargeTest
-class CheckoutInstrumentedTest {
+class CheckoutInstrumentedTest : TestHarness() {
 
     @get:Rule
     var activityRule: ActivityTestRule<MerchantActivity> = ActivityTestRule(MerchantActivity::class.java)
 
+    @Before
+    fun setup() {
+        catalogItemDao.insert(CatalogItem(null, "Widget", 500.00))
+    }
+
+
     @Test
     fun testAddItem_computeTotal() {
         addAnItem()
-
         onView(withId(R.id.total)).check(matches(withText("Total: $500.00")))
     }
 
@@ -38,6 +44,7 @@ class CheckoutInstrumentedTest {
 
     private fun payCashExpectingChange() {
         onView(withId(R.id.payCashButton)).perform(click())
+        onView(withId(R.id.payCashButton)).check(matches(not(isEnabled())))
         onView(withId(R.id.amountTendered))
             .perform(typeText("600"), closeSoftKeyboard())
 
@@ -47,11 +54,9 @@ class CheckoutInstrumentedTest {
     }
 
     private fun addAnItem() {
-        onView(withId(R.id.itemValue))
-            .perform(typeText("500"), closeSoftKeyboard())
-
-        onView(withId(R.id.addItemButton)).perform(click())
-        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Purchased Item"))))
+        onView(withId(R.id.catalogRecyclerView)).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Widget"))))
         onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("$500.00"))))
     }
 
@@ -67,7 +72,7 @@ class CheckoutInstrumentedTest {
     fun payWithCash_clickCancel_navigatesBack() {
         onView(withId(R.id.payCashButton)).perform(click())
         onView(withId(R.id.cancelPaymentButton)).perform(click())
-        onView(withId(R.id.addItemButton)).check(matches(isDisplayed()))
+        onView(withId(R.id.addSaleItem)).check(matches(isDisplayed()))
     }
 
     @Test

@@ -1,4 +1,4 @@
-image: thyrlian/android-sdk
+image: thyrlian/android-sdk:latest
 
 stages:
   - build
@@ -7,6 +7,7 @@ stages:
 before_script:
 #  - echo `pwd` # debug
 #  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
+  - echo "y" | sdkmanager "build-tools;28.0.3"
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 cache:

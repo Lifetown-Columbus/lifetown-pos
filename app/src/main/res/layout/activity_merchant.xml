@@ -9,12 +9,13 @@
 
     <fragment
             android:layout_width="0dp"
-            android:layout_height="match_parent" android:name="org.lifetowncolumbus.pos.merchant.ItemizedSaleFragment"
+            android:layout_height="match_parent" android:name="org.lifetowncolumbus.pos.merchant.views.ItemizedSaleFragment"
             android:id="@+id/ItemizedSaleFragment" android:layout_weight="1"/>
     <fragment
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:navGraph="@navigation/navigation"
+            app:defaultNavHost="true"
             android:id="@+id/nav_host_fragment" android:layout_weight="2"/>
 </LinearLayout>
