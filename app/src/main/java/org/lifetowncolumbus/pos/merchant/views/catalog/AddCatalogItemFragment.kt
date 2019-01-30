@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_add_catalog_item.view.*
 import org.lifetowncolumbus.pos.KeyboardHelpers
@@ -17,23 +18,27 @@ import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
 
 class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
     private lateinit var catalog: Catalog
-    private lateinit var catalogItem: CatalogItem
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val catalogId = arguments?.getLong("catalogItemId")
 
+        val catalogItem = CatalogItem(null, "", 0.0)
+
         if (catalogId != null && catalogId > 0) {
-            // TODO catalogItem should have a view model that gets bound to this layout
-            // the repository should be able to find it and do an upsert
-//            catalogItem = catalog.getItem(catalogId)
+            catalog.find(catalogId).observe (this, Observer {
+                catalogItem.id = it.id
+                view.catalogItemName.setText(it.name.toString())
+                view.catalogItemValue.setText(it.value.toString())
+            })
         }
 
         view.saveCatalogItemButton.setOnClickListener {
-            val itemName = view.catalogItemName.text.toString()
-            val itemValue = view.catalogItemValue.text.toString().toDouble()
-            // catalog should do an upsert here  ... if id null insert, else update
-            catalog.addItem(CatalogItem(null, itemName, itemValue))
+            catalogItem.apply {
+                name = view.catalogItemName.text.toString()
+                value = view.catalogItemValue.text.toString().toDouble()
+            }
+            catalog.saveItem(catalogItem)
             Navigation.findNavController(view).navigate(R.id.action_addCatalogItemFragment_to_checkoutFragment)
             context?.let { context-> KeyboardHelpers.closeKeyboard(context, view) }
         }

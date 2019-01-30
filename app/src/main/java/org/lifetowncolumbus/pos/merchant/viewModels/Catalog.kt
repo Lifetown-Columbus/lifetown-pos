@@ -26,8 +26,12 @@ class Catalog(application: Application) : AndroidViewModel(application) {
         allItems = repository.allItems
     }
 
-    fun addItem(catalogItem: CatalogItem) = scope.launch(Dispatchers.IO) {
-        repository.addItem(catalogItem)
+    fun saveItem(catalogItem: CatalogItem) = scope.launch(Dispatchers.IO) {
+        repository.saveItem(catalogItem)
+    }
+
+    fun find(id: Long) : LiveData<CatalogItem> {
+        return repository.find(id)
     }
 
     override fun onCleared() {

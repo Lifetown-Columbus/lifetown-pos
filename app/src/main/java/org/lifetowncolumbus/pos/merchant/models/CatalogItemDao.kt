@@ -19,4 +19,7 @@ interface CatalogItemDao {
 
     @Update
     fun update(catalogItem: CatalogItem)
+
+    @Query("SELECT * FROM catalog WHERE id == :id")
+    fun find(id: Long) : LiveData<CatalogItem>
 }

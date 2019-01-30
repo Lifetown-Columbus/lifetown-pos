@@ -2,12 +2,10 @@ package org.lifetowncolumbus.pos.merchant
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
 import org.junit.Rule
 import org.junit.Test
@@ -28,6 +26,9 @@ class CatalogInstrumentedTest : TestHarness() {
 
         onView(withId(R.id.saveCatalogItemButton)).perform(click())
         onView(withId(R.id.addSaleItem)).check(matches(withText("Flerp")))
+        onView(withId(R.id.addSaleItem)).perform(click())
+        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Flerp"))))
+        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("$5.50"))))
     }
 
     @Test
@@ -38,11 +39,14 @@ class CatalogInstrumentedTest : TestHarness() {
         onView(withId(R.id.editCatalogRecyclerView)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
-        onView(withId(R.id.catalogItemName)).perform(typeText("NewWidget"))
-        onView(withId(R.id.catalogItemValue)).perform(typeText("99"))
+        onView(withId(R.id.catalogItemName)).perform(clearText(), typeText("NewWidget"))
+        onView(withId(R.id.catalogItemValue)).perform(clearText(), typeText("99"))
 
         onView(withId(R.id.saveCatalogItemButton)).perform(click())
         onView(withId(R.id.addSaleItem)).check(matches(withText("NewWidget")))
+        onView(withId(R.id.addSaleItem)).perform(click())
+        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("NewWidget"))))
+        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("$99.00"))))
 
 
     }
