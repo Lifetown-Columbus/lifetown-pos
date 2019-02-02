@@ -3,7 +3,6 @@ package org.lifetowncolumbus.pos.merchant
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -17,7 +16,7 @@ import org.lifetowncolumbus.pos.merchant.models.CatalogItem
 class CatalogInstrumentedTest : TestHarness() {
 
     @get:Rule
-    var activityRule: ActivityTestRule<MerchantActivity> = ActivityTestRule(MerchantActivity::class.java)
+    var activityRule: ActivityTestRule<POSActivity> = ActivityTestRule(POSActivity::class.java)
 
     @Test
     fun editCatalog_addNewCatalogItem() {

@@ -6,14 +6,13 @@ import android.view.WindowManager
 import androidx.navigation.fragment.NavHostFragment
 import org.lifetowncolumbus.pos.R
 
-class MerchantActivity : AppCompatActivity() {
+class POSActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_merchant)
+        setContentView(R.layout.activity_pos)
 
-        val host: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment? ?: return
+        supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment? ?: return
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
     }
