@@ -22,6 +22,7 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
     private lateinit var totalValue: TextView
     private lateinit var currentSale: CurrentSale
     private lateinit var adapter: ItemizedSaleRecyclerViewAdapter
+    private lateinit var payCashButton: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +42,7 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun initPayCashButton(view: View) {
-        val payCashButton: Button = view.findViewById(R.id.payCashButton)
+        payCashButton = view.findViewById(R.id.payCashButton)
         payCashButton.setOnClickListener {
             Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
                 .navigate(R.id.payCashFragment)
@@ -68,10 +69,8 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
 
     override fun onStart() {
         super.onStart()
-        activity?.run {
-            Navigation.findNavController(this, R.id.nav_host_fragment).addOnDestinationChangedListener { _, destination, _ ->
-                payCashButton.isEnabled = destination.id == R.id.checkoutFragment
-            }
+        Navigation.findNavController(payCashButton).addOnDestinationChangedListener { _, destination, _ ->
+            payCashButton.isEnabled = destination.id == R.id.checkoutFragment
         }
     }
 
