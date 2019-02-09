@@ -24,8 +24,6 @@
     </fragment>
     <fragment android:id="@+id/addCatalogItemFragment" android:name="org.lifetowncolumbus.pos.merchant.views.catalog.AddCatalogItemFragment"
               android:label="fragment_add_catalog_item" tools:layout="@layout/fragment_add_catalog_item">
-        <action android:id="@+id/action_addCatalogItemFragment_to_checkoutFragment"
-                app:destination="@id/checkoutFragment"/>
         <argument android:name="catalogItemId" app:argType="long" android:defaultValue="-1L"/>
     </fragment>
 </navigation>

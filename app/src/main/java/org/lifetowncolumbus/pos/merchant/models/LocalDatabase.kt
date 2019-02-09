@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import android.content.Context
 
-@Database(entities = [CatalogItem::class], version = 1)
+@Database(entities = [CatalogItem::class], version = 1, exportSchema = false)
 abstract class LocalDatabase : RoomDatabase() {
     abstract fun catalogItemDao(): CatalogItemDao
 
