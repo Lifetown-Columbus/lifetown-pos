@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_itemized_sale.*
 import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
