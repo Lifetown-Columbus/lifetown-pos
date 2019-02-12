@@ -3,7 +3,6 @@ package org.lifetowncolumbus.pos.merchant.views.catalog
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,25 +24,10 @@ class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
-        val catalogId = arguments?.getLong("catalogItemId")
-
-        val catalogItem = CatalogItem(null, "", 0.0)
-        if (catalogId != null && catalogId > 0) {
-            catalog.find(catalogId).observe (this, Observer {
-                catalogItem.id = it.id
-                view.catalogItemName.setText(it.name)
-                view.catalogItemValue.setText(it.value.toString())
-            })
-        }
+        val catalogItem = hydrateCatalogItem(arguments?.getLong("catalogItemId"), view)
 
         view.saveCatalogItemButton.setOnClickListener {
-            catalogItem.apply {
-                name = view.catalogItemName.text.toString()
-                value = view.catalogItemValue.text.toString().toDouble()
-            }
-            catalog.saveItem(catalogItem)
-            navController.popBackStack()
-            context?.let { context-> KeyboardHelpers.closeKeyboard(context, view) }
+            upsertCatalogItem(catalogItem, view)
         }
 
         view.deleteCatalogItemButton.setOnClickListener {
@@ -51,6 +35,34 @@ class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
             navController.popBackStack()
         }
 
+    }
+
+    private fun upsertCatalogItem(
+        catalogItem: CatalogItem,
+        view: View
+    ) {
+        catalogItem.apply {
+            name = view.catalogItemName.text.toString()
+            value = view.catalogItemValue.text.toString().toDouble()
+        }
+        catalog.saveItem(catalogItem)
+        navController.popBackStack()
+        context?.let { context -> KeyboardHelpers.closeKeyboard(context, view) }
+    }
+
+    private fun hydrateCatalogItem(
+        catalogId: Long?,
+        view: View
+    ): CatalogItem {
+        val catalogItem = CatalogItem(null, "", 0.0)
+        if (catalogId != null && catalogId > 0) {
+            catalog.find(catalogId).observe(this, Observer {
+                catalogItem.id = it.id
+                view.catalogItemName.setText(it.name)
+                view.catalogItemValue.setText(it.value.toString())
+            })
+        }
+        return catalogItem
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
