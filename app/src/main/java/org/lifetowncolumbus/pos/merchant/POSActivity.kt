@@ -1,26 +1,45 @@
 package org.lifetowncolumbus.pos.merchant
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.Navigation
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import org.lifetowncolumbus.pos.R
 
 class POSActivity : AppCompatActivity() {
 
+    lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pos)
 
-        supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment? ?: return
+        val host: NavHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment? ?: return
 
-        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        val toolbar : Toolbar = findViewById(R.id.toolbar)
-        NavigationUI.setupWithNavController(toolbar, navController)
+        configureToolbar(host)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+    }
+
+    private fun configureToolbar(host: NavHostFragment) {
+        navController = host.navController
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        NavigationUI.setupWithNavController(toolbar, navController)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.config_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item,navController) || super.onOptionsItemSelected(item)
     }
 }
