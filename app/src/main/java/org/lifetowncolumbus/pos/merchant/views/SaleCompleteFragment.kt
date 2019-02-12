@@ -18,7 +18,7 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.newSaleButton.setOnClickListener {
             currentSale.newSale()
-            Navigation.findNavController(view).navigate(R.id.checkoutFragment)
+            Navigation.findNavController(view).popBackStack(R.id.checkoutFragment, false)
         }
     }
 
