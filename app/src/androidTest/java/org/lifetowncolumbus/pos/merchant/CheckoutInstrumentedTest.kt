@@ -20,7 +20,7 @@ import org.lifetowncolumbus.pos.merchant.models.CatalogItem
 class CheckoutInstrumentedTest : TestHarness() {
 
     @get:Rule
-    var activityRule: ActivityTestRule<MerchantActivity> = ActivityTestRule(MerchantActivity::class.java)
+    var activityRule: ActivityTestRule<POSActivity> = ActivityTestRule(POSActivity::class.java)
 
     @Before
     fun setup() {

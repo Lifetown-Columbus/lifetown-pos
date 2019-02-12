@@ -3,11 +3,11 @@ package org.lifetowncolumbus.pos.merchant.views.catalog
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_add_catalog_item.view.*
 import org.lifetowncolumbus.pos.KeyboardHelpers
@@ -18,36 +18,51 @@ import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
 
 class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
     private lateinit var catalog: Catalog
+    private lateinit var navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val catalogId = arguments?.getLong("catalogItemId")
+        navController = Navigation.findNavController(view)
 
-        val catalogItem = CatalogItem(null, "", 0.0)
-
-        if (catalogId != null && catalogId > 0) {
-            catalog.find(catalogId).observe (this, Observer {
-                catalogItem.id = it.id
-                view.catalogItemName.setText(it.name.toString())
-                view.catalogItemValue.setText(it.value.toString())
-            })
-        }
+        val catalogItem = hydrateCatalogItem(arguments?.getLong("catalogItemId"), view)
 
         view.saveCatalogItemButton.setOnClickListener {
-            catalogItem.apply {
-                name = view.catalogItemName.text.toString()
-                value = view.catalogItemValue.text.toString().toDouble()
-            }
-            catalog.saveItem(catalogItem)
-            Navigation.findNavController(view).navigate(R.id.action_addCatalogItemFragment_to_checkoutFragment)
-            context?.let { context-> KeyboardHelpers.closeKeyboard(context, view) }
+            upsertCatalogItem(catalogItem, view)
         }
 
         view.deleteCatalogItemButton.setOnClickListener {
             catalog.delete(catalogItem)
-            Navigation.findNavController(view).navigate(R.id.action_addCatalogItemFragment_to_checkoutFragment)
+            navController.popBackStack()
         }
 
+    }
+
+    private fun upsertCatalogItem(
+        catalogItem: CatalogItem,
+        view: View
+    ) {
+        catalogItem.apply {
+            name = view.catalogItemName.text.toString()
+            value = view.catalogItemValue.text.toString().toDouble()
+        }
+        catalog.saveItem(catalogItem)
+        navController.popBackStack()
+        context?.let { context -> KeyboardHelpers.closeKeyboard(context, view) }
+    }
+
+    private fun hydrateCatalogItem(
+        catalogId: Long?,
+        view: View
+    ): CatalogItem {
+        val catalogItem = CatalogItem(null, "", 0.0)
+        if (catalogId != null && catalogId > 0) {
+            catalog.find(catalogId).observe(this, Observer {
+                catalogItem.id = it.id
+                view.catalogItemName.setText(it.name)
+                view.catalogItemValue.setText(it.value.toString())
+            })
+        }
+        return catalogItem
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

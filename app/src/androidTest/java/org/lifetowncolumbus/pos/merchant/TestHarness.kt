@@ -11,11 +11,11 @@ import org.lifetowncolumbus.pos.merchant.models.LocalDatabase
 @RunWith(AndroidJUnit4::class)
 abstract class TestHarness {
     protected lateinit var catalogItemDao: CatalogItemDao
+    protected val context = ApplicationProvider.getApplicationContext<Context>()
     private lateinit var db: LocalDatabase
 
     @Before
     fun initDB() {
-        val context = ApplicationProvider.getApplicationContext<Context>()
         db = LocalDatabase.getInstance(context)
         catalogItemDao = db.catalogItemDao()
         catalogItemDao.deleteAll()

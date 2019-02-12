@@ -22,16 +22,9 @@ import java.math.BigDecimal
 class CheckoutFragment : androidx.fragment.app.Fragment() {
     private lateinit var currentSale: CurrentSale
     private lateinit var catalog: Catalog
-    private lateinit var editCatalog: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        editCatalog = view.editCatalogButton
-        editCatalog.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_checkoutFragment_to_editCatalogFragment)
-        }
-
         initCatalogView(view)
     }
 

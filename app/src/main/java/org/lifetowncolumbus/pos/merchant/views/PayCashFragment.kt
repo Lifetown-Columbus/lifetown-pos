@@ -1,8 +1,6 @@
 package org.lifetowncolumbus.pos.merchant.views
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -10,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_pay_cash.view.*
 import org.lifetowncolumbus.pos.KeyboardHelpers
@@ -23,6 +23,7 @@ class PayCashFragment : androidx.fragment.app.Fragment() {
     private lateinit var amountTendered: TextView
     private lateinit var acceptCashButton: Button
     private lateinit var cancelButton: Button
+    private lateinit var navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,8 +31,9 @@ class PayCashFragment : androidx.fragment.app.Fragment() {
         amountTendered = view.amountTendered
         acceptCashButton =  view.acceptCashButton
         cancelButton = view.cancelPaymentButton
+        navController = Navigation.findNavController(view)
 
-        cancelButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.checkoutFragment))
+        cancelButton.setOnClickListener { navController.popBackStack() }
 
         initAcceptCashButton(view)
         initAmountTenderedField()
@@ -60,7 +62,7 @@ class PayCashFragment : androidx.fragment.app.Fragment() {
         acceptCashButton.setOnClickListener {
             val amount = amountTendered.text.toString().toDoubleOrNull() ?: 0.0
             currentSale.payCash(CashPayment.worth(amount))
-            Navigation.findNavController(view).navigate(R.id.saleCompleteFragment)
+            navController.navigate(R.id.saleCompleteFragment)
             context?.let { context -> KeyboardHelpers.closeKeyboard(context, view) }
         }
     }
