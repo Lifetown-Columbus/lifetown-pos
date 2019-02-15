@@ -41,7 +41,7 @@ class PayCashFragment : androidx.fragment.app.Fragment() {
 
     private fun initAmountTenderedField() {
         amountTendered.addTextChangedListener(ValidAmountTextWatcher())
-        amountTendered.setOnEditorActionListener { v, actionId, event ->
+        amountTendered.setOnEditorActionListener { _, actionId, _ ->
             KeyboardHelpers.clickButtonWhenKeyboardDone(actionId, acceptCashButton)
         }
     }
