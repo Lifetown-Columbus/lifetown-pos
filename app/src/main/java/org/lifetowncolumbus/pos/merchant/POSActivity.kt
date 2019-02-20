@@ -9,11 +9,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.epson.epos2.discovery.Discovery
+import com.epson.epos2.printer.Printer
 import org.lifetowncolumbus.pos.R
 
 class POSActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
+    lateinit var printer: Printer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,14 @@ class POSActivity : AppCompatActivity() {
         configureToolbar(host)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+        Discovery.start(this, null) {
+            printer = Printer(it.deviceType,1, this)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Discovery.stop()
     }
 
     private fun configureToolbar(host: NavHostFragment) {
