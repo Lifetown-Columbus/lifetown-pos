@@ -1,26 +1,56 @@
 package org.lifetowncolumbus.pos.merchant.views
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.epson.epos2.printer.Printer
 import kotlinx.android.synthetic.main.fragment_sale_complete.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.merchant.POSActivity
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
+import org.lifetowncolumbus.pos.toCurrencyString
 
 class SaleCompleteFragment : androidx.fragment.app.Fragment() {
     private lateinit var currentSale: CurrentSale
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (activity is POSActivity){
+            val posActivity = activity as POSActivity
+            printReceipt(posActivity.printer)
+        }
+
         view.newSaleButton.setOnClickListener {
             currentSale.newSale()
             Navigation.findNavController(view).popBackStack(R.id.checkoutFragment, false)
         }
     }
+
+    private fun printReceipt(printer: Printer)
+    {
+        printer.beginTransaction()
+        printer.addTextAlign(Printer.ALIGN_CENTER)
+
+        printer.addText("Lifetown Columbus\n")
+        printer.addFeedLine(2)
+        currentSale.items.value?.forEach {
+            printer.addText("${it.name}\t${it.value.toCurrencyString()}\n")
+        }
+        printer.addTextSize(2, 2)
+        printer.addText("Change\t${currentSale.total.toCurrencyString()}")
+        printer.addTextSize(1, 1)
+        printer.addFeedLine(4)
+        printer.addCut(Printer.CUT_FEED)
+        printer.addPulse(Printer.DRAWER_2PIN, Printer.PULSE_200)
+
+        printer.sendData(Printer.PARAM_DEFAULT)
+        printer.clearCommandBuffer()
+        printer.endTransaction()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
