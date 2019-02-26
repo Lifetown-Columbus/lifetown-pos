@@ -18,10 +18,11 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (activity is POSActivity){
-            val posActivity = activity as POSActivity
-            printReceipt(posActivity.printer)
-        }
+        //TODO: test this shit
+//        if (activity is POSActivity){
+//            val posActivity = activity as POSActivity
+//            printReceipt(posActivity.printer)
+//        }
 
         view.newSaleButton.setOnClickListener {
             currentSale.newSale()

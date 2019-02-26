@@ -29,12 +29,12 @@ class POSActivity : AppCompatActivity() {
         configureToolbar(host)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
-        configurePrinter()
+//        configurePrinter()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Discovery.stop()
+//        Discovery.stop()
     }
 
     private fun configurePrinter() {
