@@ -19,10 +19,13 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //TODO: test this shit
-//        if (activity is POSActivity){
-//            val posActivity = activity as POSActivity
-//            printReceipt(posActivity.printer)
-//        }
+        if (activity is POSActivity){
+            val printer = (activity as POSActivity).printer
+
+            if (printer.status.online == Printer.TRUE) {
+                printReceipt(printer)
+            }
+        }
 
         view.newSaleButton.setOnClickListener {
             currentSale.newSale()
@@ -45,7 +48,7 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
         printer.addTextSize(1, 1)
         printer.addFeedLine(4)
         printer.addCut(Printer.CUT_FEED)
-        printer.addPulse(Printer.DRAWER_2PIN, Printer.PULSE_200)
+//        printer.addPulse(Printer.DRAWER_2PIN, Printer.PULSE_200)
 
         printer.sendData(Printer.PARAM_DEFAULT)
         printer.clearCommandBuffer()
