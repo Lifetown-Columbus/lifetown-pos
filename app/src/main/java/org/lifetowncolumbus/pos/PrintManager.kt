@@ -15,7 +15,7 @@ class PrintManager (
 
     fun start() {
         discoveryWrapper.start(activity, usbPrinter()) {
-            PrinterFactory.create(it.deviceType, activity).connect(it.target)
+            createPrinter(it.deviceType, activity).connect(it.target)
         }
     }
 

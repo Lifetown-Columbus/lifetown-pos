@@ -8,6 +8,7 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.any
 import org.junit.After
 import org.junit.Assert.assertThat
 import org.junit.Before
@@ -32,9 +33,13 @@ class PrintManagerTest {
     fun setup() {
         MockKAnnotations.init(this)
         printer = mockk(relaxed = true)
-        mockkObject(PrinterFactory.Companion)
-        every { PrinterFactory.create(any(), any()) }.returns(printer)
+        mockkStatic("org.lifetowncolumbus.pos.PrinterFactoryKt")
+        every { createPrinter(any(), any()) }.returns(printer)
+    }
 
+    @After
+    fun teardown() {
+        unmockkAll()
     }
 
     @Test
