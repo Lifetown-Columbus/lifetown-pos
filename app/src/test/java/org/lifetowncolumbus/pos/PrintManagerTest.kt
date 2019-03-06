@@ -1,29 +1,29 @@
 package org.lifetowncolumbus.pos
 
+import android.util.Log
+import com.epson.epos2.Epos2Exception
 import com.epson.epos2.discovery.DeviceInfo
 import com.epson.epos2.discovery.Discovery
 import com.epson.epos2.discovery.FilterOption
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.impl.annotations.RelaxedMockK
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.any
 import org.junit.After
 import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.lifetowncolumbus.pos.merchant.POSActivity
-import org.mockito.Mock
 
 class PrintManagerTest {
 
-    @RelaxedMockK
+    @MockK
     lateinit var discovery: DiscoveryWrapper
 
     @MockK
     lateinit var activity: POSActivity
 
+    @MockK
     lateinit var printer: PrinterWrapper
 
     @InjectMockKs
@@ -31,10 +31,18 @@ class PrintManagerTest {
 
     @Before
     fun setup() {
-        MockKAnnotations.init(this)
-        printer = mockk(relaxed = true)
+        MockKAnnotations.init(this, relaxUnitFun = true)
+        mockkStatic(Log::class)
+        stubFoundPrinter()
+    }
+
+    private fun stubFoundPrinter() {
         mockkStatic("org.lifetowncolumbus.pos.PrinterFactoryKt")
         every { createPrinter(any(), any()) }.returns(printer)
+
+        every { discovery.start(any(), any(), captureLambda()) }.answers {
+            lambda<(DeviceInfo) -> Unit>().invoke(FakeDeviceInfo())
+        }
     }
 
     @After
@@ -77,12 +85,34 @@ class PrintManagerTest {
 
     @Test
     fun shouldDiscoverThePrinter() {
-        every { discovery.start(any(), any(), captureLambda()) }.answers {
-           lambda<(DeviceInfo) -> Unit>().invoke(FakeDeviceInfo())
-        }
-
         subject.start()
 
         verify { printer.connect("TheTarget") }
     }
+
+    @Test
+    fun shouldLogErrorWhenDiscoveryFails() {
+        every { discovery.start(any(), any(), any()) }.throws(Epos2Exception("boom", Throwable()))
+
+        subject.start()
+
+        verify { Log.e(PrintManager::class.qualifiedName, "Printer discovery failed") }
+    }
+
+    @Test
+    fun shouldLogWhenPrinterConnectionFails() {
+        every { printer.connect(any()) }.throws(Epos2Exception("boom", Throwable()))
+
+        subject.start()
+
+        verify { Log.e(PrintManager::class.qualifiedName, "Printer connection failed") }
+    }
+
+    @Test
+    fun shouldProvideStaticReferenceToThePrinter() {
+        subject.start()
+
+        assertThat(PrintManager.printer, `is`(printer))
+    }
+
 }
