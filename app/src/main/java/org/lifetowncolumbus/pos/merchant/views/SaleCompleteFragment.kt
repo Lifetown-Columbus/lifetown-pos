@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.epson.epos2.printer.Printer
 import kotlinx.android.synthetic.main.fragment_sale_complete.view.*
+import org.lifetowncolumbus.pos.PrintManager
+import org.lifetowncolumbus.pos.PrinterWrapper
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.POSActivity
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
@@ -20,9 +22,9 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //TODO: test this shit
         if (activity is POSActivity){
-            val printer = (activity as POSActivity).printer
+            val printer = PrintManager.printer
 
-            if (printer.status.online == Printer.TRUE) {
+            if (printer.status().online == Printer.TRUE) {
                 printReceipt(printer)
             }
         }
@@ -33,7 +35,7 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
         }
     }
 
-    private fun printReceipt(printer: Printer)
+    private fun printReceipt(printer: PrinterWrapper)
     {
         printer.beginTransaction()
         printer.addTextAlign(Printer.ALIGN_CENTER)
@@ -48,7 +50,7 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
         printer.addTextSize(1, 1)
         printer.addFeedLine(4)
         printer.addCut(Printer.CUT_FEED)
-//        printer.addPulse(Printer.DRAWER_2PIN, Printer.PULSE_200)
+        printer.addPulse(Printer.DRAWER_2PIN, Printer.PULSE_200)
 
         printer.sendData(Printer.PARAM_DEFAULT)
         printer.clearCommandBuffer()
