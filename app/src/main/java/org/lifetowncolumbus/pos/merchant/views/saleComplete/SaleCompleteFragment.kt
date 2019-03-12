@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos.merchant.views
+package org.lifetowncolumbus.pos.merchant.views.saleComplete
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,14 +20,6 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //TODO: test this shit
-        if (activity is POSActivity){
-            val printer = PrintManager.printer
-
-            if (printer.status().online == Printer.TRUE) {
-                printReceipt(printer)
-            }
-        }
 
         view.newSaleButton.setOnClickListener {
             currentSale.newSale()
@@ -35,28 +27,10 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
         }
     }
 
-    private fun printReceipt(printer: PrinterWrapper)
-    {
-        printer.beginTransaction()
-        printer.addTextAlign(Printer.ALIGN_CENTER)
-
-        printer.addText("Lifetown Columbus\n")
-        printer.addFeedLine(2)
-        currentSale.items.value?.forEach {
-            printer.addText("${it.name}\t${it.value.toCurrencyString()}\n")
-        }
-        printer.addTextSize(2, 2)
-        printer.addText("Change\t${currentSale.total.toCurrencyString()}")
-        printer.addTextSize(1, 1)
-        printer.addFeedLine(4)
-        printer.addCut(Printer.CUT_FEED)
-        printer.addPulse(Printer.DRAWER_2PIN, Printer.PULSE_200)
-
-        printer.sendData(Printer.PARAM_DEFAULT)
-        printer.clearCommandBuffer()
-        printer.endTransaction()
+    override fun onResume() {
+        super.onResume()
+        PrintManager.print(ReceiptPrintJob(currentSale))
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

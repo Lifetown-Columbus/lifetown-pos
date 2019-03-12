@@ -6,6 +6,15 @@ import org.lifetowncolumbus.pos.merchant.POSActivity
 
 class PrinterWrapper(deviceType: Int, activity: POSActivity){
     private val printer = Printer(deviceType, Printer.MODEL_ANK, activity)
+    companion object {
+        const val ALIGN_CENTER = Printer.ALIGN_CENTER
+        const val CUT_FEED = Printer.CUT_FEED
+        const val DRAWER_2PIN = Printer.DRAWER_2PIN
+        const val PULSE_200 = Printer.PULSE_200
+        const val PARAM_DEFAULT = Printer.PARAM_DEFAULT
+        const val TRUE = Printer.TRUE
+    }
+
 
     fun connect(target: String) {
         printer.connect(target, Printer.PARAM_DEFAULT)

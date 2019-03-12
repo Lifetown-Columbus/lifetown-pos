@@ -53,8 +53,4 @@ class PrintManager (
             deviceType = Discovery.TYPE_PRINTER
         }
     }
-
-    fun print(printJob: PrintJob) {
-
-    }
 }

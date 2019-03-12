@@ -15,7 +15,7 @@
                 app:destination="@id/saleCompleteFragment"/>
     </fragment>
     <fragment android:id="@+id/saleCompleteFragment"
-              android:name="org.lifetowncolumbus.pos.merchant.views.SaleCompleteFragment"
+              android:name="org.lifetowncolumbus.pos.merchant.views.saleComplete.SaleCompleteFragment"
               android:label="Sale Complete" tools:layout="@layout/fragment_sale_complete"/>
     <fragment android:id="@+id/editCatalogFragment"
               android:name="org.lifetowncolumbus.pos.merchant.views.catalog.EditCatalogFragment"
