@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos
+package org.lifetowncolumbus.pos.printing
 
 import com.epson.epos2.printer.Printer
 import com.epson.epos2.printer.PrinterStatusInfo

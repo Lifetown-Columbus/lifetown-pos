@@ -3,10 +3,8 @@ package org.lifetowncolumbus.pos.merchant
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.epson.epos2.printer.Printer
 import org.junit.Before
 import org.junit.runner.RunWith
-import org.lifetowncolumbus.pos.PrinterWrapper
 import org.lifetowncolumbus.pos.merchant.models.CatalogItemDao
 import org.lifetowncolumbus.pos.merchant.models.LocalDatabase
 

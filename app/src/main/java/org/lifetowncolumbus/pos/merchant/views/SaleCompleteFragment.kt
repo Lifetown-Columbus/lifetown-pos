@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.epson.epos2.printer.Printer
 import kotlinx.android.synthetic.main.fragment_sale_complete.view.*
-import org.lifetowncolumbus.pos.PrintManager
-import org.lifetowncolumbus.pos.PrinterWrapper
+import org.lifetowncolumbus.pos.printing.PrintManager
+import org.lifetowncolumbus.pos.printing.PrinterWrapper
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.POSActivity
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale

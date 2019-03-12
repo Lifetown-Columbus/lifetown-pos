@@ -12,7 +12,6 @@ import androidx.test.rule.ActivityTestRule
 import org.hamcrest.Matchers.*
 import org.junit.Rule
 import org.junit.Test
-import org.lifetowncolumbus.pos.PrinterWrapper
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.models.CatalogItem
 

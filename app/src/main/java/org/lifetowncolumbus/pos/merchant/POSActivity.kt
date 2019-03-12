@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import org.lifetowncolumbus.pos.PrintManager
+import org.lifetowncolumbus.pos.printing.PrintManager
 import org.lifetowncolumbus.pos.R
 
 class POSActivity : AppCompatActivity() {

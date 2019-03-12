@@ -1,4 +1,4 @@
-package org.lifetowncolumbus.pos
+package org.lifetowncolumbus.pos.printing
 
 import android.util.Log
 import com.epson.epos2.Epos2Exception
@@ -13,6 +13,7 @@ import org.junit.After
 import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
+import org.lifetowncolumbus.pos.DiscoveryWrapper
 import org.lifetowncolumbus.pos.merchant.POSActivity
 
 class PrintManagerTest {
@@ -37,7 +38,7 @@ class PrintManagerTest {
     }
 
     private fun stubFoundPrinter() {
-        mockkStatic("org.lifetowncolumbus.pos.PrinterFactoryKt")
+        mockkStatic("org.lifetowncolumbus.pos.printing.PrinterFactoryKt")
         every { createPrinter(any(), any()) }.returns(printer)
 
         every { discovery.start(any(), any(), captureLambda()) }.answers {
@@ -109,10 +110,13 @@ class PrintManagerTest {
     }
 
     @Test
-    fun shouldProvideStaticReferenceToThePrinter() {
+    fun shouldExecutePrintJobs() {
         subject.start()
 
-        assertThat(PrintManager.printer, `is`(printer))
+        val printJob = mockk<PrintJob>(relaxUnitFun = true)
+        PrintManager.print(printJob)
+
+        verify { printJob.execute(printer) }
     }
 
 }
