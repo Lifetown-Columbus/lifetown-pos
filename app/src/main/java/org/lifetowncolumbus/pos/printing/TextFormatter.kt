@@ -11,8 +11,8 @@ fun serializeReceiptItem(
     val valueString = value.toCurrencyString()
     var mutableName = name
     var padding = ""
-
     var paddingLength = length - name.length - valueString.length
+
     if (paddingLength < 3) {
         mutableName = name.dropLast(3 - paddingLength)
         paddingLength = 3

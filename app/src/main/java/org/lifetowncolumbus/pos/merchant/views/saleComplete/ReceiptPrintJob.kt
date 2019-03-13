@@ -7,7 +7,7 @@ import org.lifetowncolumbus.pos.printing.serializeReceiptItem
 import org.lifetowncolumbus.pos.toCurrencyString
 
 class ReceiptPrintJob(currentSale: CurrentSale) : PrintJob {
-    private val total = currentSale.total.toCurrencyString()
+    private val total = currentSale.total.negate().toCurrencyString()
     private val items = currentSale.items.value?.map {
         serializeReceiptItem(it.name, it.value, 40)
     }

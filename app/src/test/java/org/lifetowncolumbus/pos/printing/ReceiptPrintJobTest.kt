@@ -6,6 +6,7 @@ import io.mockk.verify
 import io.mockk.verifySequence
 import org.junit.Before
 import org.junit.Test
+import org.lifetowncolumbus.pos.merchant.viewModels.CashPayment
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.merchant.viewModels.PurchasedItem
 import org.lifetowncolumbus.pos.merchant.views.saleComplete.ReceiptPrintJob
@@ -25,7 +26,7 @@ class ReceiptPrintJobTest {
             PurchasedItem(name = "Derp", value = BigDecimal.valueOf(5.0))
         ))
 
-        every { currentSale.total }.returns(BigDecimal.valueOf(15.0))
+        every { currentSale.total }.returns(BigDecimal.valueOf(-15.0))
         subject = ReceiptPrintJob(currentSale)
     }
 
@@ -56,7 +57,7 @@ class ReceiptPrintJobTest {
             printer.addText("Flerp.............................$10.00\n")
             printer.addText("Derp...............................$5.00\n")
             printer.addTextSize(2, 2)
-            printer.addText("Change\t$15.00\n") //TODO: this is printing a negative number ... stop
+            printer.addText("Change\t$15.00\n")
             printer.addTextSize(1, 1)
             printer.addFeedLine(4)
             printer.addCut(PrinterWrapper.CUT_FEED)
