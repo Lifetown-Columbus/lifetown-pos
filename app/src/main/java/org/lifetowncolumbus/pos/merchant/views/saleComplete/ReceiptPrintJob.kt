@@ -3,12 +3,13 @@ package org.lifetowncolumbus.pos.merchant.views.saleComplete
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.printing.PrintJob
 import org.lifetowncolumbus.pos.printing.PrinterWrapper
+import org.lifetowncolumbus.pos.printing.serializeReceiptItem
 import org.lifetowncolumbus.pos.toCurrencyString
 
 class ReceiptPrintJob(currentSale: CurrentSale) : PrintJob {
     private val total = currentSale.total.toCurrencyString()
     private val items = currentSale.items.value?.map {
-        "${it.name}\t${it.value.toCurrencyString()}\n"
+        serializeReceiptItem(it.name, it.value, 40)
     }
 
     override fun execute(printer: PrinterWrapper) {

@@ -13,9 +13,9 @@ import java.math.BigDecimal
 
 class ReceiptPrintJobTest {
 
-    val currentSale : CurrentSale = mockk()
-    lateinit var subject : PrintJob
-    val printer: PrinterWrapper = mockk(relaxUnitFun = true)
+    private val currentSale : CurrentSale = mockk()
+    private lateinit var subject : PrintJob
+    private val printer: PrinterWrapper = mockk(relaxUnitFun = true)
 
     @Before
     fun setup(){
@@ -53,10 +53,10 @@ class ReceiptPrintJobTest {
             printer.addText("New Albany, OH 43054\n")
             printer.addText("(614) 939-0765\n")
             printer.addFeedLine(2)
-            printer.addText("Flerp\t$10.00\n")
-            printer.addText("Derp\t$5.00\n")
+            printer.addText("Flerp.............................$10.00\n")
+            printer.addText("Derp...............................$5.00\n")
             printer.addTextSize(2, 2)
-            printer.addText("Change\t$15.00\n")
+            printer.addText("Change\t$15.00\n") //TODO: this is printing a negative number ... stop
             printer.addTextSize(1, 1)
             printer.addFeedLine(4)
             printer.addCut(PrinterWrapper.CUT_FEED)
