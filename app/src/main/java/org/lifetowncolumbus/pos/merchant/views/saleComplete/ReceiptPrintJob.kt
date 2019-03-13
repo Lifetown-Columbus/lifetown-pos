@@ -20,8 +20,9 @@ class ReceiptPrintJob(currentSale: CurrentSale) : PrintJob {
                 printContactInfo(it)
                 it.addFeedLine(2)
                 items?.forEach { item -> it.addText(item) }
+                it.addFeedLine(2)
                 it.addTextSize(2, 2)
-                it.addText("Change\t$total\n")
+                it.addText("Change Due:\t$total\n")
                 it.addTextSize(1, 1)
                 it.addFeedLine(4)
                 it.addCut(PrinterWrapper.CUT_FEED)
