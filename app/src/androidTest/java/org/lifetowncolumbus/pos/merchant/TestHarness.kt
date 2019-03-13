@@ -19,6 +19,7 @@ abstract class TestHarness {
         db = LocalDatabase.getInstance(context)
         catalogItemDao = db.catalogItemDao()
         catalogItemDao.deleteAll()
+        Thread.sleep(500)
     }
 
 

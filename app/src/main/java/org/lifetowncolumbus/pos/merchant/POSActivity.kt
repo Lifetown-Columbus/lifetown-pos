@@ -9,11 +9,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import org.lifetowncolumbus.pos.printing.PrintManager
 import org.lifetowncolumbus.pos.R
 
 class POSActivity : AppCompatActivity() {
 
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
+    private val printManager = PrintManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,13 @@ class POSActivity : AppCompatActivity() {
         configureToolbar(host)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+        printManager.start()
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        printManager.stop()
     }
 
     private fun configureToolbar(host: NavHostFragment) {
