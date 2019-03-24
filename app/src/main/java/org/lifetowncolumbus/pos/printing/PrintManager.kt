@@ -16,7 +16,9 @@ class PrintManager (
     companion object {
         lateinit var printer: PrinterWrapper
         fun print(printJob: PrintJob) {
-            printJob.execute(printer)
+            if (this::printer.isInitialized) {
+                printJob.execute(printer)
+            }
         }
     }
 
