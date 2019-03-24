@@ -76,10 +76,19 @@ class CheckoutInstrumentedTest : TestHarness() {
     @Test
     fun payWithCash_navigatesToSaleComplete() {
         addAnItem()
+
         payCashExpectingChange()
 
         onView(withId(R.id.newSaleButton)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun payWithDebitCard_clickCancel_navigatesBack() {
+        onView(withId(R.id.payDebitButton)).perform(click())
+        onView(withId(R.id.cancelSwipeButton)).perform(click())
+        onView(withId(R.id.addSaleItem)).check(matches(isDisplayed()))
+    }
+
 
     @Test
     fun payWithCash_clickCancel_navigatesBack() {

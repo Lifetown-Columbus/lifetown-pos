@@ -34,6 +34,7 @@
         <action android:id="@+id/action_configFragment_to_editCatalogFragment"
                 app:destination="@id/editCatalogFragment"/>
     </fragment>
-    <fragment android:id="@+id/swipeDebitFragment" android:name="org.lifetowncolumbus.pos.merchant.views.SwipeDebitFragment"
-              android:label="fragment_swipe_debit" tools:layout="@layout/fragment_swipe_debit"/>
+    <fragment android:id="@+id/swipeDebitFragment"
+              android:name="org.lifetowncolumbus.pos.merchant.views.SwipeDebitFragment"
+              android:label="Swipe Card" tools:layout="@layout/fragment_swipe_debit"/>
 </navigation>
