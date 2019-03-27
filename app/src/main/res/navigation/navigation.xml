@@ -36,5 +36,8 @@
     </fragment>
     <fragment android:id="@+id/swipeDebitFragment"
               android:name="org.lifetowncolumbus.pos.merchant.views.SwipeDebitFragment"
-              android:label="Swipe Card" tools:layout="@layout/fragment_swipe_debit"/>
+              android:label="Swipe Card" tools:layout="@layout/fragment_swipe_debit">
+        <action android:id="@+id/action_swipeDebitFragment_to_saleCompleteFragment"
+                app:destination="@id/saleCompleteFragment"/>
+    </fragment>
 </navigation>

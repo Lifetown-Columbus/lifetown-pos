@@ -23,3 +23,12 @@ data class CashPayment internal constructor(override val value: BigDecimal, over
         }
     }
 }
+
+data class DebitPayment internal constructor(override val value: BigDecimal, override val name: String = "Debit Card") :
+    Item {
+    companion object {
+        fun worth(value: Double): DebitPayment {
+            return DebitPayment(BigDecimal.valueOf(-value))
+        }
+    }
+}
