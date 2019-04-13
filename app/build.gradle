@@ -30,6 +30,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/INDEX.LIST'
+    }
 }
 
 dependencies {
@@ -38,6 +41,7 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.27.0-eap13"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'us.fatehi:magnetictrackparser:2.01.02'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'

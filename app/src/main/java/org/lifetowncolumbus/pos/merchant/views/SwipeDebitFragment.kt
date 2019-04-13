@@ -43,7 +43,7 @@ class SwipeDebitFragment : Fragment() {
             currentSale =ViewModelProviders.of(this).get(CurrentSale::class.java)
 
             (activity as POSActivity).swipeEventHandler = SwipeEventHandler {
-                Log.e("Card", "Card swiped: $it")
+                Log.e("Card", "Card swiped: ${it.toBankCard().accountNumber}")
                 currentSale.payDebit(DebitPayment.worth(currentSale.total.toDouble()))
                 navController.navigate(R.id.saleCompleteFragment)
             }
