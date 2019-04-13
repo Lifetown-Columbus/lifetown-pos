@@ -8,6 +8,7 @@
               android:label="Current Sale" tools:layout="@layout/fragment_checkout">
         <action android:id="@+id/action_checkoutFragment_to_payCashFragment" app:destination="@id/payCashFragment"/>
         <action android:id="@+id/action_checkoutFragment_to_configFragment" app:destination="@id/configFragment"/>
+        <action android:id="@+id/action_checkoutFragment_to_swipeDebit" app:destination="@id/swipeDebitFragment"/>
     </fragment>
     <fragment android:id="@+id/payCashFragment" android:name="org.lifetowncolumbus.pos.merchant.views.PayCashFragment"
               android:label="Pay With Cash" tools:layout="@layout/fragment_pay_cash">
@@ -32,5 +33,11 @@
               android:label="Settings" tools:layout="@layout/fragment_config">
         <action android:id="@+id/action_configFragment_to_editCatalogFragment"
                 app:destination="@id/editCatalogFragment"/>
+    </fragment>
+    <fragment android:id="@+id/swipeDebitFragment"
+              android:name="org.lifetowncolumbus.pos.merchant.views.SwipeDebitFragment"
+              android:label="Swipe Card" tools:layout="@layout/fragment_swipe_debit">
+        <action android:id="@+id/action_swipeDebitFragment_to_saleCompleteFragment"
+                app:destination="@id/saleCompleteFragment"/>
     </fragment>
 </navigation>

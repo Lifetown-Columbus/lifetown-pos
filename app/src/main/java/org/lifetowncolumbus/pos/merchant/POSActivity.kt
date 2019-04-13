@@ -1,6 +1,7 @@
 package org.lifetowncolumbus.pos.merchant
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
@@ -9,13 +10,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import org.lifetowncolumbus.pos.printing.PrintManager
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.magneticCards.SwipeEventHandler
+import org.lifetowncolumbus.pos.printing.PrintManager
 
 class POSActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private val printManager = PrintManager(this)
+    var swipeEventHandler: SwipeEventHandler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,13 @@ class POSActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         printManager.start()
 
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
+        if (swipeEventHandler != null) {
+            return swipeEventHandler!!.dispatchKeyEvent(event)
+        }
+        return super.dispatchKeyEvent(event)
     }
 
     override fun onDestroy() {

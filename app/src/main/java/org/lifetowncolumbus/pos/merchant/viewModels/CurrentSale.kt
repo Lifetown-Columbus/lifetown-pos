@@ -25,6 +25,10 @@ class CurrentSale : ViewModel() {
         addItem(payment)
     }
 
+    fun payDebit(payment: DebitPayment) {
+        addItem(payment)
+    }
+
     fun newSale() {
         _items.postValue(ArrayList())
     }

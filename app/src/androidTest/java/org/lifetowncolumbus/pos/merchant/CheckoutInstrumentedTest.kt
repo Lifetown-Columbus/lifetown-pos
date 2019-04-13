@@ -25,6 +25,7 @@ class CheckoutInstrumentedTest : TestHarness() {
     @Before
     fun setup() {
         catalogItemDao.insert(CatalogItem(null, "Widget", 500.00))
+        Thread.sleep(500)
     }
 
 
@@ -53,6 +54,7 @@ class CheckoutInstrumentedTest : TestHarness() {
         onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("-$600.00"))))
     }
 
+
     private fun addAnItem() {
         onView(withId(R.id.catalogRecyclerView)).perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
@@ -62,12 +64,31 @@ class CheckoutInstrumentedTest : TestHarness() {
     }
 
     @Test
+    fun payWithDebitCard_navigatesToSwipeCard() {
+        addAnItem()
+
+        onView(withId(R.id.payDebitButton)).perform(click())
+        onView(withId(R.id.payDebitButton)).check(matches(not(isEnabled())))
+
+        onView(withId(R.id.swipeCardMessage)).check(matches(withText("Please Swipe Card")))
+    }
+
+    @Test
     fun payWithCash_navigatesToSaleComplete() {
         addAnItem()
+
         payCashExpectingChange()
 
         onView(withId(R.id.newSaleButton)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun payWithDebitCard_clickCancel_navigatesBack() {
+        onView(withId(R.id.payDebitButton)).perform(click())
+        onView(withId(R.id.cancelSwipeButton)).perform(click())
+        onView(withId(R.id.addSaleItem)).check(matches(isDisplayed()))
+    }
+
 
     @Test
     fun payWithCash_clickCancel_navigatesBack() {
