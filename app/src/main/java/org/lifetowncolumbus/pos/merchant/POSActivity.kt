@@ -1,7 +1,6 @@
 package org.lifetowncolumbus.pos.merchant
 
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -11,9 +10,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import org.lifetowncolumbus.pos.printing.PrintManager
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.magneticCards.SwipeEventHandler
+import org.lifetowncolumbus.pos.printing.PrintManager
 
 class POSActivity : AppCompatActivity() {
 

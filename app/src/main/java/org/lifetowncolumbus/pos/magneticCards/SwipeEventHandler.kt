@@ -1,18 +1,20 @@
 package org.lifetowncolumbus.pos.magneticCards
 
 import android.view.KeyEvent
+import us.fatehi.creditcardnumber.BankCard
 import us.fatehi.magnetictrack.bankcard.BankCardMagneticTrack
 
-class SwipeEventHandler(val goodSwipe: (data: BankCardMagneticTrack) -> Unit){
+class SwipeEventHandler(val goodSwipe: (data: BankCard) -> Unit){
 
     private var data: String = ""
         set(value) {
-            val tracks = value.split(';')
-            if (tracks.size > 1 && tracks[1].endsWith('?')) { // placeholder for LRC check
-                val tracks = BankCardMagneticTrack.from(value)
-                goodSwipe(tracks)
+            val card = BankCardMagneticTrack.from(value).toBankCard()
+            if (card.hasPrimaryAccountNumber()) {
+                goodSwipe(card)
             }
-            field = value
+            else {
+                field = value
+            }
         }
 
     fun dispatchKeyEvent(event: KeyEvent?) : Boolean {
