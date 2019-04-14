@@ -20,6 +20,7 @@ class SwipeEventHandler(val goodSwipe: (data: BankCard) -> Unit){
     fun dispatchKeyEvent(event: KeyEvent?) : Boolean {
         if(event?.action == KeyEvent.ACTION_DOWN){
             val c = event.unicodeChar.toChar()
+            if (c == '%') { data = "" }
             data += Character.toString(c)
         }
         return true

@@ -1,10 +1,12 @@
 package org.lifetowncolumbus.pos.merchant.views
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -39,17 +41,26 @@ class SwipeDebitFragment : Fragment() {
         (activity as POSActivity).swipeEventHandler = null
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bankService = BankService()
         activity?.run {
-            currentSale =ViewModelProviders.of(this).get(CurrentSale::class.java)
+            currentSale = ViewModelProviders.of(this).get(CurrentSale::class.java)
 
             (activity as POSActivity).swipeEventHandler = SwipeEventHandler {
                 Log.e("Card", "Card swiped: ${it.accountNumber}")
-                bankService.test()
-                currentSale.payCredit(CreditPayment.worth(currentSale.total.toDouble()))
-                navController.navigate(R.id.saleCompleteFragment)
+                bankService.withdraw(it.accountNumber, currentSale.total.toDouble(), {
+                    // on success
+                    currentSale.payCredit(CreditPayment.worth(currentSale.total.toDouble()))
+                    navController.navigate(R.id.saleCompleteFragment)
+                }, {
+                    // on Declined/Failure
+                    // should probably include a failure reason.
+                    activity?.runOnUiThread {
+                        findViewById<TextView>(R.id.swipeCardMessage).text = "Your card was declined!"
+                    }
+                })
             }
         } ?: throw Exception("Invalid Activity")
     }
