@@ -14,7 +14,7 @@ import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.magneticCards.SwipeEventHandler
 import org.lifetowncolumbus.pos.merchant.POSActivity
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
-import org.lifetowncolumbus.pos.merchant.viewModels.DebitPayment
+import org.lifetowncolumbus.pos.merchant.viewModels.CreditPayment
 
 class SwipeDebitFragment : Fragment() {
     private lateinit var currentSale: CurrentSale
@@ -44,7 +44,7 @@ class SwipeDebitFragment : Fragment() {
 
             (activity as POSActivity).swipeEventHandler = SwipeEventHandler {
                 Log.e("Card", "Card swiped: ${it.accountNumber}")
-                currentSale.payDebit(DebitPayment.worth(currentSale.total.toDouble()))
+                currentSale.payCredit(CreditPayment.worth(currentSale.total.toDouble()))
                 navController.navigate(R.id.saleCompleteFragment)
             }
         } ?: throw Exception("Invalid Activity")

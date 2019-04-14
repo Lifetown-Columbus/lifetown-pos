@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "127286671572",
+    "firebase_url": "https://lifetown-pos.firebaseio.com",
+    "project_id": "lifetown-pos",
+    "storage_bucket": "lifetown-pos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127286671572:android:da94911bdd5e28c4",
+        "android_client_info": {
+          "package_name": "org.lifetowncolumbus.pos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127286671572-76ga57bmp620b2qdhkrr2g7ih0ptsvm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOtL996x6yQtrXIY1pePerq6boZEqc6KY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127286671572-76ga57bmp620b2qdhkrr2g7ih0ptsvm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
