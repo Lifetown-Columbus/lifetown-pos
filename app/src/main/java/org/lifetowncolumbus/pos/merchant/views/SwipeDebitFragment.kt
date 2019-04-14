@@ -15,10 +15,12 @@ import org.lifetowncolumbus.pos.magneticCards.SwipeEventHandler
 import org.lifetowncolumbus.pos.merchant.POSActivity
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.merchant.viewModels.CreditPayment
+import org.lifetowncolumbus.pos.services.BankService
 
 class SwipeDebitFragment : Fragment() {
     private lateinit var currentSale: CurrentSale
     private lateinit var navController: NavController
+    private lateinit var bankService: BankService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,11 +41,13 @@ class SwipeDebitFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        bankService = BankService()
         activity?.run {
             currentSale =ViewModelProviders.of(this).get(CurrentSale::class.java)
 
             (activity as POSActivity).swipeEventHandler = SwipeEventHandler {
                 Log.e("Card", "Card swiped: ${it.accountNumber}")
+                bankService.test()
                 currentSale.payCredit(CreditPayment.worth(currentSale.total.toDouble()))
                 navController.navigate(R.id.saleCompleteFragment)
             }
