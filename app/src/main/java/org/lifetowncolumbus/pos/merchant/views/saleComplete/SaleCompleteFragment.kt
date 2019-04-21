@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.epson.epos2.printer.Printer
+import kotlinx.android.synthetic.main.activity_pos.*
 import kotlinx.android.synthetic.main.fragment_sale_complete.view.*
-import org.lifetowncolumbus.pos.printing.PrintManager
-import org.lifetowncolumbus.pos.printing.PrinterWrapper
 import org.lifetowncolumbus.pos.R
-import org.lifetowncolumbus.pos.merchant.POSActivity
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
-import org.lifetowncolumbus.pos.toCurrencyString
+import org.lifetowncolumbus.pos.printing.PrintManager
 
 class SaleCompleteFragment : androidx.fragment.app.Fragment() {
     private lateinit var currentSale: CurrentSale
@@ -22,9 +20,13 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.newSaleButton.setOnClickListener {
-            currentSale.newSale()
             Navigation.findNavController(view).popBackStack(R.id.checkoutFragment, false)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        currentSale.newSale()
     }
 
     override fun onResume() {

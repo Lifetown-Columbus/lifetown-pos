@@ -62,7 +62,7 @@ class PayCashFragment : androidx.fragment.app.Fragment() {
         acceptCashButton.setOnClickListener {
             val amount = amountTendered.text.toString().toDoubleOrNull() ?: 0.0
             currentSale.payCash(CashPayment.worth(amount))
-            navController.navigate(R.id.saleCompleteFragment)
+            navController.navigate(R.id.action_payCashFragment_to_saleCompleteFragment)
             context?.let { context -> KeyboardHelpers.closeKeyboard(context, view) }
         }
     }

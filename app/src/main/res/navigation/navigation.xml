@@ -8,12 +8,13 @@
               android:label="Current Sale" tools:layout="@layout/fragment_checkout">
         <action android:id="@+id/action_checkoutFragment_to_payCashFragment" app:destination="@id/payCashFragment"/>
         <action android:id="@+id/action_checkoutFragment_to_configFragment" app:destination="@id/configFragment"/>
-        <action android:id="@+id/action_checkoutFragment_to_swipeDebit" app:destination="@id/swipeDebitFragment"/>
+        <action android:id="@+id/action_checkoutFragment_to_swipeCreditFragment" app:destination="@id/swipeCreditFragment"/>
     </fragment>
     <fragment android:id="@+id/payCashFragment" android:name="org.lifetowncolumbus.pos.merchant.views.PayCashFragment"
               android:label="Pay With Cash" tools:layout="@layout/fragment_pay_cash">
         <action android:id="@+id/action_payCashFragment_to_saleCompleteFragment"
-                app:destination="@id/saleCompleteFragment"/>
+                app:destination="@id/saleCompleteFragment" app:popUpTo="@+id/checkoutFragment"
+                app:popUpToInclusive="false"/>
     </fragment>
     <fragment android:id="@+id/saleCompleteFragment"
               android:name="org.lifetowncolumbus.pos.merchant.views.saleComplete.SaleCompleteFragment"
@@ -34,10 +35,11 @@
         <action android:id="@+id/action_configFragment_to_editCatalogFragment"
                 app:destination="@id/editCatalogFragment"/>
     </fragment>
-    <fragment android:id="@+id/swipeDebitFragment"
+    <fragment android:id="@+id/swipeCreditFragment"
               android:name="org.lifetowncolumbus.pos.merchant.views.SwipeCreditFragment"
               android:label="Swipe Card" tools:layout="@layout/fragment_swipe_debit">
-        <action android:id="@+id/action_swipeDebitFragment_to_saleCompleteFragment"
-                app:destination="@id/saleCompleteFragment"/>
+        <action android:id="@+id/action_swipeCreditFragment_to_saleCompleteFragment"
+                app:destination="@id/saleCompleteFragment" app:popUpTo="@+id/checkoutFragment"
+                app:popUpToInclusive="false"/>
     </fragment>
 </navigation>

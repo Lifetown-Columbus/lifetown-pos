@@ -52,7 +52,7 @@ class SwipeCreditFragment : Fragment() {
                 bankService.chargeCard(bankCard.accountNumber, currentSale.total.toDouble()) {
                     if(it == AccountTransactionResult.SUCCESS) {
                         currentSale.payCredit(CreditPayment.worth(currentSale.total.toDouble()))
-                        navController.navigate(R.id.saleCompleteFragment)
+                        navController.navigate(R.id.action_swipeCreditFragment_to_saleCompleteFragment)
                     } else {
                         activity?.runOnUiThread {
                             findViewById<TextView>(R.id.swipeCardMessage).text = getString(R.string.CardDeclinedMessage)

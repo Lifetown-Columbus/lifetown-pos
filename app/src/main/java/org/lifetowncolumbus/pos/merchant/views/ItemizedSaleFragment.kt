@@ -46,7 +46,7 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
         payCashButton = view.findViewById(R.id.payCashButton)
         payCashButton.setOnClickListener {
             Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
-                .navigate(R.id.payCashFragment)
+                .navigate(R.id.action_checkoutFragment_to_payCashFragment)
         }
     }
 
@@ -54,7 +54,7 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
         payDebitButton = view.findViewById(R.id.payDebitButton)
         payDebitButton.setOnClickListener {
             Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
-                .navigate(R.id.swipeDebitFragment)
+                .navigate(R.id.action_checkoutFragment_to_swipeCreditFragment)
         }
     }
 
