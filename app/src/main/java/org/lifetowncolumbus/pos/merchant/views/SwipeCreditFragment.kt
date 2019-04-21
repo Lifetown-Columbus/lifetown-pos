@@ -1,6 +1,5 @@
 package org.lifetowncolumbus.pos.merchant.views
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,11 +14,12 @@ import kotlinx.android.synthetic.main.fragment_swipe_debit.view.*
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.magneticCards.SwipeEventHandler
 import org.lifetowncolumbus.pos.merchant.POSActivity
+import org.lifetowncolumbus.pos.merchant.models.AccountTransactionResult
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.merchant.viewModels.CreditPayment
 import org.lifetowncolumbus.pos.services.BankService
 
-class SwipeDebitFragment : Fragment() {
+class SwipeCreditFragment : Fragment() {
     private lateinit var currentSale: CurrentSale
     private lateinit var navController: NavController
     private lateinit var bankService: BankService
@@ -41,26 +41,24 @@ class SwipeDebitFragment : Fragment() {
         (activity as POSActivity).swipeEventHandler = null
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bankService = BankService()
         activity?.run {
             currentSale = ViewModelProviders.of(this).get(CurrentSale::class.java)
 
-            (activity as POSActivity).swipeEventHandler = SwipeEventHandler {
-                Log.e("Card", "Card swiped: ${it.accountNumber}")
-                bankService.withdraw(it.accountNumber, currentSale.total.toDouble(), {
-                    // on success
-                    currentSale.payCredit(CreditPayment.worth(currentSale.total.toDouble()))
-                    navController.navigate(R.id.saleCompleteFragment)
-                }, {
-                    // on Declined/Failure
-                    // should probably include a failure reason.
-                    activity?.runOnUiThread {
-                        findViewById<TextView>(R.id.swipeCardMessage).text = "Your card was declined!"
+            (activity as POSActivity).swipeEventHandler = SwipeEventHandler { bankCard ->
+                Log.e("Card", "Card swiped: ${bankCard.accountNumber}")
+                bankService.chargeCard(bankCard.accountNumber, currentSale.total.toDouble()) {
+                    if(it == AccountTransactionResult.SUCCESS) {
+                        currentSale.payCredit(CreditPayment.worth(currentSale.total.toDouble()))
+                        navController.navigate(R.id.saleCompleteFragment)
+                    } else {
+                        activity?.runOnUiThread {
+                            findViewById<TextView>(R.id.swipeCardMessage).text = getString(R.string.CardDeclinedMessage)
+                        }
                     }
-                })
+                }
             }
         } ?: throw Exception("Invalid Activity")
     }

@@ -19,6 +19,9 @@ android {
             returnDefaultValues = true
         }
     }
+    lintOptions {
+        warning 'InvalidPackage'
+    }
     defaultConfig {
         applicationId "org.lifetowncolumbus.pos"
         minSdkVersion 21

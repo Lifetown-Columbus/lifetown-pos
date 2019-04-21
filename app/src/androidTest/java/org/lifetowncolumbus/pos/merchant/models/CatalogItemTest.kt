@@ -73,7 +73,6 @@ class CatalogItemDbTest : TestHarness() {
         val result = catalogItemDao.find(9999).blockingObserve()
 
         assertThat(result, `is`(nullValue()))
-
     }
 
 
