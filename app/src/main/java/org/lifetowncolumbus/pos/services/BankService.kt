@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.Transaction
 import org.lifetowncolumbus.pos.merchant.models.Account
 import org.lifetowncolumbus.pos.merchant.models.AccountTransactionResult
@@ -24,7 +25,7 @@ class BankService {
             if(snapshot.exists()) {
                 val account = Account.from(snapshot)
 
-                if(account.isExpired) {
+                if(account.expired()) {
                     account.reset()
                 }
 
@@ -53,7 +54,7 @@ class BankService {
         callback: (AccountTransactionResult) -> Unit
     ): Any {
         return if (account.balance <= MAXIMUM_BALANCE) {
-            transaction.set(docRef, account)
+            transaction.set(docRef, account, SetOptions.mergeFields(Account.FIELDS))
         } else {
             callback(FAILURE)
         }

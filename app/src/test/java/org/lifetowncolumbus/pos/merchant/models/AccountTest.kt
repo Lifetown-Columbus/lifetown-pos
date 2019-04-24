@@ -13,13 +13,13 @@ class AccountTest {
     @Test
     fun shouldExpireAtMidnight() {
         val account = Account("123", 0.0, yesterday.toEpochDay())
-        assertThat(account.isExpired, `is`(true))
+        assertThat(account.expired(), `is`(true))
     }
 
     @Test
     fun shouldNotExpireIfCreatedToday() {
         val account = Account("123", 0.0, LocalDate.now().toEpochDay())
-        assertThat(account.isExpired, `is`(false))
+        assertThat(account.expired(), `is`(false))
     }
 
     @Test

@@ -14,14 +14,15 @@ data class Account (
         dayCreated = LocalDate.now().toEpochDay()
     }
 
-    val isExpired: Boolean
-        get() {
-            return LocalDate.now().isAfter(LocalDate.ofEpochDay(dayCreated))
-        }
+    fun expired() : Boolean {
+        return LocalDate.now().isAfter(LocalDate.ofEpochDay(dayCreated))
+    }
 
     companion object {
         fun from(snapshot: DocumentSnapshot) : Account {
             return snapshot.toObject(Account::class.java)!!
         }
+
+        val FIELDS = listOf("id", "balance", "dayCreated")
     }
 }
