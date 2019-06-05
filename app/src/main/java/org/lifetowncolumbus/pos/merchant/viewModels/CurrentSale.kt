@@ -25,7 +25,7 @@ class CurrentSale : ViewModel() {
         addItem(payment)
     }
 
-    fun payDebit(payment: DebitPayment) {
+    fun payCredit(payment: CreditPayment) {
         addItem(payment)
     }
 
