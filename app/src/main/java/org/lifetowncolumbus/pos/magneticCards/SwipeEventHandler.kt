@@ -9,7 +9,7 @@ class SwipeEventHandler(val goodSwipe: (data: BankCard) -> Unit){
     private var data: String = ""
         set(value) {
             val card = BankCardMagneticTrack.from(value).toBankCard()
-            if (card.hasPrimaryAccountNumber()) {
+            if (card.hasPrimaryAccountNumber() && card.primaryAccountNumber.isPrimaryAccountNumberValid) {
                 goodSwipe(card)
             }
             else {
