@@ -1,15 +1,13 @@
 package org.lifetowncolumbus.pos.magneticCards
 
 import android.view.KeyEvent
-import us.fatehi.creditcardnumber.BankCard
-import us.fatehi.magnetictrack.bankcard.BankCardMagneticTrack
 
 class SwipeEventHandler(val goodSwipe: (data: BankCard) -> Unit){
 
     private var data: String = ""
         set(value) {
-            val card = BankCardMagneticTrack.from(value).toBankCard()
-            if (card.hasPrimaryAccountNumber() && card.primaryAccountNumber.isPrimaryAccountNumberValid) {
+            val card = BankCard(value)
+            if (card.isValid) {
                 goodSwipe(card)
             }
             else {
@@ -20,8 +18,8 @@ class SwipeEventHandler(val goodSwipe: (data: BankCard) -> Unit){
     fun dispatchKeyEvent(event: KeyEvent?) : Boolean {
         if(event?.action == KeyEvent.ACTION_DOWN){
             val c = event.unicodeChar.toChar()
-            if (c == '%') { data = "" }
-            data += Character.toString(c)
+            if (c == ';') { data = "" }
+            data += c.toString()
         }
         return true
     }
