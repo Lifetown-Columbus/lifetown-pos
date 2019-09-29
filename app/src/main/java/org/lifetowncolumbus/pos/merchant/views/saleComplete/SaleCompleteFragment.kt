@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.activity_pos.*
 import kotlinx.android.synthetic.main.fragment_sale_complete.view.*
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
@@ -44,7 +42,7 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         currentSale = activity?.run {
-            ViewModelProviders.of(this).get(CurrentSale::class.java)
+            ViewModelProvider(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
     }
 
