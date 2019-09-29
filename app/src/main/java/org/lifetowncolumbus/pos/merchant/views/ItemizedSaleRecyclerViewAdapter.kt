@@ -14,22 +14,34 @@ import org.lifetowncolumbus.pos.toCurrencyString
 
 class ItemizedSaleRecyclerViewAdapter(private val removeHandler: (Int) -> Unit) : RecyclerView.Adapter<ItemizedSaleRecyclerViewAdapter.ListItemViewHolder>() {
     private var items: List<Item> = emptyList()
+    private var enabled: Boolean = true
+
+    fun setEnabled(isEnabled: Boolean) {
+        enabled = isEnabled
+        notifyDataSetChanged()
+    }
 
     fun setItems(newItems: List<Item>) {
         items = newItems
         notifyDataSetChanged()
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        view.removeItemButton.setOnClickListener {  }
         return ListItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
         holder.itemName.text = items[position].name
         holder.itemPrice.text = items[position].value.toCurrencyString()
-        holder.removeButton.setOnClickListener { removeHandler(position) }
+        if (enabled) {
+            holder.removeButton.isEnabled = true
+            holder.removeButton.setOnClickListener { removeHandler(position) }
+        } else {
+            holder.removeButton.isEnabled = false
+        }
+
     }
 
     override fun getItemCount(): Int {

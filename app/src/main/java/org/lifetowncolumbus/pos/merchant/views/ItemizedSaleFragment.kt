@@ -82,6 +82,7 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
             (destination.id == R.id.checkoutFragment).let { canCheckout ->
                 payCashButton.isEnabled = canCheckout
                 payDebitButton.isEnabled = canCheckout
+                adapter.setEnabled(canCheckout)
             }
         }
     }
