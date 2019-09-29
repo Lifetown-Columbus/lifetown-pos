@@ -26,8 +26,8 @@ android {
         applicationId "org.lifetowncolumbus.pos"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.4"
+        versionCode 5
+        versionName "1.5"
         ndk {
             abiFilters "armeabi"
         }
