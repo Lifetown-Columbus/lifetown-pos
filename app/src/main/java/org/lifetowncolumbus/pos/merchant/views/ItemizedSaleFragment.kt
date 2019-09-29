@@ -94,7 +94,7 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun initItemizedSaleRecyclerView(view: View) {
-        adapter = ItemizedSaleRecyclerViewAdapter()
+        adapter = ItemizedSaleRecyclerViewAdapter(currentSale::removeItem)
         view.itemized_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this.activity).apply {
             orientation = RecyclerView.VERTICAL
         }
