@@ -22,4 +22,5 @@
     <string name="close">Close</string>
     <string name="please_swipe_card">Please Swipe Card</string>
     <string name="CardDeclinedMessage">Your card was declined!</string>
+    <string name="x">X</string>
 </resources>

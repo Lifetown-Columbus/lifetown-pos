@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
@@ -82,6 +82,7 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
             (destination.id == R.id.checkoutFragment).let { canCheckout ->
                 payCashButton.isEnabled = canCheckout
                 payDebitButton.isEnabled = canCheckout
+                adapter.setEnabled(canCheckout)
             }
         }
     }
@@ -89,12 +90,12 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         currentSale = activity?.run {
-            ViewModelProviders.of(this).get(CurrentSale::class.java)
+            ViewModelProvider(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
     }
 
     private fun initItemizedSaleRecyclerView(view: View) {
-        adapter = ItemizedSaleRecyclerViewAdapter()
+        adapter = ItemizedSaleRecyclerViewAdapter(currentSale::removeItem)
         view.itemized_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this.activity).apply {
             orientation = RecyclerView.VERTICAL
         }

@@ -74,6 +74,13 @@ class CheckoutInstrumentedTest : TestHarness() {
     }
 
     @Test
+    fun removeItem_removesTheItem() {
+        addAnItem()
+        onView(withId(R.id.removeItemButton)).perform(click())
+        onView(withId(R.id.itemized_list)).check(matches(hasChildCount(0)))
+    }
+
+    @Test
     fun payWithCash_navigatesToSaleComplete() {
         addAnItem()
 

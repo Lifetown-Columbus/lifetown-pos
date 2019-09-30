@@ -21,6 +21,11 @@ class CurrentSale : ViewModel() {
         _items.postValue(_items.value)
     }
 
+    fun removeItem(position: Int) {
+        _items.value?.removeAt(position)
+        _items.postValue(_items.value)
+    }
+
     fun payCash(payment: CashPayment) {
         addItem(payment)
     }

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_pay_cash.view.*
@@ -77,7 +77,7 @@ class PayCashFragment : androidx.fragment.app.Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         currentSale = activity?.run {
-            ViewModelProviders.of(this).get(CurrentSale::class.java)
+            ViewModelProvider(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
     }
 }

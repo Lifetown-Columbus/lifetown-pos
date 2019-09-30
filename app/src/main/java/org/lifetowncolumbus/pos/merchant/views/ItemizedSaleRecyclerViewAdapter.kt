@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import kotlinx.android.synthetic.main.list_item.view.*
 import org.lifetowncolumbus.pos.R
@@ -11,13 +12,20 @@ import org.lifetowncolumbus.pos.merchant.viewModels.Item
 import org.lifetowncolumbus.pos.toCurrencyString
 
 
-class ItemizedSaleRecyclerViewAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<ItemizedSaleRecyclerViewAdapter.ListItemViewHolder>() {
+class ItemizedSaleRecyclerViewAdapter(private val removeHandler: (Int) -> Unit) : RecyclerView.Adapter<ItemizedSaleRecyclerViewAdapter.ListItemViewHolder>() {
     private var items: List<Item> = emptyList()
+    private var enabled: Boolean = true
+
+    fun setEnabled(isEnabled: Boolean) {
+        enabled = isEnabled
+        notifyDataSetChanged()
+    }
 
     fun setItems(newItems: List<Item>) {
         items = newItems
         notifyDataSetChanged()
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
@@ -27,13 +35,21 @@ class ItemizedSaleRecyclerViewAdapter : androidx.recyclerview.widget.RecyclerVie
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
         holder.itemName.text = items[position].name
         holder.itemPrice.text = items[position].value.toCurrencyString()
+        if (enabled) {
+            holder.removeButton.isEnabled = true
+            holder.removeButton.setOnClickListener { removeHandler(position) }
+        } else {
+            holder.removeButton.isEnabled = false
+        }
+
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    class ListItemViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    class ListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val removeButton: Button = itemView.removeItemButton
         val itemPrice: TextView = itemView.itemPrice
         val itemName: TextView = itemView.itemName
     }
