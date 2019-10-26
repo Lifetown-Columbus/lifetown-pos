@@ -17,7 +17,19 @@ class PrintManager (
         lateinit var printer: PrinterWrapper
         fun print(printJob: PrintJob) {
             if (this::printer.isInitialized) {
-                printJob.execute(printer)
+                tryOrLog("PrintJob failed") {
+                    printJob.execute(printer)
+                }
+            }
+        }
+
+        private inline fun tryOrLog(
+            msg: String,
+            block: () -> Unit) {
+            try {
+                block.invoke()
+            } catch (e: Epos2Exception) {
+                Log.e(this::class.qualifiedName, msg)
             }
         }
     }
@@ -36,16 +48,6 @@ class PrintManager (
                 }
             }
         }
-    }
-
-    private inline fun tryOrLog(
-        msg: String,
-        block: () -> Unit) {
-       try {
-           block.invoke()
-       } catch (e: Epos2Exception) {
-           Log.e(this::class.qualifiedName, msg)
-       }
     }
 
     private fun usbPrinter(): FilterOption {

@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
+import org.lifetowncolumbus.pos.printing.OpenDrawerPrintJob
+import org.lifetowncolumbus.pos.printing.PrintManager
 import org.lifetowncolumbus.pos.toCurrencyString
 import java.math.BigDecimal
 
@@ -30,6 +32,7 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
 
         initItemizedSaleRecyclerView(view)
         observeCheckoutViewModel()
+        initOpenDrawerButton(view)
         initPayCashButton(view)
         initSwipeDebitButton(view)
         renderTotal()
@@ -40,6 +43,12 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
             renderTotal()
             items?.let { adapter.setItems(it) }
         })
+    }
+
+    private fun initOpenDrawerButton(view: View) {
+        (view.findViewById(R.id.openDrawerButton) as Button).setOnClickListener {
+            PrintManager.print(OpenDrawerPrintJob());
+        }
     }
 
     private fun initPayCashButton(view: View) {
