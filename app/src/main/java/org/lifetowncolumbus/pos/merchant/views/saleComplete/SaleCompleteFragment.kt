@@ -45,6 +45,4 @@ class SaleCompleteFragment : androidx.fragment.app.Fragment() {
             ViewModelProvider(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
     }
-
-
 }

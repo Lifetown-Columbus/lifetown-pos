@@ -23,4 +23,6 @@
     <string name="please_swipe_card">Please Swipe Card</string>
     <string name="CardDeclinedMessage">Your card was declined!</string>
     <string name="x">X</string>
+    <string name="pay_credit">PAY CREDIT</string>
+    <string name="open_drawer">OPEN DRAWER</string>
 </resources>

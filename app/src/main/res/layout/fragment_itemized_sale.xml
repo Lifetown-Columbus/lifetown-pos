@@ -15,16 +15,20 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemized_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:id="@+id/itemized_list"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/openDrawerButton"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintTop_toBottomOf="@+id/total" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/payCashButton" android:layout_marginTop="16dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/total" />
     <Button
             android:text="@string/pay_with_cash_button"
             android:layout_width="wrap_content"
@@ -33,10 +37,20 @@
             android:id="@+id/payCashButton" android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="16dp"/>
     <Button
-            android:text="PAY CREDIT"
+            android:text="@string/pay_credit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/payDebitButton"
             app:layout_constraintBaseline_toBaselineOf="@+id/payCashButton"
             app:layout_constraintEnd_toStartOf="@+id/payCashButton" android:layout_marginEnd="16dp"/>
+
+    <Button
+            android:id="@+id/openDrawerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/open_drawer"
+            app:layout_constraintBottom_toTopOf="@+id/payCashButton"
+            app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

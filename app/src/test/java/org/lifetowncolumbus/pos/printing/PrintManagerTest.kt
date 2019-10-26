@@ -97,7 +97,7 @@ class PrintManagerTest {
 
         subject.start()
 
-        verify { Log.e(PrintManager::class.qualifiedName, "Printer discovery failed") }
+        verify { Log.e(PrintManager.Companion::class.qualifiedName, "Printer discovery failed") }
     }
 
     @Test
@@ -106,7 +106,18 @@ class PrintManagerTest {
 
         subject.start()
 
-        verify { Log.e(PrintManager::class.qualifiedName, "Printer connection failed") }
+        verify { Log.e(PrintManager.Companion::class.qualifiedName, "Printer connection failed") }
+    }
+
+    @Test
+    fun shouldLogWhenPrintJobFails() {
+        val printJob = mockk<PrintJob>(relaxUnitFun = true)
+        every { printJob.execute(any()) }.throws(Epos2Exception("boom", Throwable()))
+        subject.start()
+
+        PrintManager.print(printJob)
+
+        verify { Log.e(PrintManager.Companion::class.qualifiedName, "PrintJob failed") }
     }
 
     @Test
