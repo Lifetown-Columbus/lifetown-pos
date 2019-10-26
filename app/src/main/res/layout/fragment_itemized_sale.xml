@@ -33,10 +33,19 @@
             android:id="@+id/payCashButton" android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="16dp"/>
     <Button
-            android:text="PAY CREDIT"
+            android:text="@string/pay_credit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/payDebitButton"
             app:layout_constraintBaseline_toBaselineOf="@+id/payCashButton"
             app:layout_constraintEnd_toStartOf="@+id/payCashButton" android:layout_marginEnd="16dp"/>
+
+    <Button
+            android:id="@+id/openDrawerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/open_drawer"
+            app:layout_constraintBaseline_toBaselineOf="@+id/payDebitButton"
+            app:layout_constraintEnd_toStartOf="@+id/payDebitButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
