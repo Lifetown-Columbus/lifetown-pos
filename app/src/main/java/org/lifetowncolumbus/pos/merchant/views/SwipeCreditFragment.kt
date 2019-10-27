@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_swipe_debit.view.*
@@ -15,8 +15,8 @@ import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.magneticCards.SwipeEventHandler
 import org.lifetowncolumbus.pos.merchant.POSActivity
 import org.lifetowncolumbus.pos.merchant.models.AccountTransactionResult
-import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.merchant.viewModels.CreditPayment
+import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.services.BankService
 
 class SwipeCreditFragment : Fragment() {
@@ -45,14 +45,14 @@ class SwipeCreditFragment : Fragment() {
         super.onCreate(savedInstanceState)
         bankService = BankService()
         activity?.run {
-            currentSale = ViewModelProviders.of(this).get(CurrentSale::class.java)
+            currentSale = ViewModelProvider(this).get(CurrentSale::class.java)
 
             (activity as POSActivity).swipeEventHandler = SwipeEventHandler { bankCard ->
                 Log.e("Card", "Card swiped: ${bankCard.accountNumber}")
                 bankService.chargeCard(bankCard.accountNumber, currentSale.total.toDouble()) {
                     if(it == AccountTransactionResult.SUCCESS) {
                         currentSale.payCredit(CreditPayment.worth(currentSale.total.toDouble()))
-                        navController.navigate(R.id.action_swipeCreditFragment_to_saleCompleteFragment)
+                        navController.navigate(R.id.action_swipeCreditFragment_to_printReceiptFragment)
                     } else {
                         activity?.runOnUiThread {
                             findViewById<TextView>(R.id.swipeCardMessage).text = getString(R.string.CardDeclinedMessage)

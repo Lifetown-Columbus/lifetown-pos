@@ -37,22 +37,21 @@
                 android:id="@+id/printReceiptButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="@string/yes"
-                app:layout_constraintBaseline_toBaselineOf="@+id/dontPrintReceiptButton"
-                app:layout_constraintEnd_toStartOf="@+id/dontPrintReceiptButton"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/dontPrintReceiptButton"
+                app:layout_constraintTop_toBottomOf="@+id/printReceiptLabel" />
 
         <Button
                 android:id="@+id/dontPrintReceiptButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:text="@string/no"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/printReceiptButton"
-                app:layout_constraintTop_toBottomOf="@+id/printReceiptLabel" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/printReceiptButton"
+                app:layout_constraintEnd_toStartOf="@+id/printReceiptButton"
+                app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
