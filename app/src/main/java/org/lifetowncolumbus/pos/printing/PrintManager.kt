@@ -57,7 +57,7 @@ class PrintManager (
             try {
                 block.invoke()
             } catch (e: Epos2Exception) {
-                Crashlytics.log(Log.ERROR, this::class.qualifiedName, msg)
+                Log.e(this::class.qualifiedName, msg)
             }
         }
     }
