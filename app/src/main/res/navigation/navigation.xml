@@ -10,18 +10,16 @@
         <action android:id="@+id/action_checkoutFragment_to_configFragment" app:destination="@id/configFragment"/>
         <action android:id="@+id/action_checkoutFragment_to_swipeCreditFragment" app:destination="@id/swipeCreditFragment"/>
         <action
-                android:id="@+id/action_checkoutFragment_to_saleCompleteFragment"
-                app:destination="@id/saleCompleteFragment" />
+                android:id="@+id/action_checkoutFragment_to_printReceiptFragment"
+                app:destination="@id/printReceiptFragment" />
     </fragment>
     <fragment android:id="@+id/payCashFragment" android:name="org.lifetowncolumbus.pos.merchant.views.PayCashFragment"
               android:label="Pay With Cash" tools:layout="@layout/fragment_pay_cash">
-        <action android:id="@+id/action_payCashFragment_to_saleCompleteFragment"
-                app:destination="@id/saleCompleteFragment" app:popUpTo="@+id/checkoutFragment"
-                app:popUpToInclusive="false"/>
+        <action
+                android:id="@+id/action_payCashFragment_to_printReceiptFragment"
+                app:destination="@id/printReceiptFragment"
+                app:popUpTo="@+id/checkoutFragment" />
     </fragment>
-    <fragment android:id="@+id/saleCompleteFragment"
-              android:name="org.lifetowncolumbus.pos.merchant.views.saleComplete.SaleCompleteFragment"
-              android:label="Sale Complete" tools:layout="@layout/fragment_sale_complete"/>
     <fragment android:id="@+id/editCatalogFragment"
               android:name="org.lifetowncolumbus.pos.merchant.views.catalog.EditCatalogFragment"
               android:label="Edit Catalog" tools:layout="@layout/fragment_edit_catalog">
@@ -41,8 +39,13 @@
     <fragment android:id="@+id/swipeCreditFragment"
               android:name="org.lifetowncolumbus.pos.merchant.views.SwipeCreditFragment"
               android:label="Swipe Card" tools:layout="@layout/fragment_swipe_debit">
-        <action android:id="@+id/action_swipeCreditFragment_to_saleCompleteFragment"
-                app:destination="@id/saleCompleteFragment" app:popUpTo="@+id/checkoutFragment"
-                app:popUpToInclusive="false"/>
+        <action
+                android:id="@+id/action_swipeCreditFragment_to_printReceiptFragment"
+                app:destination="@id/printReceiptFragment"
+                app:popUpTo="@+id/checkoutFragment" />
     </fragment>
+    <fragment
+            android:id="@+id/printReceiptFragment"
+            android:name="org.lifetowncolumbus.pos.merchant.views.PrintReceiptFragment"
+            android:label="PrintReceiptFragment" />
 </navigation>

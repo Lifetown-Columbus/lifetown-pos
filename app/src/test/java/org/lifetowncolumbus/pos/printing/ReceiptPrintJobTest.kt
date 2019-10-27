@@ -6,10 +6,8 @@ import io.mockk.verify
 import io.mockk.verifySequence
 import org.junit.Before
 import org.junit.Test
-import org.lifetowncolumbus.pos.merchant.viewModels.CashPayment
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.merchant.viewModels.PurchasedItem
-import org.lifetowncolumbus.pos.merchant.views.saleComplete.ReceiptPrintJob
 import java.math.BigDecimal
 
 class ReceiptPrintJobTest {

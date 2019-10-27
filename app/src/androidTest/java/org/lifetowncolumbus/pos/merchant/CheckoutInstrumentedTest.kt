@@ -42,7 +42,7 @@ class CheckoutInstrumentedTest : TestHarness() {
         Thread.sleep(500)
         onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Cash Payment"))))
         onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("-$500.00"))))
-        onView(withId(R.id.newSaleButton)).check(matches(isDisplayed()))
+        onView(withId(R.id.printReceiptButton)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -102,7 +102,7 @@ class CheckoutInstrumentedTest : TestHarness() {
 
         payCashExpectingChange()
 
-        onView(withId(R.id.newSaleButton)).check(matches(isDisplayed()))
+        onView(withId(R.id.printReceiptButton)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -134,11 +134,20 @@ class CheckoutInstrumentedTest : TestHarness() {
     }
 
     @Test
-    fun saleComplete_clickNewSale_NavigatesToCheckout() {
+    fun saleComplete_clickDoNotPrint_NavigatesToCheckout() {
         addAnItem()
         payCashExpectingChange()
 
-        onView(withId(R.id.newSaleButton)).perform(click())
+        onView(withId(R.id.dontPrintReceiptButton)).perform(click())
+        onView(withId(R.id.total)).check(matches(withText("Total: $0.00")))
+    }
+
+    @Test
+    fun saleComplete_clickPrint_NavigatesToCheckout() {
+        addAnItem()
+        payCashExpectingChange()
+
+        onView(withId(R.id.printReceiptButton)).perform(click())
         onView(withId(R.id.total)).check(matches(withText("Total: $0.00")))
     }
 }

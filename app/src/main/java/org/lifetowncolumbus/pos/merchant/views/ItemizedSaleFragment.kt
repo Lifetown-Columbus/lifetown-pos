@@ -60,14 +60,14 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
         quickCashButton.setOnClickListener {
             currentSale.payCash(CashPayment.worth(currentSale.total.toDouble()))
             Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
-                .navigate(R.id.action_checkoutFragment_to_saleCompleteFragment)
+                .navigate(R.id.action_checkoutFragment_to_printReceiptFragment)
         }
 
     }
 
     private fun initOpenDrawerButton(view: View) {
         (view.findViewById(R.id.openDrawerButton) as Button).setOnClickListener {
-            PrintManager.print(OpenDrawerPrintJob());
+            PrintManager.print(OpenDrawerPrintJob())
         }
     }
 

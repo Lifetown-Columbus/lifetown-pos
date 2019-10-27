@@ -1,7 +1,6 @@
 package org.lifetowncolumbus.pos.merchant.views.catalog
 
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
