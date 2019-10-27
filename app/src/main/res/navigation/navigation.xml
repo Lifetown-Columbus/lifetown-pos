@@ -9,6 +9,9 @@
         <action android:id="@+id/action_checkoutFragment_to_payCashFragment" app:destination="@id/payCashFragment"/>
         <action android:id="@+id/action_checkoutFragment_to_configFragment" app:destination="@id/configFragment"/>
         <action android:id="@+id/action_checkoutFragment_to_swipeCreditFragment" app:destination="@id/swipeCreditFragment"/>
+        <action
+                android:id="@+id/action_checkoutFragment_to_saleCompleteFragment"
+                app:destination="@id/saleCompleteFragment" />
     </fragment>
     <fragment android:id="@+id/payCashFragment" android:name="org.lifetowncolumbus.pos.merchant.views.PayCashFragment"
               android:label="Pay With Cash" tools:layout="@layout/fragment_pay_cash">

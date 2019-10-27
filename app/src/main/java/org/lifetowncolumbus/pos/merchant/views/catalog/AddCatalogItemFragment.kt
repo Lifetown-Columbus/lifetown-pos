@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_add_catalog_item.view.*
@@ -56,7 +57,7 @@ class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
     ): CatalogItem {
         val catalogItem = CatalogItem(null, "", 0.0)
         if (catalogId != null && catalogId > 0) {
-            catalog.find(catalogId).observe(this, Observer {
+            catalog.find(catalogId).observe(viewLifecycleOwner, Observer {
                 catalogItem.id = it.id
                 view.catalogItemName.setText(it.name)
                 view.catalogItemValue.setText(it.value.toString())
@@ -67,7 +68,7 @@ class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        catalog = ViewModelProviders.of(this).get(Catalog::class.java)
+        catalog = ViewModelProvider(this).get(Catalog::class.java)
     }
 
     override fun onCreateView(

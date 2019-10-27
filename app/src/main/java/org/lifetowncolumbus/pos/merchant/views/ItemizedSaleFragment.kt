@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.merchant.viewModels.CashPayment
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.printing.OpenDrawerPrintJob
 import org.lifetowncolumbus.pos.printing.PrintManager
@@ -24,7 +25,8 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
     private lateinit var currentSale: CurrentSale
     private lateinit var adapter: ItemizedSaleRecyclerViewAdapter
     private lateinit var payCashButton: Button
-    private lateinit var payDebitButton: Button
+    private lateinit var payCreditButton: Button
+    private lateinit var quickCashButton: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,15 +36,33 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
         observeCheckoutViewModel()
         initOpenDrawerButton(view)
         initPayCashButton(view)
-        initSwipeDebitButton(view)
+        initPayCreditButton(view)
+        initQuickCashButton(view)
         renderTotal()
     }
 
     private fun observeCheckoutViewModel() {
-        currentSale.items.observe(this, Observer { items ->
+        currentSale.items.observe(viewLifecycleOwner, Observer { items ->
             renderTotal()
             items?.let { adapter.setItems(it) }
         })
+
+        currentSale.canCheckout.observe(viewLifecycleOwner, Observer { canCheckout ->
+            payCashButton.isEnabled = canCheckout
+            payCreditButton.isEnabled = canCheckout
+            quickCashButton.isEnabled = canCheckout
+            adapter.setEnabled(canCheckout)
+        })
+    }
+
+    private fun initQuickCashButton(view: View) {
+        quickCashButton = view.findViewById(R.id.quickCashButton)
+        quickCashButton.setOnClickListener {
+            currentSale.payCash(CashPayment.worth(currentSale.total.toDouble()))
+            Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
+                .navigate(R.id.action_checkoutFragment_to_saleCompleteFragment)
+        }
+
     }
 
     private fun initOpenDrawerButton(view: View) {
@@ -59,9 +79,9 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
         }
     }
 
-    private fun initSwipeDebitButton(view: View) {
-        payDebitButton = view.findViewById(R.id.payDebitButton)
-        payDebitButton.setOnClickListener {
+    private fun initPayCreditButton(view: View) {
+        payCreditButton = view.findViewById(R.id.payCreditButton)
+        payCreditButton.setOnClickListener {
             Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
                 .navigate(R.id.action_checkoutFragment_to_swipeCreditFragment)
         }
@@ -87,12 +107,8 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
 
     override fun onStart() {
         super.onStart()
-        Navigation.findNavController(payCashButton).addOnDestinationChangedListener { _, destination, _ ->
-            (destination.id == R.id.checkoutFragment).let { canCheckout ->
-                payCashButton.isEnabled = canCheckout
-                payDebitButton.isEnabled = canCheckout
-                adapter.setEnabled(canCheckout)
-            }
+        Navigation.findNavController(this.requireView()).addOnDestinationChangedListener { _, destination, _ ->
+            currentSale.currentDestination = destination.id
         }
     }
 
