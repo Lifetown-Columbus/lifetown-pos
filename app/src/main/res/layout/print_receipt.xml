@@ -4,16 +4,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        tools:context=".merchant.views.saleComplete.SaleCompleteFragment">
+        android:orientation="horizontal">
 
     <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/ItemizedSaleFragment"
+            android:id="@+id/itemizedSaleFragment"
             android:name="org.lifetowncolumbus.pos.merchant.views.ItemizedSaleFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1">
+
+    </androidx.fragment.app.FragmentContainerView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -21,26 +21,38 @@
             android:layout_weight="2">
 
         <TextView
-                android:id="@+id/saleCompleteLabel"
+                android:id="@+id/printReceiptLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/sale_complete_label"
-                android:textSize="36sp"
+                android:text="@string/receipt_prompt"
+                android:textAlignment="center"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-                android:id="@+id/newSaleButton"
+                android:id="@+id/printReceiptButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yes"
+                app:layout_constraintBaseline_toBaselineOf="@+id/dontPrintReceiptButton"
+                app:layout_constraintEnd_toStartOf="@+id/dontPrintReceiptButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+                android:id="@+id/dontPrintReceiptButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/new_sale_button"
+                android:text="@string/no"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/saleCompleteLabel" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/printReceiptButton"
+                app:layout_constraintTop_toBottomOf="@+id/printReceiptLabel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

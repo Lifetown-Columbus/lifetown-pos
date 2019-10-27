@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.fragment_sale_complete.view.*
 import org.lifetowncolumbus.pos.R
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.printing.PrintManager
+import org.lifetowncolumbus.pos.printing.ReceiptPrintJob
 
 class SaleCompleteFragment : androidx.fragment.app.Fragment() {
     private lateinit var currentSale: CurrentSale

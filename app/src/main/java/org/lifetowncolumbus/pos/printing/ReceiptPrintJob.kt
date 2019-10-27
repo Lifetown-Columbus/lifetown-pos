@@ -1,9 +1,6 @@
-package org.lifetowncolumbus.pos.merchant.views.saleComplete
+package org.lifetowncolumbus.pos.printing
 
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
-import org.lifetowncolumbus.pos.printing.PrintJob
-import org.lifetowncolumbus.pos.printing.PrinterWrapper
-import org.lifetowncolumbus.pos.printing.serializeReceiptItem
 import org.lifetowncolumbus.pos.toCurrencyString
 
 class ReceiptPrintJob(currentSale: CurrentSale) : PrintJob {

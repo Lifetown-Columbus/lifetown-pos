@@ -26,4 +26,7 @@
     <string name="pay_credit">PAY CREDIT</string>
     <string name="open_drawer">NO SALE</string>
     <string name="quick_pay">QUICK CASH</string>
+    <string name="yes">Yes</string>
+    <string name="receipt_prompt">Would you like to print a receipt?</string>
+    <string name="no">No</string>
 </resources>
