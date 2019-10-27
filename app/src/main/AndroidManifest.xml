@@ -10,6 +10,7 @@
             android:roundIcon="@mipmap/lifetown_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
+            android:name="org.lifetowncolumbus.pos.POSApplication"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
                 android:name=".merchant.POSActivity"

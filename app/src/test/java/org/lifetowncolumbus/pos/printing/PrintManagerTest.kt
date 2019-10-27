@@ -1,10 +1,13 @@
 package org.lifetowncolumbus.pos.printing
 
 import android.util.Log
+import android.widget.Toast
 import com.epson.epos2.Epos2Exception
 import com.epson.epos2.discovery.DeviceInfo
 import com.epson.epos2.discovery.Discovery
 import com.epson.epos2.discovery.FilterOption
+import com.epson.epos2.printer.Printer
+import com.epson.epos2.printer.PrinterStatusInfo
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -27,6 +30,12 @@ class PrintManagerTest {
     @MockK
     lateinit var printer: PrinterWrapper
 
+    @MockK
+    lateinit var toast: Toast
+
+    @MockK
+    lateinit var status: PrinterStatusInfo
+
     @InjectMockKs
     lateinit var subject: PrintManager
 
@@ -34,6 +43,12 @@ class PrintManagerTest {
     fun setup() {
         MockKAnnotations.init(this, relaxUnitFun = true)
         mockkStatic(Log::class)
+        mockkStatic(Toast::class)
+
+        every { printer.status() }.returns(status)
+        every { status.online }.returns(Printer.TRUE)
+
+        every { Toast.makeText(null, any<CharSequence>(), any()) }.returns(toast)
         stubFoundPrinter()
     }
 
@@ -128,6 +143,66 @@ class PrintManagerTest {
         PrintManager.print(printJob)
 
         verify { printJob.execute(printer) }
+    }
+
+    @Test
+    fun shouldToastUserWhen_PrinterIs_NotConnected() {
+        subject.start()
+
+        every { status.online }.returns(Printer.FALSE)
+        every { status.connection }.returns(Printer.FALSE)
+        every { status.coverOpen }.returns(Printer.FALSE)
+        every { status.paper }.returns(Printer.PAPER_OK)
+
+        val printJob = mockk<PrintJob>(relaxUnitFun = true)
+        PrintManager.print(printJob)
+
+        verify { Toast.makeText(null, "Printer is not connected! Turn off printer, check cable, turn printer back on.", Toast.LENGTH_LONG) }
+    }
+
+    @Test
+    fun shouldToastUserWhen_PrinterIs_Open() {
+        subject.start()
+
+        every { status.online }.returns(Printer.FALSE)
+        every { status.connection }.returns(Printer.TRUE)
+        every { status.coverOpen }.returns(Printer.TRUE)
+        every { status.paper }.returns(Printer.PAPER_OK)
+
+        val printJob = mockk<PrintJob>(relaxUnitFun = true)
+        PrintManager.print(printJob)
+
+        verify { Toast.makeText(null, "Printer cover is open", Toast.LENGTH_LONG) }
+    }
+
+    @Test
+    fun shouldToastUserWhen_PrinterIs_OutOfPaper() {
+        subject.start()
+
+        every { status.online }.returns(Printer.FALSE)
+        every { status.connection }.returns(Printer.TRUE)
+        every { status.coverOpen }.returns(Printer.FALSE)
+        every { status.paper }.returns(Printer.PAPER_EMPTY)
+
+        val printJob = mockk<PrintJob>(relaxUnitFun = true)
+        PrintManager.print(printJob)
+
+        verify { Toast.makeText(null, "Printer is out of paper", Toast.LENGTH_LONG) }
+    }
+
+    @Test
+    fun shouldToastUserWhen_PrinterIs_Offline() {
+        subject.start()
+
+        every { status.online }.returns(Printer.FALSE)
+        every { status.connection }.returns(Printer.TRUE)
+        every { status.coverOpen }.returns(Printer.FALSE)
+        every { status.paper }.returns(Printer.PAPER_OK)
+
+        val printJob = mockk<PrintJob>(relaxUnitFun = true)
+        PrintManager.print(printJob)
+
+        verify { Toast.makeText(null, "Printer is offline! Turn off printer, check cable, turn printer back on.", Toast.LENGTH_LONG) }
     }
 
 }
