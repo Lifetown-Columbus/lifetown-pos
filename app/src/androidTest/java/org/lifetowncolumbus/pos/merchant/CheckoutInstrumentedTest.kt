@@ -28,6 +28,22 @@ class CheckoutInstrumentedTest : TestHarness() {
         Thread.sleep(500)
     }
 
+    @Test
+    fun payButtons_areDisabled_WhenNoItems_Added() {
+        onView(withId(R.id.payCashButton)).check(matches(not(isEnabled())))
+        onView(withId(R.id.payCreditButton)).check(matches(not(isEnabled())))
+        onView(withId(R.id.quickCashButton)).check(matches(not(isEnabled())))
+    }
+
+    @Test
+    fun payQuickCash_GoesDirectlyTo_SaleComplete() {
+        addAnItem()
+        onView(withId(R.id.quickCashButton)).perform(click())
+        Thread.sleep(500)
+        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("Cash Payment"))))
+        onView(withId(R.id.itemized_list)).check(matches(hasDescendant(withText("-$500.00"))))
+        onView(withId(R.id.newSaleButton)).check(matches(isDisplayed()))
+    }
 
     @Test
     fun testAddItem_computeTotal() {
