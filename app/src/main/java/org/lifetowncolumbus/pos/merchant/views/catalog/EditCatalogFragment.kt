@@ -44,7 +44,7 @@ class EditCatalogFragment : androidx.fragment.app.Fragment() {
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this.activity, 6)
-        catalog.allItems.observe(this, Observer { items ->
+        catalog.allItems.observe(viewLifecycleOwner, Observer { items ->
             items?.let { adapter.setItems(it) }
         })
 

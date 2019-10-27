@@ -42,12 +42,12 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun observeCheckoutViewModel() {
-        currentSale.items.observe(this, Observer { items ->
+        currentSale.items.observe(viewLifecycleOwner, Observer { items ->
             renderTotal()
             items?.let { adapter.setItems(it) }
         })
 
-        currentSale.canCheckout.observe(this, Observer { canCheckout ->
+        currentSale.canCheckout.observe(viewLifecycleOwner, Observer { canCheckout ->
             payCashButton.isEnabled = canCheckout
             payCreditButton.isEnabled = canCheckout
             quickCashButton.isEnabled = canCheckout
