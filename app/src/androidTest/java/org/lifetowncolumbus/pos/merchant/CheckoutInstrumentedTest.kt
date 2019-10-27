@@ -67,8 +67,8 @@ class CheckoutInstrumentedTest : TestHarness() {
     fun payWithDebitCard_navigatesToSwipeCard() {
         addAnItem()
 
-        onView(withId(R.id.payDebitButton)).perform(click())
-        onView(withId(R.id.payDebitButton)).check(matches(not(isEnabled())))
+        onView(withId(R.id.payCreditButton)).perform(click())
+        onView(withId(R.id.payCreditButton)).check(matches(not(isEnabled())))
 
         onView(withId(R.id.swipeCardMessage)).check(matches(withText("Please Swipe Card")))
     }
@@ -91,7 +91,8 @@ class CheckoutInstrumentedTest : TestHarness() {
 
     @Test
     fun payWithDebitCard_clickCancel_navigatesBack() {
-        onView(withId(R.id.payDebitButton)).perform(click())
+        addAnItem()
+        onView(withId(R.id.payCreditButton)).perform(click())
         onView(withId(R.id.cancelSwipeButton)).perform(click())
         onView(withId(R.id.addSaleItem)).check(matches(isDisplayed()))
     }
@@ -99,6 +100,7 @@ class CheckoutInstrumentedTest : TestHarness() {
 
     @Test
     fun payWithCash_clickCancel_navigatesBack() {
+        addAnItem()
         onView(withId(R.id.payCashButton)).perform(click())
         onView(withId(R.id.cancelPaymentButton)).perform(click())
         onView(withId(R.id.addSaleItem)).check(matches(isDisplayed()))
