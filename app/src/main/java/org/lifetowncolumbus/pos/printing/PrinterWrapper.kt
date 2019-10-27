@@ -13,6 +13,8 @@ class PrinterWrapper(deviceType: Int, activity: POSActivity){
         const val PULSE_200 = Printer.PULSE_200
         const val PARAM_DEFAULT = Printer.PARAM_DEFAULT
         const val TRUE = Printer.TRUE
+        const val FALSE = Printer.FALSE
+        const val PAPER_EMPTY = Printer.PAPER_EMPTY
     }
 
 

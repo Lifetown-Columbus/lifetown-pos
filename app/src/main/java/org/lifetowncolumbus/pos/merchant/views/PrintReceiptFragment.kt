@@ -21,6 +21,7 @@ class PrintReceiptFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        PrintManager.checkPrinter()
 
         view.printReceiptButton.setOnClickListener {
             PrintManager.print(ReceiptPrintJob(currentSale))
