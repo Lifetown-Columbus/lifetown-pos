@@ -19,9 +19,6 @@ android {
             returnDefaultValues = true
         }
     }
-    lintOptions {
-        warning 'InvalidPackage'
-    }
     defaultConfig {
         applicationId "org.lifetowncolumbus.pos"
         minSdkVersion 21
@@ -34,6 +31,7 @@ android {
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -41,8 +39,14 @@ android {
         }
     }
     packagingOptions {
-        exclude 'META-INF/INDEX.LIST'
+        resources {
+            excludes += ['META-INF/INDEX.LIST']
+        }
     }
+    lint {
+        warning 'InvalidPackage'
+    }
+    namespace 'org.lifetowncolumbus.pos'
 }
 
 dependencies {
