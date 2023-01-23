@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 apply plugin: 'com.google.gms.google-services'
@@ -38,6 +36,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures {
+        viewBinding true
+    }
+
     packagingOptions {
         resources {
             excludes += ['META-INF/INDEX.LIST']

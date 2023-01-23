@@ -11,28 +11,27 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.fragment_pay_cash.view.*
 import org.lifetowncolumbus.pos.KeyboardHelpers
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.databinding.FragmentPayCashBinding
 import org.lifetowncolumbus.pos.merchant.viewModels.CashPayment
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 
 
 class PayCashFragment : androidx.fragment.app.Fragment() {
+    private var _binding: FragmentPayCashBinding? = null
+
+    private val binding get() = _binding!!
+    private val amountTendered: TextView get() = binding.amountTendered
+    private val acceptCashButton: Button get() = binding.acceptCashButton
+    private val cancelButton: Button get() = binding.cancelPaymentButton
+
     private lateinit var currentSale: CurrentSale
-    private lateinit var amountTendered: TextView
-    private lateinit var acceptCashButton: Button
-    private lateinit var cancelButton: Button
     private lateinit var navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        amountTendered = view.amountTendered
-        acceptCashButton =  view.acceptCashButton
-        cancelButton = view.cancelPaymentButton
         navController = Navigation.findNavController(view)
-
         cancelButton.setOnClickListener { navController.popBackStack() }
 
         initAcceptCashButton(view)
@@ -70,8 +69,14 @@ class PayCashFragment : androidx.fragment.app.Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_pay_cash, container, false)
+    ): View {
+        _binding = FragmentPayCashBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView(){
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

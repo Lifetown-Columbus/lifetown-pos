@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_itemized_sale.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.databinding.FragmentItemizedSaleBinding
 import org.lifetowncolumbus.pos.merchant.viewModels.CashPayment
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.printing.OpenDrawerPrintJob
@@ -19,19 +18,15 @@ import org.lifetowncolumbus.pos.printing.PrintManager
 import org.lifetowncolumbus.pos.toCurrencyString
 import java.math.BigDecimal
 
-class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
+class ItemizedSaleFragment : Fragment() {
+    private var _binding: FragmentItemizedSaleBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var totalValue: TextView
     private lateinit var currentSale: CurrentSale
     private lateinit var adapter: ItemizedSaleRecyclerViewAdapter
-    private lateinit var payCashButton: Button
-    private lateinit var payCreditButton: Button
-    private lateinit var quickCashButton: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        totalValue = view.findViewById(R.id.total)
-
         initItemizedSaleRecyclerView(view)
         observeCheckoutViewModel()
         initOpenDrawerButton(view)
@@ -48,16 +43,15 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
         })
 
         currentSale.canCheckout.observe(viewLifecycleOwner, Observer { canCheckout ->
-            payCashButton.isEnabled = canCheckout
-            payCreditButton.isEnabled = canCheckout
-            quickCashButton.isEnabled = canCheckout
+            binding.payCashButton.isEnabled = canCheckout
+            binding.payCreditButton.isEnabled = canCheckout
+            binding.quickCashButton.isEnabled = canCheckout
             adapter.setEnabled(canCheckout)
         })
     }
 
     private fun initQuickCashButton(view: View) {
-        quickCashButton = view.findViewById(R.id.quickCashButton)
-        quickCashButton.setOnClickListener {
+        binding.quickCashButton.setOnClickListener {
             currentSale.payCash(CashPayment.worth(currentSale.total.toDouble()))
             Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
                 .navigate(R.id.action_checkoutFragment_to_printReceiptFragment)
@@ -66,22 +60,20 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun initOpenDrawerButton(view: View) {
-        (view.findViewById(R.id.openDrawerButton) as Button).setOnClickListener {
+        binding.openDrawerButton.setOnClickListener {
             PrintManager.print(OpenDrawerPrintJob())
         }
     }
 
     private fun initPayCashButton(view: View) {
-        payCashButton = view.findViewById(R.id.payCashButton)
-        payCashButton.setOnClickListener {
+        binding.payCashButton.setOnClickListener {
             Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
                 .navigate(R.id.action_checkoutFragment_to_payCashFragment)
         }
     }
 
     private fun initPayCreditButton(view: View) {
-        payCreditButton = view.findViewById(R.id.payCreditButton)
-        payCreditButton.setOnClickListener {
+        binding.payCreditButton.setOnClickListener {
             Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
                 .navigate(R.id.action_checkoutFragment_to_swipeCreditFragment)
         }
@@ -93,7 +85,7 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
             else -> "Total: ${currentSale.total.toCurrencyString()}"
 
         }
-        totalValue.apply {
+        binding.total.apply {
             this.text = text
         }
     }
@@ -101,8 +93,14 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_itemized_sale, container, false)
+    ): View {
+        _binding = FragmentItemizedSaleBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onStart() {
@@ -121,9 +119,9 @@ class ItemizedSaleFragment : androidx.fragment.app.Fragment() {
 
     private fun initItemizedSaleRecyclerView(view: View) {
         adapter = ItemizedSaleRecyclerViewAdapter(currentSale::removeItem)
-        view.itemized_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this.activity).apply {
+        binding.itemizedList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this.activity).apply {
             orientation = RecyclerView.VERTICAL
         }
-        view.itemized_list.adapter = adapter
+        binding.itemizedList.adapter = adapter
     }
 }

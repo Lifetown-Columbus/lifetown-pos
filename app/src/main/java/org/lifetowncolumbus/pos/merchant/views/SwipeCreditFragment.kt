@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.fragment_swipe_debit.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.databinding.FragmentSwipeDebitBinding
 import org.lifetowncolumbus.pos.magneticCards.SwipeEventHandler
 import org.lifetowncolumbus.pos.merchant.POSActivity
 import org.lifetowncolumbus.pos.merchant.models.AccountTransactionResult
@@ -20,20 +20,28 @@ import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.services.BankService
 
 class SwipeCreditFragment : Fragment() {
+    private var _binding: FragmentSwipeDebitBinding? = null
+    private val binding get() = _binding!!
     private lateinit var currentSale: CurrentSale
     private lateinit var navController: NavController
     private lateinit var bankService: BankService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.cancelSwipeButton.setOnClickListener { Navigation.findNavController(view).popBackStack() }
+        binding.cancelSwipeButton.setOnClickListener { Navigation.findNavController(view).popBackStack() }
         navController = Navigation.findNavController(view)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_swipe_debit, container, false)
+    ): View {
+        _binding = FragmentSwipeDebitBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onDestroy() {

@@ -9,14 +9,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.fragment_add_catalog_item.view.*
 import org.lifetowncolumbus.pos.KeyboardHelpers
-import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.databinding.FragmentAddCatalogItemBinding
 import org.lifetowncolumbus.pos.merchant.models.CatalogItem
 import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
 
 
 class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
+    private var _binding: FragmentAddCatalogItemBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var catalog: Catalog
     private lateinit var navController: NavController
 
@@ -26,11 +28,11 @@ class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
 
         val catalogItem = hydrateCatalogItem(arguments?.getLong("catalogItemId"), view)
 
-        view.saveCatalogItemButton.setOnClickListener {
+        binding.saveCatalogItemButton.setOnClickListener {
             upsertCatalogItem(catalogItem, view)
         }
 
-        view.deleteCatalogItemButton.setOnClickListener {
+        binding.deleteCatalogItemButton.setOnClickListener {
             catalog.delete(catalogItem)
             navController.popBackStack()
         }
@@ -42,8 +44,8 @@ class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
         view: View
     ) {
         catalogItem.apply {
-            name = view.catalogItemName.text.toString()
-            value = view.catalogItemValue.text.toString().toDouble()
+            name = binding.catalogItemName.text.toString()
+            value = binding.catalogItemValue.text.toString().toDouble()
         }
         catalog.saveItem(catalogItem)
         navController.popBackStack()
@@ -58,8 +60,8 @@ class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
         if (catalogId != null && catalogId > 0) {
             catalog.find(catalogId).observe(viewLifecycleOwner, Observer {
                 catalogItem.id = it.id
-                view.catalogItemName.setText(it.name)
-                view.catalogItemValue.setText(it.value.toString())
+                binding.catalogItemName.setText(it.name)
+                binding.catalogItemValue.setText(it.value.toString())
             })
         }
         return catalogItem
@@ -73,8 +75,13 @@ class AddCatalogItemFragment : androidx.fragment.app.Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_catalog_item, container, false)
+    ): View {
+        _binding = FragmentAddCatalogItemBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

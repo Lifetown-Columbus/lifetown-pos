@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import kotlinx.android.synthetic.main.list_item.view.*
+//import kotlinx.android.synthetic.main.list_item.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.databinding.ListItemBinding
 import org.lifetowncolumbus.pos.merchant.viewModels.Item
 import org.lifetowncolumbus.pos.toCurrencyString
 
@@ -28,8 +29,8 @@ class ItemizedSaleRecyclerViewAdapter(private val removeHandler: (Int) -> Unit) 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return ListItemViewHolder(view)
+        val binding = ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ListItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
@@ -48,9 +49,9 @@ class ItemizedSaleRecyclerViewAdapter(private val removeHandler: (Int) -> Unit) 
         return items.size
     }
 
-    class ListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val removeButton: Button = itemView.removeItemButton
-        val itemPrice: TextView = itemView.itemPrice
-        val itemName: TextView = itemView.itemName
+    class ListItemViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        val removeButton: Button = binding.removeItemButton
+        val itemPrice: TextView = binding.itemPrice
+        val itemName: TextView = binding.itemName
     }
 }

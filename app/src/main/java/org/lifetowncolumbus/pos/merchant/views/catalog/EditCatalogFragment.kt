@@ -9,19 +9,19 @@ import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.fragment_edit_catalog.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.databinding.FragmentEditCatalogBinding
 import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
 
 
 class EditCatalogFragment : androidx.fragment.app.Fragment() {
-
-    private lateinit var addCatalogItem : Button
+    private var _binding: FragmentEditCatalogBinding? = null
+    private val binding get() = _binding!!
+    private val addCatalogItem: Button get() = binding.addCatalogItemButton
     private lateinit var catalog: Catalog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addCatalogItem = view.addCatalogItemButton
         addCatalogItem.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_editCatalogFragment_to_addCatalogItemFragment)
         }
@@ -30,7 +30,7 @@ class EditCatalogFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun initEditCatalogView(view: View) {
-        val recyclerView = view.editCatalogRecyclerView
+        val recyclerView = binding.editCatalogRecyclerView
 
         val adapter = CatalogGridAdapter(this.activity!!) {
             val bundle = Bundle()
@@ -51,8 +51,14 @@ class EditCatalogFragment : androidx.fragment.app.Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_edit_catalog, container, false)
+    ): View {
+        _binding = FragmentEditCatalogBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
