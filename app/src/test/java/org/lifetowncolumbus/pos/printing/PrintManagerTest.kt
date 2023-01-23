@@ -54,7 +54,7 @@ class PrintManagerTest {
 
     private fun stubFoundPrinter() {
         mockkStatic("org.lifetowncolumbus.pos.printing.PrinterFactoryKt")
-        every { createPrinter(any(), any()) }.returns(printer)
+        every { createPrinter(any()) }.returns(printer)
 
         every { discovery.start(any(), any(), captureLambda()) }.answers {
             lambda<(DeviceInfo) -> Unit>().invoke(FakeDeviceInfo())

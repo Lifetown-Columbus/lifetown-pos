@@ -53,7 +53,7 @@ class ItemizedSaleFragment : Fragment() {
     private fun initQuickCashButton(view: View) {
         binding.quickCashButton.setOnClickListener {
             currentSale.payCash(CashPayment.worth(currentSale.total.toDouble()))
-            Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
+            Navigation.findNavController(this.requireActivity(), R.id.nav_host_fragment)
                 .navigate(R.id.action_checkoutFragment_to_printReceiptFragment)
         }
 
@@ -67,14 +67,14 @@ class ItemizedSaleFragment : Fragment() {
 
     private fun initPayCashButton(view: View) {
         binding.payCashButton.setOnClickListener {
-            Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
+            Navigation.findNavController(this.requireActivity(), R.id.nav_host_fragment)
                 .navigate(R.id.action_checkoutFragment_to_payCashFragment)
         }
     }
 
     private fun initPayCreditButton(view: View) {
         binding.payCreditButton.setOnClickListener {
-            Navigation.findNavController(this.activity!!, R.id.nav_host_fragment)
+            Navigation.findNavController(this.requireActivity(), R.id.nav_host_fragment)
                 .navigate(R.id.action_checkoutFragment_to_swipeCreditFragment)
         }
     }

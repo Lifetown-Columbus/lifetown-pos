@@ -4,8 +4,8 @@ import com.epson.epos2.printer.Printer
 import com.epson.epos2.printer.PrinterStatusInfo
 import org.lifetowncolumbus.pos.merchant.POSActivity
 
-class PrinterWrapper(deviceType: Int, activity: POSActivity){
-    private val printer = Printer(deviceType, Printer.MODEL_ANK, activity)
+class PrinterWrapper(activity: POSActivity){
+    private val printer = Printer(Printer.TM_T20, Printer.MODEL_ANK, activity)
     companion object {
         const val ALIGN_CENTER = Printer.ALIGN_CENTER
         const val CUT_FEED = Printer.CUT_FEED
@@ -30,8 +30,8 @@ class PrinterWrapper(deviceType: Int, activity: POSActivity){
         printer.beginTransaction()
     }
 
-    fun addTextAlign(allign: Int) {
-        printer.addTextAlign(allign)
+    fun addTextAlign(align: Int) {
+        printer.addTextAlign(align)
     }
 
     fun addText(text: String) {

@@ -32,7 +32,7 @@ class EditCatalogFragment : androidx.fragment.app.Fragment() {
     private fun initEditCatalogView(view: View) {
         val recyclerView = binding.editCatalogRecyclerView
 
-        val adapter = CatalogGridAdapter(this.activity!!) {
+        val adapter = CatalogGridAdapter(this.requireActivity()) {
             val bundle = Bundle()
             if(it.id != null) {
                 bundle.putLong("catalogItemId", it.id!!)

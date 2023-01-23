@@ -29,7 +29,7 @@ class CheckoutFragment : Fragment() {
 
     private fun initCatalogView(view: View) {
         val recyclerView = binding.catalogRecyclerView
-        val adapter = CatalogGridAdapter(this.activity!!) {
+        val adapter = CatalogGridAdapter(this.requireActivity()) {
             val saleItem = PurchasedItem(BigDecimal.valueOf(it.value), it.name)
             currentSale.addItem(saleItem)
         }
