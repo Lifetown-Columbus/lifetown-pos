@@ -8,7 +8,8 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.Transaction
 import org.lifetowncolumbus.pos.merchant.models.Account
 import org.lifetowncolumbus.pos.merchant.models.AccountTransactionResult
-import org.lifetowncolumbus.pos.merchant.models.AccountTransactionResult.FAILURE
+import org.lifetowncolumbus.pos.merchant.models.AccountTransactionResult.ERROR
+import org.lifetowncolumbus.pos.merchant.models.AccountTransactionResult.DECLINED
 import org.lifetowncolumbus.pos.merchant.models.AccountTransactionResult.SUCCESS
 
 
@@ -18,6 +19,7 @@ class BankService {
 
     fun chargeCard(accountNumber: String, amt: Double, callback: (AccountTransactionResult) -> Unit) {
         val docRef = db.collection("accounts").document(accountNumber)
+        var result: AccountTransactionResult? = null
 
         db.runTransaction { transaction ->
             val snapshot = transaction.get(docRef)
@@ -30,19 +32,19 @@ class BankService {
                 }
 
                 account.balance = account.balance + amt
-                updateAccount(account, transaction, docRef, callback)
+                result = updateAccount(account, transaction, docRef)
             }
             else {
                 val account = Account(accountNumber, amt)
-                updateAccount(account, transaction, docRef, callback)
+                result = updateAccount(account, transaction, docRef)
             }
 
-        }.addOnSuccessListener { result ->
-            callback(SUCCESS)
-            Log.d(TAG, "Transaction success: ${result!!}")
+        }.addOnSuccessListener { _ ->
+            Log.e(TAG, "Transaction success")
+            callback(result!!)
         }.addOnFailureListener { e ->
             Log.e(TAG, "Transaction failure.", e)
-            callback(FAILURE)
+            callback(ERROR)
         }
 
     }
@@ -50,13 +52,14 @@ class BankService {
     private fun updateAccount(
         account: Account,
         transaction: Transaction,
-        docRef: DocumentReference,
-        callback: (AccountTransactionResult) -> Unit
-    ): Any {
+        docRef: DocumentReference
+    ): AccountTransactionResult {
         return if (account.balance <= MAXIMUM_BALANCE) {
             transaction.set(docRef, account, SetOptions.mergeFields(Account.FIELDS))
+            SUCCESS
         } else {
-            callback(FAILURE)
+            Log.e(TAG, "Card Declined")
+            DECLINED
         }
     }
 }

@@ -53,7 +53,7 @@ class SwipeCreditFragment : Fragment() {
         super.onCreate(savedInstanceState)
         bankService = BankService()
         activity?.run {
-            currentSale = ViewModelProvider(this).get(CurrentSale::class.java)
+            currentSale = ViewModelProvider(this)[CurrentSale::class.java]
 
             (activity as POSActivity).swipeEventHandler = SwipeEventHandler { bankCard ->
                 Log.e("Card", "Card swiped: ${bankCard.accountNumber}")
@@ -61,9 +61,14 @@ class SwipeCreditFragment : Fragment() {
                     if(it == AccountTransactionResult.SUCCESS) {
                         currentSale.payCredit(CreditPayment.worth(currentSale.total.toDouble()))
                         navController.navigate(R.id.action_swipeCreditFragment_to_printReceiptFragment)
-                    } else {
+                    } else if(it == AccountTransactionResult.DECLINED) {
                         activity?.runOnUiThread {
                             findViewById<TextView>(R.id.swipeCardMessage).text = getString(R.string.CardDeclinedMessage)
+                        }
+                    } else {
+                        activity?.runOnUiThread {
+                            findViewById<TextView>(R.id.swipeCardMessage).text =
+                                getString(R.string.CardErrorMessage)
                         }
                     }
                 }
