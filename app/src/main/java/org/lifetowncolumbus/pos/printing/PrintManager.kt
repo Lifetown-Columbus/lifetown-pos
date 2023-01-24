@@ -2,7 +2,6 @@ package org.lifetowncolumbus.pos.printing
 
 import android.util.Log
 import android.widget.Toast
-import com.crashlytics.android.Crashlytics
 import com.epson.epos2.Epos2Exception
 import com.epson.epos2.discovery.Discovery
 import com.epson.epos2.discovery.FilterOption
@@ -70,8 +69,9 @@ class PrintManager (
         tryOrLog("Printer discovery failed") {
             discoveryWrapper.start(activity, usbPrinter()) {
                 tryOrLog("Printer connection failed") {
+                    Log.e(this::class.qualifiedName, "Printer Found!")
                     printer =
-                        createPrinter(it.deviceType, activity)
+                        createPrinter(activity)
                     printer.connect(it.target)
                 }
             }

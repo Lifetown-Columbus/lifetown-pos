@@ -1,7 +1,7 @@
 package org.lifetowncolumbus.pos.magneticCards
 
 class BankCard(value: String) {
-    private final val matcher = Regex(";([0-9]{1,19})(.*)\\?")
+    private val matcher = Regex(";([0-9]{1,19})(.*)\\?")
 
     val isValid = matcher.matches(value)
     var accountNumber = ""

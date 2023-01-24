@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.fragment_checkout.view.*
 import org.lifetowncolumbus.pos.R
+import org.lifetowncolumbus.pos.databinding.FragmentCheckoutBinding
 import org.lifetowncolumbus.pos.merchant.viewModels.Catalog
 import org.lifetowncolumbus.pos.merchant.viewModels.CurrentSale
 import org.lifetowncolumbus.pos.merchant.viewModels.PurchasedItem
@@ -16,6 +16,9 @@ import org.lifetowncolumbus.pos.merchant.views.catalog.CatalogGridAdapter
 import java.math.BigDecimal
 
 class CheckoutFragment : Fragment() {
+    private var _binding: FragmentCheckoutBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var currentSale: CurrentSale
     private lateinit var catalog: Catalog
 
@@ -25,8 +28,8 @@ class CheckoutFragment : Fragment() {
     }
 
     private fun initCatalogView(view: View) {
-        val recyclerView = view.catalogRecyclerView
-        val adapter = CatalogGridAdapter(this.activity!!) {
+        val recyclerView = binding.catalogRecyclerView
+        val adapter = CatalogGridAdapter(this.requireActivity()) {
             val saleItem = PurchasedItem(BigDecimal.valueOf(it.value), it.name)
             currentSale.addItem(saleItem)
         }
@@ -41,8 +44,9 @@ class CheckoutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_checkout, container, false)
+    ): View {
+        _binding = FragmentCheckoutBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,5 +55,10 @@ class CheckoutFragment : Fragment() {
             catalog = ViewModelProvider(this).get(Catalog::class.java)
             currentSale = ViewModelProvider(this).get(CurrentSale::class.java)
         } ?: throw Exception("Invalid Activity")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
